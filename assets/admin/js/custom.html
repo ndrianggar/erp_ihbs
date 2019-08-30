@@ -1,0 +1,1523 @@
+<!-- <script> -->
+$(function () {
+      if ($("#tbDataSekolah").length) {
+        dataTbSekolah();
+      }
+      if ($("#tbThnAkademik").length) {
+        dataTbThnAkademik();
+      }
+      if($("#tbGedung").length){
+        dataTbGedung();
+      }
+      if($("#tbRuangan").length){
+        dataTbRuangan();
+      }
+      if ($("#nmGedung").length) {
+        selectGedung();
+      }
+      if ($("#kd_kls_select").length) {
+        selectKelas();
+      }
+      if ($("#tbJurusan").length) {
+        dataTbJurusan();
+      }
+      if ($("#tbKelas").length) {
+        dataTbKelas();
+      }
+      if ($("#tbKlsParalel").length) {
+        dataTbKlsParalel();
+      }
+      if ($("#wali_kelas").length) {
+        selectWaliKelas();
+      }
+      // if($("#tbSiswa".length)){
+      //   dataTbSiswa();
+      // }
+    });
+
+    function dataTbSekolah() {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/get_dataSekolah') ?>",
+        dataType : "JSON",
+        success:function(response){
+          $("#tbDataSekolah > tbody").empty();var no=1;
+          $.each(response, function(Index,Value){
+            $("#tbDataSekolah > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td>"+Value.nm_sekolah+"</td>"+
+                "<td>"+Value.alamat_sekolah+"</td>"+
+                "<td>"+Value.unit+"</td>"+
+                "<td><button class='btn btn-info btn-sm' title='Detail' onclick=detailSekolah('"+Value.kd_sekolah+"')><i class='fa fa-list'></i></button><button class='btn btn-warning btn-sm' onclick=editSekolah('"+Value.kd_sekolah+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Sekolah','"+Value.kd_sekolah+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          })
+        }
+      });
+    }
+
+    function add(param){
+      $("input").val("");
+      $("#frmTb"+param).hide(500);
+      $("#frmAdd"+param).show(1000);
+      $("#btnAdd"+param).hide();
+      $("#btnCancel").show(1001);
+      $("#btnSave").show(1001);
+    }
+
+    function cancelAdd(param){
+      $("#frmTb"+param).show(1000);
+      $("#frmAdd"+param).hide(500);
+      $("#btnAdd"+param).show();
+      $("#btnCancel").hide();
+      $("#btnSave").hide();
+      $("#btnUpdate").hide();
+      $("#btnCancel").text("Cancel");
+    }
+
+    function confirmDelete(param,id){
+      $("#btnYes").attr('onclick','delete'+param+'("'+id+'")');
+      $("#confirmDelete").modal("show");
+      $("#txtConfirm").text("Yakin, Hapus Daftar "+param+" ?");
+    }
+
+    function alertEmptyImportanInput(){
+      $("#modalColor").addClass("bg-gradient-warning");
+      $("#txtNotif").text("Kolom Yang Bertanda (*) Harus Diisi !");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function alertSuccessDelete() {
+      $("#modalColor").addClass("bg-gradient-success");
+      $("#txtNotif").text("Data Berhasil Dihapus!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function alertFailedDelete() {
+      $("#modalColor").addClass("bg-gradient-warning");
+      $("#txtNotif").text("Data Gagal Dihapus!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function alertSuccessSave() {
+      $("#modalColor").addClass("bg-gradient-success");
+      $("#txtNotif").text("Data Berhasil Disimpan!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-success");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function alertFailedSave() {
+      $("#modalColor").addClass("bg-gradient-warning");
+      $("#txtNotif").text("Data Gagal Disimpan!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function alertSuccessUpdate() {
+      $("#modalColor").addClass("bg-gradient-success");
+      $("#txtNotif").text("Data Berhasil Diperbarui!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-success");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function alertFailedUpdate() {
+      $("#modalColor").addClass("bg-gradient-warning");
+      $("#txtNotif").text("Data Gagal Diperbarui!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function cancelAddSekolah(){
+      $("#frmTbSekolah").show(1000);
+      $("#frmAddSekolah").hide(500);
+      $("#btnAddSekolah").show();
+      $("#btnCancel").hide();
+      $("#btnSave").hide();
+      $("#btnUpdate").hide();
+      $("#btnCancel").text("Cancel");
+      $("#unit").removeAttr('disabled','disabled');
+      $("#nmSekolah").removeAttr('disabled','disabled');
+      $("#npsn").removeAttr('disabled','disabled');
+      $("#nss").removeAttr('disabled','disabled');
+      $("#alamat").removeAttr('disabled','disabled');
+      $("#kdPos").removeAttr('disabled','disabled');
+      $("#desa").removeAttr('disabled','disabled');
+      $("#kec").removeAttr('disabled','disabled');
+      $("#kota").removeAttr('disabled','disabled');
+      $("#tlp").removeAttr('disabled','disabled');
+      $("#fax").removeAttr('disabled','disabled');
+      $("#email").removeAttr('disabled','disabled');
+      $("#web").removeAttr('disabled','disabled');
+    }
+
+    function saveSekolah(){
+      var unit = $("#unit").val();
+      var nmSekolah  = $("#nmSekolah").val();
+      var npsn = $("#npsn").val();
+      var nss = $("#nss").val();
+      var alamat = $("#alamat").val();
+      var kdPos = $("#kdPos").val();
+      var desa = $("#desa").val();
+      var kec = $("#kec").val();
+      var kota = $("#kota").val();
+      var tlp = $("#tlp").val();
+      var fax = $("#fax").val();
+      var email = $("#email").val();
+      var web = $("#web").val();
+
+      if (!unit||!nmSekolah||!alamat||!kdPos||!desa||!kec||!kota||!tlp||!email) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/saveDataSekolah'); ?>",
+          data : {
+            unit:unit,
+            nmSekolah : nmSekolah,
+            npsn :npsn,
+            nss : nss,
+            alamat : alamat,
+            kdPos : kdPos,
+            desa : desa,
+            kec :kec,
+            kota :kota,
+            tlp : tlp,
+            fax : fax,
+            email : email,
+            web : web
+          },
+          success:function(response){
+            if (jQuery.trim(response)==="success") {
+              dataTbSekolah();
+              cancelAddSekolah();
+              alertSuccessSave();
+            }else if (jQuery.trim(response)==="failed") {
+              cancelAddSekolah();
+              alertFailedSave();
+            }
+          }
+        });
+      }
+    }
+
+    function deleteSekolah(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/deleteListSekolah'); ?>",
+        data : {id:id},
+        success:function(response) {
+          if (jQuery.trim(response)==="success") {
+            $("#confirmDelete").modal("hide");
+            dataTbSekolah()
+            alertSuccessDelete();
+          }else if(jQuery.trim(response)==="failed"){
+            $("#confirmDelete").modal("hide");
+            dataTbSekolah();
+            alertFailedDelete();
+          }
+        }
+      });
+    }
+
+    function editSekolah(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataSekolahById') ?>",
+        data : {id:id},
+        dataType : "JSON",
+        success : function(response) {
+          $("#unit").val(response[0].unit);
+          $("#nmSekolah").val(response[0].nm_sekolah);
+          $("#npsn").val(response[0].npsn);
+          $("#nss").val(response[0].nss);
+          $("#alamat").val(response[0].alamat_sekolah);
+          $("#kdPos").val(response[0].kd_pos);
+          $("#desa").val(response[0].desa);
+          $("#kec").val(response[0].kecamatan);
+          $("#kota").val(response[0].kota);
+          $("#tlp").val(response[0].no_tlp);
+          $("#fax").val(response[0].fax);
+          $("#email").val(response[0].email);
+          $("#web").val(response[0].web);
+
+          $("#frmTbSekolah").hide(500);
+          $("#frmAddSekolah").show(1000);
+          $("#btnAddSekolah").hide();
+          $("#btnCancel").show(1001);
+          $("#btnUpdate").show(1001);
+          $("#btnUpdate").attr('onclick','updateSekolah('+id+')');
+        }
+      });
+    }
+
+    function updateSekolah(id) {
+      var unit = $("#unit").val();
+      var nmSekolah  = $("#nmSekolah").val();
+      var npsn = $("#npsn").val();
+      var nss = $("#nss").val();
+      var alamat = $("#alamat").val();
+      var kdPos = $("#kdPos").val();
+      var desa = $("#desa").val();
+      var kec = $("#kec").val();
+      var kota = $("#kota").val();
+      var tlp = $("#tlp").val();
+      var fax = $("#fax").val();
+      var email = $("#email").val();
+      var web = $("#web").val();
+
+      if (!unit||!nmSekolah||!alamat||!kdPos||!desa||!kec||!kota||!tlp||!email) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/updateSekolah') ?>",
+          data : {
+            id:id,
+            unit:unit,
+            nmSekolah : nmSekolah,
+            npsn :npsn,
+            nss : nss,
+            alamat : alamat,
+            kdPos : kdPos,
+            desa : desa,
+            kec :kec,
+            kota :kota,
+            tlp : tlp,
+            fax : fax,
+            email : email,
+            web : web
+          },
+          success:function(response) {
+            if (jQuery.trim(response)==="success") {
+              dataTbSekolah()
+              cancelAddSekolah()
+              alertSuccessUpdate();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedUpdate()
+            }
+          }
+        });
+      }
+    }
+
+    function detailSekolah(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataSekolahById') ?>",
+        data : {id:id},
+        dataType : "JSON",
+        success : function(response) {
+          $("#unit").val(response[0].unit).attr('disabled','disabled');
+          $("#nmSekolah").val(response[0].nm_sekolah).attr('disabled','disabled');
+          $("#npsn").val(response[0].npsn).attr('disabled','disabled');
+          $("#nss").val(response[0].nss).attr('disabled','disabled');
+          $("#alamat").val(response[0].alamat_sekolah).attr('disabled','disabled');
+          $("#kdPos").val(response[0].kd_pos).attr('disabled','disabled');
+          $("#desa").val(response[0].desa).attr('disabled','disabled');
+          $("#kec").val(response[0].kecamatan).attr('disabled','disabled');
+          $("#kota").val(response[0].kota).attr('disabled','disabled');
+          $("#tlp").val(response[0].no_tlp).attr('disabled','disabled');
+          $("#fax").val(response[0].fax).attr('disabled','disabled');
+          $("#email").val(response[0].email).attr('disabled','disabled');
+          $("#web").val(response[0].web).attr('disabled','disabled');
+
+          $("#frmTbSekolah").hide(500);
+          $("#frmAddSekolah").show(1000);
+          $("#btnCancel").text("Back");
+          $("#btnCancel").show(1001);
+        }
+      });
+    }
+
+    function dataTbThnAkademik() {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataThnAkademik'); ?>",
+        dataType : "JSON",
+        success : function(response){var no=1;
+          $("#tbThnAkademik > tbody").empty();
+          $.each(response, function(Index,Value){
+            $("#tbThnAkademik > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td>"+Value.nm_thn_akademik+"</td>"+
+                "<td>"+Value.keterangan+"</td>"+
+                "<td>"+Value.unit+"</td>"+
+                "<td>"+Value.status+"</td>"+
+                "<td><button class='btn btn-warning btn-sm' onclick=editThnAkademik('"+Value.kd_thn_akademik+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('ThnAkademik','"+Value.kd_thn_akademik+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          })
+        }
+      });
+    }
+
+    function saveThnAkademik() {
+      var unit = $("#unit").val();
+      var nmThn = $("#nmThn").val();
+      var ket = $("#ket").val();
+      var stat = $("#stat").val();
+
+      if (!unit||!nmThn||!ket||!stat) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/saveThnAkademik') ?>",
+          data : {unit:unit, nmThn:nmThn, ket:ket, stat:stat},
+          success : function(response){
+            if (jQuery.trim(response)==="success") {
+              dataTbThnAkademik();
+              cancelAdd('ThnAkademik');
+              alertSuccessSave();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedSave();
+            }
+          }
+        });
+      }
+    }
+
+    function deleteThnAkademik(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/deleteThnAkademik') ?>",
+        data : {id:id},
+        success : function(response){
+          if (jQuery.trim(response)==="success") {
+            $("#confirmDelete").modal("hide");
+            dataTbThnAkademik();
+            alertSuccessDelete();
+          }else if(jQuery.trim(response)==="failed"){
+            $("#confirmDelete").modal("hide");
+            alertFailedDelete();
+          }
+        }
+      });
+    }
+
+    function editThnAkademik(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getThnAkademikById'); ?>",
+        dataType : "JSON",
+        data : {id:id},
+        success : function(response){
+          $("#unit").val(response[0].unit);
+          $("#nmThn").val(response[0].nm_thn_akademik);
+          $("#ket").val(response[0].keterangan);
+          $("#stat").val(response[0].status);
+
+          $("#frmTbThnAkademik").hide(500);
+          $("#frmAddThnAkademik").show(1000);
+          $("#btnAddThnAkademik").hide();
+          $("#btnCancel").show(1001);
+          $("#btnUpdate").show(1001);
+          $("#btnUpdate").attr('onclick','updateThnAkademik('+id+')');
+        }
+      });
+    }
+
+    function updateThnAkademik(id) {
+      var unit = $("#unit").val();
+      var nmThn = $("#nmThn").val();
+      var ket = $("#ket").val();
+      var stat = $("#stat").val();
+
+      if (!unit||!nmThn||!ket||!stat) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/updateThnAkademik'); ?>",
+          data : {id:id, unit:unit, nmThn:nmThn, ket:ket, stat:stat},
+          success : function(response){
+            if (jQuery.trim(response)==="success") {
+              dataTbThnAkademik();
+              cancelAdd('ThnAkademik');
+              alertSuccessUpdate();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedUpdate();
+            }
+          }
+        });
+      }
+    }
+
+    function dataTbGedung(){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataGedung') ?>",
+        dataType : "JSON",
+        success  : function(response) {
+          $("#tbGedung > tbody").empty(); var no=1;
+          $.each(response, function(Index,Value){
+            $("#tbGedung > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td>"+Value.nm_gedung+"</td>"+
+                "<td>"+Value.jml_lantai+"</td>"+
+                "<td>"+Value.panjang+"</td>"+
+                "<td>"+Value.tinggi+"</td>"+
+                "<td>"+Value.lebar+"</td>"+
+                "<td>"+Value.unit+"</td>"+
+                "<td><button class='btn btn-warning btn-sm' onclick=editGedung('"+Value.kd_gedung+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Gedung','"+Value.kd_gedung+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          })
+        }
+      });
+    }
+
+    function saveGedung() {
+      var nm_gedung = $("#nmGedung").val();
+      var jml_lantai = $("#jmlLantai").val();
+      var panjang = $("#panjang").val();
+      var lebar = $("#lebar").val();
+      var tinggi = $("#tinggi").val();
+      var unit = $("#unit").val();
+
+      if (!nm_gedung||!unit) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/insertDataGedung'); ?>",
+          data : {
+            nm_gedung:nm_gedung, 
+            jml_lantai:jml_lantai, 
+            panjang:panjang, 
+            lebar:lebar, 
+            tinggi:tinggi, 
+            unit:unit},
+          success : function(response){
+            if (jQuery.trim(response)==="success") {
+              dataTbGedung();
+              cancelAdd('Gedung');
+              alertSuccessSave();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedSave();
+            }
+          }
+        });
+      }
+    }
+
+    function deleteGedung(id){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/deleteGedung'); ?>",
+        data : {id:id},
+        success : function(response){
+          if (jQuery.trim(response)==="success") {
+            $("#confirmDelete").modal("hide");
+            dataTbGedung();
+            alertSuccessDelete();
+          }else if(jQuery.trim(response)==="failed"){
+            $("#confirmDelete").modal("hide");
+            alertFailedDelete();
+          }
+        }
+      });
+    }
+
+    function editGedung(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getGedungById');?>",
+        dataType : "JSON",
+        data : {id:id},
+        success : function(response){
+          $("#unit").val(response[0].unit);
+          $("#nmGedung").val(response[0].nm_gedung);
+          $("#panjang").val(response[0].panjang);
+          $("#tinggi").val(response[0].tinggi);
+          $("#lebar").val(response[0].lebar);
+          $("#jmlLantai").val(response[0].jml_lantai);
+
+          $("#frmTbGedung").hide(500);
+          $("#frmAddGedung").show(1000);
+          $("#btnAddGedung").hide();
+          $("#btnCancel").show(1001);
+          $("#btnUpdate").show(1001);
+          $("#btnUpdate").attr('onclick','updateGedung('+id+')');
+        }
+      });
+    }
+
+    function updateGedung(id) {
+      var nm_gedung = $("#nmGedung").val();
+      var jml_lantai = $("#jmlLantai").val();
+      var panjang = $("#panjang").val();
+      var lebar = $("#lebar").val();
+      var tinggi = $("#tinggi").val();
+      var unit = $("#unit").val();
+
+      if (!nm_gedung||!unit) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/updateDataGedung'); ?>",
+          data : {
+            id:id,
+            nm_gedung:nm_gedung, 
+            jml_lantai:jml_lantai, 
+            panjang:panjang, 
+            lebar:lebar, 
+            tinggi:tinggi, 
+            unit:unit},
+          success : function(response){
+            if (jQuery.trim(response)==="success") {
+              dataTbGedung();
+              cancelAdd('Gedung');
+              alertSuccessUpdate();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedUpdate();
+            }
+          }
+        });
+      }
+    }
+
+    function dataTbRuangan(){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataRuangan') ?>",
+        dataType : "JSON",
+        success  : function(response) {
+          $("#tbRuangan > tbody").empty(); var no=1;
+          $.each(response, function(Index,Value){
+            $("#tbRuangan > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td>"+Value.nm_ruangan+"</td>"+
+                "<td>"+Value.kapasitas+"</td>"+
+                "<td>"+Value.unit+"</td>"+
+                "<td><button class='btn btn-warning btn-sm' onclick=editRuangan('"+Value.kd_ruangan+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Ruangan','"+Value.kd_ruangan+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          })
+        }
+      });
+    }
+
+    function selectGedung() {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataGedung'); ?>",
+        dataType : "JSON",
+        success : function(response){
+          $("#nmGedung").empty();
+          $("#nmGedung").append(
+              "<option selected>Pilih Gedung</option>"
+            );
+          $.each(response, function(Index,Value){
+            $("#nmGedung").append(
+              "<option value='"+Value.kd_gedung+"'>"+Value.nm_gedung+"</option>"
+            );
+          })
+        }
+      });
+    }
+
+    function deleteRuangan(id){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/deleteRuangan'); ?>",
+        data : {id:id},
+        success : function(response){
+          if (jQuery.trim(response)==="success") {
+            $("#confirmDelete").modal("hide");
+            dataTbRuangan();
+            alertSuccessDelete();
+          }else if(jQuery.trim(response)==="failed"){
+            $("#confirmDelete").modal("hide");
+            alertFailedDelete();
+          }
+        }
+      });
+    }
+
+    function saveRuangan(){
+      var nm_ruangan = $("#nmRuangan").val();
+      var kd_gedung = $("#nmGedung").val();
+      var kapasitas = $("#kapasitas").val();
+      var unit = $("#unit").val();
+
+      if (!nm_ruangan||!kd_gedung||!kapasitas||!unit) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/saveRuangan'); ?>",
+          data : {nm_ruangan:nm_ruangan, kd_gedung:kd_gedung, kapasitas:kapasitas,unit:unit},
+          success : function(response){
+            if (jQuery.trim(response)==="success") {
+              dataTbRuangan();
+              cancelAdd('Ruangan');
+              alertSuccessSave();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedSave();
+            }
+          }
+        });
+      }
+    }
+
+    function editRuangan(id){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataRuanganById') ?>",
+        data : {id:id},
+        dataType : "JSON",
+        success : function(response){
+          $("#unit").val(response[0].unit);
+          $("#nmRuangan").val(response[0].nm_ruangan);
+          $("#kapasitas").val(response[0].kapasitas);
+          $("#nmGedung").val(response[0].kd_gedung);
+
+          $("#frmTbRuangan").hide(500);
+          $("#frmAddRuangan").show(1000);
+          $("#btnAddR").hide();
+          $("#btnCancel").show(1001);
+          $("#btnUpdate").show(1001);
+          $("#btnUpdate").attr('onclick','updateRuangan('+id+')');
+        }
+      });
+    }
+
+    function updateRuangan(id) {
+      var nm_ruangan = $("#nmRuangan").val();
+      var kd_gedung = $("#nmGedung").val();
+      var kapasitas = $("#kapasitas").val();
+      var unit = $("#unit").val();
+      if (!nm_ruangan||!kd_gedung||!kapasitas||!unit) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/updateRuangan'); ?>",
+          data : {id:id, nm_ruangan:nm_ruangan, kd_gedung:kd_gedung, kapasitas:kapasitas, unit:unit},
+          success : function(response) {
+            if (jQuery.trim(response)==="success") {
+              dataTbRuangan();
+              cancelAdd('Ruangan');
+              alertSuccessUpdate();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedUpdate();
+            }
+          }
+        });
+      }
+    }
+
+    function dataTbJurusan()
+    {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataJurusan') ?>",
+        dataType : "JSON",
+        success  : function(response) {
+          $("#tbJurusan > tbody").empty(); var no=1;
+          $.each(response, function(Index,Value){
+            $("#tbJurusan > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td>"+Value.jurusan+"</td>"+
+                "<td>"+Value.nm_jurusan+"</td>"+
+                "<td>"+Value.bidang_keahlian+"</td>"+
+                "<td>"+Value.kopetensi_umum+"</td>"+
+                "<td>"+Value.kopetensi_khusus+"</td>"+
+                "<td><button class='btn btn-warning btn-sm' onclick=editJurusan('"+Value.kd_jurusan+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Jurusan','"+Value.kd_jurusan+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          })
+        }
+      });
+    }
+
+    function saveJurusan() {
+      var jurusan = $("#jurusan").val();
+      var nm_jurusan = $("#nmJurusan").val();
+      var bidang_keahlian = $("#keahlian").val();
+      var kopetensi_umum = $("#kopetensi_umum").val();
+      var kopetensi_khusus = $("#kopetensi_khusus").val();
+
+      if (!jurusan||!nm_jurusan) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/insertDataJurusan'); ?>",
+          data : {jurusan:jurusan, nm_jurusan:nm_jurusan, bidang_keahlian:bidang_keahlian, kopetensi_umum: kopetensi_umum, kopetensi_khusus:kopetensi_khusus},
+          success : function(response) {
+            if (jQuery.trim(response)==="success") {
+              dataTbJurusan();
+              cancelAdd('Jurusan');
+              alertSuccessSave();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedSave();
+            }
+          }
+        });
+      }
+    }
+
+    function editJurusan(id){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataJurusanById') ?>",
+        data : {id:id},
+        dataType : "JSON",
+        success : function(response){
+          $("#jurusan").val(response[0].jurusan);
+          $("#nmJurusan").val(response[0].nm_jurusan);
+          $("#keahlian").val(response[0].bidang_keahlian);
+          $("#kopetensi_umum").val(response[0].kopetensi_umum);
+          $("#kopetensi_khusus").val(response[0].kopetensi_khusus);
+
+          $("#frmTbJurusan").hide(500);
+          $("#frmAddJurusan").show(1000);
+          $("#btnAddJurusan").hide();
+          $("#btnCancel").show(1001);
+          $("#btnUpdate").show(1001);
+          $("#btnUpdate").attr('onclick','updateJurusan('+id+')');
+        }
+      });
+    }
+
+    function updateJurusan(id){
+      var jurusan = $("#jurusan").val();
+      var nm_jurusan = $("#nmJurusan").val();
+      var bidang_keahlian = $("#keahlian").val();
+      var kopetensi_umum = $("#kopetensi_umum").val();
+      var kopetensi_khusus = $("#kopetensi_khusus").val();
+
+      if (!jurusan||!nm_jurusan) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/updateDataJurusan'); ?>",
+          data : {id:id, jurusan:jurusan, nm_jurusan:nm_jurusan, bidang_keahlian:bidang_keahlian, kopetensi_umum: kopetensi_umum, kopetensi_khusus:kopetensi_khusus},
+          success : function(response) {
+            if (jQuery.trim(response)==="success") {
+              dataTbJurusan();
+              cancelAdd('Jurusan');
+              alertSuccessUpdate();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedUpdate();
+            }
+          }
+        });
+      }
+    }
+
+    function deleteJurusan(id){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/deleteJurusan'); ?>",
+        data : {id:id},
+        success : function(response){
+          if (jQuery.trim(response)==="success") {
+            $("#confirmDelete").modal("hide");
+            dataTbJurusan();
+            alertSuccessDelete();
+          }else if(jQuery.trim(response)==="failed"){
+            $("#confirmDelete").modal("hide");
+            alertFailedDelete();
+          }
+        }
+      });
+    }
+
+    function dataTbKelas(){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataKelas') ?>",
+        dataType : "JSON",
+        success  : function(response) {
+          $("#tbKelas > tbody").empty(); var no=1;
+          $.each(response, function(Index,Value){
+            $("#tbKelas > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td>"+Value.kd_kls+"</td>"+
+                "<td>"+Value.nm_kelas+"</td>"+
+                "<td>"+Value.unit+"</td>"+
+                "<td><button class='btn btn-warning btn-sm' onclick=editKelas('"+Value.kd_kls+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Kelas','"+Value.kd_kls+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          })
+        }
+      });
+    }
+
+    function saveKelas() {
+      var unit = $("#unit").val();
+      var kd_kls = $("#kd_kls").val();
+      var nm_kelas = $("#nm_kelas").val();
+      var angka = $("#angka").val();
+      if(!unit||!kd_kls||!nm_kelas||!angka){
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/insertDataKelas'); ?>",
+          data : {unit:unit, kd_kls:kd_kls, nm_kelas:nm_kelas, angka:angka},
+          success : function(response) {
+            if (jQuery.trim(response)==="success") {
+              dataTbKelas();
+              cancelAdd('Kelas');
+              alertSuccessSave();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedSave();
+            }
+          }
+        });
+      }
+    }
+
+    function editKelas(id){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataKelasById') ?>",
+        data : {id:id},
+        dataType : "JSON",
+        success : function(response){
+          $("#unit").val(response[0].unit);
+          $("#nm_kelas").val(response[0].nm_kelas);
+          $("#kd_kls").val(response[0].kd_kls);
+          $("#angka").val(response[0].angka);
+
+          $("#frmTbKelas").hide(500);
+          $("#frmAddKelas").show(1000);
+          $("#btnAddKelas").hide();
+          $("#btnCancel").show(1001);
+          $("#btnUpdate").show(1001);
+          $("#btnUpdate").attr('onclick','updateKelas()');
+        }
+      });
+    }
+
+    function updateKelas(){
+      var unit = $("#unit").val();
+      var kd_kls = $("#kd_kls").val();
+      var nm_kelas = $("#nm_kelas").val();
+      var angka = $("#angka").val();
+      if(!unit||!kd_kls||!nm_kelas||!angka){
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/updateDataKelas'); ?>",
+          data : {unit:unit, kd_kls:kd_kls, nm_kelas:nm_kelas, angka:angka},
+          success : function(response) {
+            if (jQuery.trim(response)==="success") {
+              dataTbKelas();
+              cancelAdd('Kelas');
+              alertSuccessUpdate();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedUpdate();
+            }
+          }
+        });
+      }
+    }
+
+    function deleteKelas(id)
+    {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/deleteKelas'); ?>",
+        data : {id:id},
+        success : function(response){
+          if (jQuery.trim(response)==="success") {
+            $("#confirmDelete").modal("hide");
+            dataTbKelas();
+            alertSuccessDelete();
+          }else if(jQuery.trim(response)==="failed"){
+            $("#confirmDelete").modal("hide");
+            alertFailedDelete();
+          }
+        }
+      });
+    }
+
+    function dataTbKlsParalel() {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataKlsParalel') ?>",
+        dataType : "JSON",
+        success  : function(response) {
+          $("#tbKlsParalel > tbody").empty(); var no=1;
+          $.each(response, function(Index,Value){
+            $("#tbKlsParalel > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td>"+Value.kd_kls+"</td>"+
+                "<td>"+Value.nm_kelas+"</td>"+
+                "<td>"+Value.nm_kls_paralel+"</td>"+
+                "<td>"+Value.unit+"</td>"+
+                "<td>"+Value.nama+"</td>"+
+                "<td><button class='btn btn-warning btn-sm' onclick=editKlsParalel('"+Value. kd_kls_paralel+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('KlsParalel','"+Value. kd_kls_paralel+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          })
+        }
+      });
+    }
+
+    function selectKelas() {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataKelas'); ?>",
+        dataType : "JSON",
+        success : function(response){
+          $("#kd_kls_select").empty();
+          $("#kd_kls_select").append(
+              "<option selected>Pilih Kelas</option>"
+            );
+          $.each(response, function(Index,Value){
+            $("#kd_kls_select").append(
+              "<option value='"+Value.kd_kls+"'>"+Value.nm_kelas+" - ( "+Value.unit+" )</option>"
+            );
+          })
+        }
+      });
+    }
+
+    $('#kd_kls_select').select2({
+      placeholder: 'Pilih Kelas',
+    });
+
+    function selectWaliKelas(){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataGuru'); ?>",
+        dataType : "JSON",
+        success : function(response){
+          $("#wali_kelas").empty();
+          $("#wali_kelas").append(
+              "<option selected>Pilih Guru</option>"
+            );
+          $.each(response, function(Index,Value){
+            $("#wali_kelas").append(
+              "<option value='"+Value.nip+"'>"+Value.nama+"</option>"
+            );
+          })
+        }
+      });
+    }
+
+    $("#wali_kelas").select2({
+      placeholder: 'Pilih Wali Kelas',
+    });
+
+    function saveKlsParalel(){
+      var kd_kls = $("#kd_kls_select").val();
+      var kls_paralel = $("#kls_paralel").val();
+      var wali_kelas = $("#wali_kelas").val();
+
+      if (!kd_kls||!kls_paralel||!wali_kelas) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/insertKlsParalel'); ?>",
+          data : {kd_kls:kd_kls, kls_paralel:kls_paralel, wali_kelas:wali_kelas},
+          success : function(response){
+            if (jQuery.trim(response)==="success") {
+              dataTbKlsParalel();
+              cancelAdd('KlsParalel');
+              alertSuccessSave();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedSave();
+            }
+          }
+        });
+      }
+    }
+
+    function deleteKlsParalel(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/deleteKlsParalel'); ?>",
+        data : {id:id},
+        success : function(response) {
+          if (jQuery.trim(response)==="success") {
+            $("#confirmDelete").modal("hide");
+            dataTbKlsParalel();
+            alertSuccessDelete();
+          }else if(jQuery.trim(response)==="failed"){
+            $("#confirmDelete").modal("hide");
+            alertFailedDelete();
+          }
+        }
+      });
+    }
+
+    function editKlsParalel(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataKlsParalelById') ?>",
+        data : {id:id},
+        dataType : "JSON",
+        success : function(response){
+          $("#kd_kls_select").val(response[0].kd_kls);
+          $("#kls_paralel").val(response[0].nm_kls_paralel);
+          $("#wali_kelas").val(response[0].wali_kelas);
+
+          $("#frmTbKlsParalel").hide(500);
+          $("#frmAddKlsParalel").show(1000);
+          $("#btnAddKlsParalel").hide();
+          $("#btnCancel").show(1001);
+          $("#btnUpdate").show(1001);
+          $("#btnUpdate").attr('onclick','updateKlsParalel("'+id+'")');
+        }
+      });
+    }
+
+    function updateKlsParalel(id) {
+      var kd_kls = $("#kd_kls_select").val();
+      var kls_paralel = $("#kls_paralel").val();
+      var wali_kelas = $("#wali_kelas").val();
+
+      if (!kd_kls||!kls_paralel||!wali_kelas) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/admin/updateKlsParalel'); ?>",
+          data : {id:id, kd_kls:kd_kls, kls_paralel:kls_paralel, wali_kelas:wali_kelas},
+          success : function(response){
+            if (jQuery.trim(response)==="success") {
+              dataTbKlsParalel();
+              cancelAdd('KlsParalel');
+              alertSuccessUpdate();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedUpdate();
+            }
+          }
+        });
+      }
+    }
+
+    function dataTbSiswa() {
+      var kd_kls_paralel = $("#selectKlsParalel").val();
+      $("#tbSiswa").dataTable().fnDestroy();
+      $("#tbSiswa").dataTable({
+        // "fixedHeader" : true,
+        "pageLength" : 50,
+        "autoWidth" : false,
+        "ordering" : false,
+        "bProcessing" : true,
+        "bServerSide" : true,
+        "bJQueryUI" : true,
+        "sPaginationType" : "full_numbers",
+        "sAjaxSource" : "<?php echo base_url(); ?>circle_student/admin/getDataSiswa/",
+        "aoColumnDefs": [
+          { "sWidth": "10%", "aTargets": [ -1 ] }
+      ],
+        "columns" : [
+          {"data" : "nipd", "name" : "a.nipd"},
+          {"data" : "nipd", "name" : "a.nipd"},
+          {"data" : "nisn", "name" : "a.nisn"},
+          {"data" : "nama", "name" : "a.nama"},
+          {"data" : "kd_kls", "name" : "a.kd_kls"},
+          {"data" : "nm_kls_paralel", "name" : "c.nm_kls_paralel"},
+          {"data" : "unit", "name" : "b.unit"},
+          {"data" : "jurusan", "name" : "d.jurusan"},
+          {"data" : "nipd", "name" : "nipd"}
+
+        ],
+        "fnServerData" : function(sSource,aoData,fnCallback){
+          aoData.push({"name":"kd_kls_paralel","value":kd_kls_paralel});
+          $.ajax({
+            "type"      : "POST",
+            "dataType"  : "JSON",
+            "url"       : sSource,
+            "data"      : aoData,
+            "success"   : fnCallback
+          });
+        },
+        "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
+          $("td:eq(0)",nRow).text(++iDisplayIndex);
+          $("td:eq(8)",nRow).html("<button class='btn btn-info btn-sm' onclick=detailSiswa('"+aData["nipd"]+"') title='Detail'><i class='fa fa-list'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('KlsParalel','') title='Delete'><i class='fa fa-trash'></i></button>");
+        }
+      });
+    }
+
+    function selectUnitSiswa() {
+      var unit = $("#unit").val();
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataKlsParalelByUnit'); ?>",
+        data : {unit:unit},
+        dataType : "JSON",
+        success : function(response){
+          $("#selectKlsParalel").empty();
+          $("#selectKlsParalel").append(
+              "<option selected>Pilih Kelas</option>"
+            );
+          $.each(response, function(Index,Value){
+            $("#selectKlsParalel").append(
+              "<option value='"+Value.kd_kls_paralel+"'>"+Value.nm_kls_paralel+"</option>"
+            );
+          })
+        }
+      });
+    }
+
+    function backPreviewSiswa() {
+      $("#formDetailSiswa").hide();
+      $("#mainFormSiswa").show(500);
+    }
+
+    function changeData(param) {
+      if (param=="ds") {
+        $("#do").removeClass("show");
+        $("#ds").addClass("show");
+      }else if(param=="do"){
+        $("#ds").removeClass("show");
+        $("#do").addClass("show");
+      }
+    }
+
+    function detailSiswa(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataSiswaByNipd'); ?>",
+        data : {id:id},
+        dataType : "JSON",
+        success : function(response){
+          if (!response[0].photo) {
+            $("#photo").attr("src","<?php echo base_url() ?>/assets/home/img/avatar.jpg")
+          }else{
+            $("#photo").attr("src","<?php echo base_url() ?>/assets/home/img/"+response[0].photo)
+          }
+          $("#hdNamaSiswa").text(response[0].nama);
+          $("#lbNmSiswa").text(response[0].nama);
+          $("#edit_nmSiswa").val(response[0].nama);
+          $("#lbNIK").text(response[0].nik);
+          $("#edit_nik").val(response[0].nik);
+          $("#lbNIPD").text(response[0].nipd);
+          $("#edit_nipd").val(response[0].nipd);
+          $("#lbNISN").text(response[0].nisn);
+          $("#edit_nisn").val(response[0].nisn);
+          $("#lbTmptLahir").text(response[0].tempat_lahir);
+          $("#edit_tmptLahir").val(response[0].tempat_lahir);
+          $("#lbTglLahir").text(response[0].tanggal_lahir);
+          $("#edit_tglLahir").val(response[0].tanggal_lahir);
+          $("#lbGender").text(response[0].gender);
+          $("#edit_gender").val(response[0].gender);
+          $("#lbAgama").text(response[0].agama);
+          $("#edit_agama").val(response[0].agama);
+          $("#lbKls").text(response[0].kd_kls);
+          $("#edit_kls").val(response[0].kd_kls);
+          $("#lbKlsParalel").text(response[0].nm_kls_paralel)
+          $("#edit_klsParalel").val(response[0].nm_kls_paralel)
+          $("#lbJurusan").text(response[0].jurusan)
+          $("#edit_jurusan").val(response[0].jurusan)
+          $("#lbAngkatan").text(response[0].angkatan)
+          $("#edit_angkatan").val(response[0].angkatan)
+          $("#lbAlamat").text(response[0].alamat)
+          $("#edit_alamat").val(response[0].alamat)
+          $("#lbTlp").text(response[0].no_tlp)
+          $("#edit_tlp").val(response[0].no_tlp)
+          $("#lbRtRw").text(response[0].rt+"/"+response[0].rw)
+          $("#edit_RtRw").val(response[0].rt+"/"+response[0].rw)
+          $("#lbDesa").text(response[0].desa)
+          $("#edit_desa").val(response[0].desa)
+          $("#lbKecamatan").text(response[0].kecamatan)
+          $("#edit_kecamatan").val(response[0].kecamatan)
+          $("#lbKota").text(response[0].kota)
+          $("#edit_kota").val(response[0].kota)
+          $("#lbPos").text(response[0].kd_pos)
+          $("#edit_kdPos").val(response[0].kd_pos)
+          $("#lbStatusKPS").text(response[0].status_kps)
+          $("#edit_statusKPS").val(response[0].status_kps)
+          $("#lbNoKPS").text(response[0].no_kps)
+          $("#edit_noKPS").val(response[0].no_kps)
+          $("#lbSkhun").text(response[0].skhun)
+          $("#edit_skhun").val(response[0].skhun)
+          $("#lbNmBpk").text(response[0].nm_bpk)
+          $("#edit_nmBpk").val(response[0].nm_bpk)
+          $("#lbNmIbu").text(response[0].nm_ibu)
+          $("#edit_nmIbu").val(response[0].nm_ibu)
+          $("#lbTglLahirBpk").text(response[0].thn_lahir_bpk)
+          $("#edit_thnLhrBpk").val(response[0].thn_lahir_bpk)
+          $("#lbTglLahirIbu").text(response[0].thn_lahir_ibu)
+          $("#edit_thnLhrIbu").val(response[0].thn_lahir_ibu)
+          $("#lbPendidikanBpk").text(response[0].pendidikan_bpk)
+          $("#edit_pendidikanBpk").val(response[0].pendidikan_bpk)
+          $("#lbPendidikanIbu").text(response[0].pendidikan_ibu)
+          $("#edit_pendidikanIbu").val(response[0].pendidikan_ibu)
+          $("#lbPekerjaanBpk").text(response[0].pekerjaan_bpk)
+          $("#edit_pekerjaanBpk").val(response[0].pekerjaan_bpk)
+          $("#lbPekerjaanIbu").text(response[0].pekerjaan_ibu)
+          $("#edit_pekerjaanIbu").val(response[0].pekerjaan_ibu)
+          $("#lbTlpBpk").text(response[0].no_tlp_bpk)
+          $("#edit_noTlpBpk").val(response[0].no_tlp_bpk)
+          $("#lbTlpIbu").text(response[0].no_tlp_ibu)
+          $("#edit_noTlpIbu").val(response[0].no_tlp_ibu)
+
+          $("#mainFormSiswa").hide();
+          $("#formDetailSiswa").show(500);
+        }
+      });
+    }
+
+    function editDataSiswa(){
+      $("#lbNmSiswa").hide();
+      $("#edit_nmSiswa").show();
+      $("#lbNIK").hide();
+      $("#edit_nik").show();
+      $("#lbNIPD").hide();
+      $("#edit_nipd").show();
+      $("#lbNISN").hide();
+      $("#edit_nisn").show();
+      $("#lbTmptLahir").hide();
+      $("#edit_tmptLahir").show();
+      $("#lbTglLahir").hide();
+      $("#edit_tglLahir").show();
+      $("#lbGender").hide();
+      $("#edit_gender").show();
+      $("#lbAgama").hide();
+      $("#edit_agama").show();
+      $("#lbKls").hide();
+      $("#edit_kls").show();
+      $("#lbKlsParalel").hide()
+      $("#edit_klsParalel").show()
+      $("#lbJurusan").hide()
+      $("#edit_jurusan").show()
+      $("#lbAngkatan").hide()
+      $("#edit_angkatan").show()
+      $("#lbAlamat").hide()
+      $("#edit_alamat").show()
+      $("#lbTlp").hide()
+      $("#edit_tlp").show()
+      $("#lbRtRw").hide()
+      $("#edit_RtRw").show()
+      $("#lbDesa").hide()
+      $("#edit_desa").show()
+      $("#lbKecamatan").hide()
+      $("#edit_kecamatan").show()
+      $("#lbKota").hide()
+      $("#edit_kota").show()
+      $("#lbPos").hide()
+      $("#edit_kdPos").show()
+      $("#lbStatusKPS").hide()
+      $("#edit_statusKPS").show()
+      $("#lbNoKPS").hide()
+      $("#edit_noKPS").show()
+      $("#lbSkhun").hide()
+      $("#edit_skhun").show()
+      $("#lbNmBpk").hide()
+      $("#edit_nmBpk").show()
+      $("#lbNmIbu").hide()
+      $("#edit_nmIbu").show()
+      $("#lbTglLahirBpk").hide()
+      $("#edit_thnLhrBpk").show()
+      $("#lbTglLahirIbu").hide()
+      $("#edit_thnLhrIbu").show()
+      $("#lbPendidikanBpk").hide()
+      $("#edit_pendidikanBpk").show()
+      $("#lbPendidikanIbu").hide()
+      $("#edit_pendidikanIbu").show()
+      $("#lbPekerjaanBpk").hide()
+      $("#edit_pekerjaanBpk").show()
+      $("#lbPekerjaanIbu").hide()
+      $("#edit_pekerjaanIbu").show()
+      $("#lbTlpBpk").hide()
+      $("#edit_noTlpBpk").show()
+      $("#lbTlpIbu").hide()
+      $("#edit_noTlpIbu").show()
+
+      $("#btnCancelEdit").show();
+      $("#btnUpdate").show();
+    }
+
+    function cancelEditDataSiswa() {
+      $("#lbNmSiswa").show();
+      $("#edit_nmSiswa").hide();
+      $("#lbNIK").show();
+      $("#edit_nik").hide();
+      $("#lbNIPD").show();
+      $("#edit_nipd").hide();
+      $("#lbNISN").show();
+      $("#edit_nisn").hide();
+      $("#lbTmptLahir").show();
+      $("#edit_tmptLahir").hide();
+      $("#lbTglLahir").show();
+      $("#edit_tglLahir").hide();
+      $("#lbGender").show();
+      $("#edit_gender").hide();
+      $("#lbAgama").show();
+      $("#edit_agama").hide();
+      $("#lbKls").show();
+      $("#edit_kls").hide();
+      $("#lbKlsParalel").show()
+      $("#edit_klsParalel").hide()
+      $("#lbJurusan").show()
+      $("#edit_jurusan").hide()
+      $("#lbAngkatan").show()
+      $("#edit_angkatan").hide()
+      $("#lbAlamat").show()
+      $("#edit_alamat").hide()
+      $("#lbTlp").show()
+      $("#edit_tlp").hide()
+      $("#lbRtRw").show()
+      $("#edit_RtRw").hide()
+      $("#lbDesa").show()
+      $("#edit_desa").hide()
+      $("#lbKecamatan").show()
+      $("#edit_kecamatan").hide()
+      $("#lbKota").show()
+      $("#edit_kota").hide()
+      $("#lbPos").show()
+      $("#edit_kdPos").hide()
+      $("#lbStatusKPS").show()
+      $("#edit_statusKPS").hide()
+      $("#lbNoKPS").show()
+      $("#edit_noKPS").hide()
+      $("#lbSkhun").show()
+      $("#edit_skhun").hide()
+      $("#lbNmBpk").show()
+      $("#edit_nmBpk").hide()
+      $("#lbNmIbu").show()
+      $("#edit_nmIbu").hide()
+      $("#lbTglLahirBpk").show()
+      $("#edit_thnLhrBpk").hide()
+      $("#lbTglLahirIbu").show()
+      $("#edit_thnLhrIbu").hide()
+      $("#lbPendidikanBpk").show()
+      $("#edit_pendidikanBpk").hide()
+      $("#lbPendidikanIbu").show()
+      $("#edit_pendidikanIbu").hide()
+      $("#lbPekerjaanBpk").show()
+      $("#edit_pekerjaanBpk").hide()
+      $("#lbPekerjaanIbu").show()
+      $("#edit_pekerjaanIbu").hide()
+      $("#lbTlpBpk").show()
+      $("#edit_noTlpBpk").hide()
+      $("#lbTlpIbu").show()
+      $("#edit_noTlpIbu").hide()
+
+      $("#btnCancelEdit").hide();
+      $("#btnUpdate").hide();
+    }
+
+    function updateDataSiswa(){
+      var nama = $("#edit_nmSiswa").val();
+      var nik = $("#edit_nik").val();
+      var nipd = $("#edit_nipd").val();
+      var nisn = $("#edit_nisn").val();
+      var tempat_lahir = $("#edit_tmptLahir").val();
+      var tanggal_lahir = $("#edit_tglLahir").val();
+      var gender = $("#edit_gender").val();
+      var agama = $("#edit_agama").val();
+      var kd_kls = $("#edit_kls").val();
+      var kd_kls_paralel = $("#edit_klsParalel").val()
+      var jurusan = $("#edit_jurusan").val()
+      var angkatan = $("#edit_angkatan").val()
+      var alamat = $("#edit_alamat").val()
+      var no_tlp = $("#edit_tlp").val()
+      var rtrw = $("#edit_RtRw").val()
+      var desa = $("#edit_desa").val()
+      var kecamatan = $("#edit_kecamatan").val()
+      var kota = $("#edit_kota").val()
+      var kd_pos = $("#edit_kdPos").val()
+      var status_kps = $("#edit_statusKPS").val()
+      var no_kps = $("#edit_noKPS").val()
+      var skhun = $("#edit_skhun").val()
+      var nm_bpk = $("#edit_nmBpk").val()
+      var nm_ibu = $("#edit_nmIbu").val()
+      var thn_lahir_bpk = $("#edit_thnLhrBpk").val()
+      var thn_lahir_ibu = $("#edit_thnLhrIbu").val()
+      var pendidikan_bpk = $("#edit_pendidikanBpk").val()
+      var pendidikan_ibu = $("#edit_pendidikanIbu").val()
+      var pekerjaan_bpk = $("#edit_pekerjaanBpk").val()
+      var pekerjaan_ibu = $("#edit_pekerjaanIbu").val()
+      var no_tlp_bpk = $("#edit_noTlpBpk").val()
+      var no_tlp_ibu = $("#edit_noTlpIbu").val()
+
+      $.ajax({
+        type : "POST",
+        url : "<?php echo base_url('circle_student/admin/updateDataSiswa'); ?>",
+        data : {  nama : nama,
+                  nik : nik,
+                  nipd : nipd,
+                  nisn : nisn,
+                  tempat_lahir : tempat_lahir,
+                  tanggal_lahir : tanggal_lahir,
+                  gender : gender,
+                  agama : agama,
+                  kd_kls : kd_kls,
+                  kd_kls_paralel : kd_kls_paralel,
+                  jurusan : jurusan,
+                  angkatan : angkatan,
+                  alamat : alamat,
+                  no_tlp : no_tlp,
+                  rtrw : rtrw,
+                  desa : desa,
+                  kecamatan : kecamatan,
+                  kota : kota,
+                  kd_pos : kd_pos,
+                  status_kps : status_kps,
+                  no_kps : no_kps,
+                  skhun : skhun,
+                  nm_bpk : nm_bpk,
+                  nm_ibu : nm_ibu,
+                  thn_lahir_bpk : thn_lahir_bpk,
+                  thn_lahir_ibu : thn_lahir_ibu,
+                  pendidikan_bpk : pendidikan_bpk,
+                  pendidikan_ibu : pendidikan_ibu,
+                  pekerjaan_bpk : pekerjaan_bpk,
+                  pekerjaan_ibu : pekerjaan_ibu,
+                  no_tlp_bpk : no_tlp_bpk,
+                  no_tlp_ibu : no_tlp_ibu
+        }
+      });
+    }
+</script>
