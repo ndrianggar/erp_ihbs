@@ -31,6 +31,77 @@
                   }
             }
 
+            public function data_slider()
+            {
+                  $data["parent_title"] = "Master";
+                  $data["child_title"]  = "Data Slider";
+                  $this->template->load("mainAdmin_v","admin/slider_v",$data);
+            }
+
+          public function get_data_slider()
+             {
+               $result = $this->Main_model->getslider();
+               echo $result;
+             }
+             public function created_slider()
+              {
+                $config['upload_path']    ='./assets/upload/image/slider';
+                $config['allowed_types']  ='gif|jpg|png';
+                $config['encrypt_name']   = TRUE;
+               
+
+                $this->load->library('upload', $config);
+                if($this->upload->do_upload("gambar")){
+                    $data =array('upload_data' => $this->upload->data());
+                    $image      = $data['upload_data']['file_name'];
+                    $id =  $this->input->post('id_slider');
+                    $dataslider["nm_slider"] = $this->input->post('nm_slider');
+                    $dataslider["urutan"]    = $this->input->post('urutan');
+                    $dataslider["keterangan"] = $this->input->post('keterangan');
+                    $dataslider["status"]     = $this->input->post('status');
+                                    
+                    $dataslider['gambar'] = $image;
+
+                    $statinput = $this->input->post('statinput');
+                    if ($statinput=="save") {
+                      $result=$this->Main_model->muploadslider($dataslider); 
+                      echo $result;
+
+                    }elseif($statinput=="update"){
+                       $result=$this->Main_model->updateSlider($dataslider,$id); 
+                      echo $result;
+                    }
+                    
+                 }
+               }
+            public function getSliderById()
+            {
+                $id = $this->input->post('id');
+                $result = $this->Main_model->getSliderById($id);
+                echo $result;
+            }
+
+            public function updateSlider()
+            {
+               $data= array();
+               $id = $this->input->post('id');
+               $data["nm_slider"]= $this->input->post('nm_slider');
+               $data["gambar"]= $this->input->post('gambar');
+               $data["urutan"]= $this->input->post('urutan');
+               $data["keterangan"]= $this->input->post('keterangan');
+               $data["status"]= $this->input->post('status');
+
+               $result = $this->Main_model->updateSlider($data,$id);
+               echo $result;
+            }
+
+            public function deleteSlider()
+            {
+                $id =$this->input->post("id");
+                $result = $this->Main_model->deleteListSlider($id);
+                echo $result;
+
+            }
 
             public function data_unit_sekolah()
             {
@@ -164,6 +235,45 @@
                   $data["deleted"] = "false";
 
                   $result = $this->Main_model->updateSekolah($data,$id);
+                  echo $result;
+            }
+
+            public function data_kurikulum()
+            {
+                  $this->isLogin();
+                  $data["parent_title"] = "Master";
+                  $data["child_title"]  = "Data Kurikulum";
+                  $this->template->load("mainAdmin_v","data_master/kurikulum_v",$data);
+            }
+
+            public function getDataKurikulum()
+            {
+                  $this->isLogin();
+                  $result = $this->Main_model->getDataKurikulum();
+                  echo $result;
+            }
+
+            public function changeStatusKurikulum()
+            {
+                  $this->isLogin();
+                  $id = $this->input->post("id");
+                  $result = $this->Main_model->changeStatusKurikulum($id);
+                  echo $result;
+            }
+
+            public function saveKurikulum()
+            {
+                  $this->isLogin();
+                  $nm_kurikulum = $this->input->post("kurikulum");
+                  $result = $this->Main_model->saveKurikulum($nm_kurikulum);
+                  echo $result;
+            }
+
+            public function getKurikulumById()
+            {
+                  $this->isLogin();
+                  $id = $this->input->post("id");
+                  $result = $this->Main_model->getKurikulumById($id);
                   echo $result;
             }
 

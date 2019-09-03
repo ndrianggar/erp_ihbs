@@ -119,6 +119,12 @@
             </a>
           </li>
           <li class="nav-item">
+             <a href="#pagefront" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i>Front</a>
+            <ul class="collapse list-inline" id="pagefront">
+                <li>
+                    <a href="<?php echo base_url('circle_student/admin/data_slider') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Slider</a>
+                </li></ul>
+          <li class="nav-item">
             <a href="#data-master" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i> Master</a>
             <ul class="collapse list-inline" id="data-master">
                 <li>
@@ -402,6 +408,9 @@
       if ($("#tbDataSekolah").length) {
         dataTbSekolah();
       }
+      if ($("#tbKurikulum").length) {
+        dataTbKurikulum()
+      }
       if ($("#tbThnAkademik").length) {
         dataTbThnAkademik();
       }
@@ -481,6 +490,10 @@
       if ($("#select_JnsCbt").length) {
         selectJnsCbt();
       }
+        if ($("#tbDataSlider").length) {
+        dataTbSlider();
+      }
+
 
       $('#input_wktMulai').inputmask(
         "hh:mm:ss", {
@@ -1005,6 +1018,71 @@
           $("#btnCancel").show(1001);
         }
       });
+    }
+
+    function dataTbKurikulum() {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getDataKurikulum') ?>",
+        dataType : "JSON",
+        success : function(response) { var no=1;
+          $("#tbKurikulum > tbody").empty();
+          $.each(response, function(Index,Value) {
+            $("#tbKurikulum > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td>"+Value.nm_kurikulum+"</td>"+
+                "<td align='center'><label class='custom-toggle'><input type='checkbox' "+ (Value.status == 'aktif' ? 'checked' : '') +" onchange='changeStatusKurikulum("+Value.kd_kurikulum+")'><span class='custom-toggle-slider rounded-circle'></span></label></td>"+
+                "<td><button class='btn btn-warning btn-sm' onclick=editKurikulum('"+Value.kd_kurikulum+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Kurikulum','"+Value.kd_kurikulum+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          })
+        }
+      });
+    }
+
+    function changeStatusKurikulum(id){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/changeStatusKurikulum') ?>",
+        dataType : "JSON",
+        data : {id:id},
+        success : function(response) {
+          dataTbKurikulum()
+        }
+      })
+    }
+
+    function saveKurikulum() {
+      var kurikulum = $("#inputKurikulum").val();
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/saveKurikulum') ?>",
+        data : {kurikulum:kurikulum},
+        success : function(response) {
+          if (jQuery.trim(response)==="success") {
+            $("#modalAddKurikulum").modal("hide");
+            dataTbKurikulum();
+            alertSuccessSave();
+          }else if(jQuery.trim(response)==="failed"){
+            alertFailedSave();
+          }
+        }
+      });
+    }
+
+    function editKurikulum(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getKurikulumById') ?>",
+        data : {id:id},
+        dataType : "JSON",
+        success : function(response) {
+          $("#modalEditKurikulum").modal("show");
+          $("#editKdKurikulum").val(response[0].kd_kurikulum);
+          $("#editKurikulum").val(response[0].nm_kurikulum);
+        }
+      })
     }
 
     function dataTbThnAkademik() {
@@ -5040,6 +5118,173 @@
         }
       });
     }
-  </script>
+
+ function dataTbSlider() {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/get_data_slider'); ?>",
+        dataType : "JSON",
+        success : function(response){
+          $("#tbDataSlider > tbody").empty();var no=1;
+          $.each(response, function(Index,Value){
+            $("#tbDataSlider > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td>"+Value.nm_slider+"</td>"+
+                "<td>"+Value.gambar+"</td>"+
+                "<td>"+Value.urutan+"</td>"+
+                "<td>"+Value.keterangan+"</td>"+
+                "<td>"+Value.status+"</td>"+
+                "<td><button class='btn btn-warning btn-sm' onclick=editSlider('"+Value.id_slider+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDeleteSlider('"+Value.id_slider+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          })
+        }
+      });
+    }
+    function addSlider() {
+      $("input").val("");
+      $("#frmTbSlider").hide(500);
+      $("#frmAddSlider").show(1000);
+      $("#btnAddSekolah").hide();
+      $("#btnCancel").show(1001);
+      $("#btnSave").show(1001);
+      $("#statinput").val('save')
+    }
+
+    function cancelAddSlider() {
+      $("#frmTbSlider").show(1000);
+      $("#frmAddSlider").hide(500);
+      $("#btnAddSlider").show();
+      $("#btnCancel").hide();
+      $("#btnSave").hide();
+      $("#btnUpdate").hide();
+      $("#btnCancel").text("Cancel");
+    }
+
+    $('#submitDataSlider').submit(function(e){
+      e.preventDefault(); 
+      // var gambar     = document.getElementById("gambar").value; //https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_fileupload_value
+      var nm_slider  = $("#nm_slider").val();
+      var urutan     = $("#urutan").val();
+      var keterangan = $("#keterangan").val();
+      var status     = $("#status").val();
+
+         
+     if (!nm_slider||!urutan||!keterangan||!status) {
+        $("#modalColor").addClass("bg-gradient-warning");
+        $("#txtNotif").text("Kolom Yang Bertanda (*) Harus Diisi !");
+        $("#notif").modal('show');
+
+        setTimeout (function(){
+          $("#notif").modal('hide');
+          $("#modalColor").removeClass("bg-gradient-warning");
+          $("#txtNotif").text("");
+        },3000)
+      }else{
+        $.ajax({                                                   
+          url:'<?php echo base_url();?>circle_student/admin/created_slider',
+          type:"post",
+          data:new FormData(this), //this is formData
+          processData:false,
+          contentType:false,
+          cache:false,
+          async:true,
+          success: function(response){
+            if (jQuery.trim(response)==="success") {
+              dataTbSlider();
+              cancelAddSlider();
+              $("#modalColor").addClass("bg-gradient-success");
+              $("#txtNotif").text("Data Berhasil Ditambah!");
+              $("#notif").modal('show');
+
+              setTimeout (function(){
+                $("#notif").modal('hide');
+                $("#modalColor").removeClass("bg-gradient-success");
+                $("#txtNotif").text("");
+              },3000)
+            }else if(jQuery.trim(response)==="failed"){
+              $("#modalColor").addClass("bg-gradient-warning");
+              $("#txtNotif").text("Data Gagal Ditambah!");
+              $("#notif").modal('show');
+
+              setTimeout (function(){
+                $("#notif").modal('hide');
+                $("#modalColor").removeClass("bg-gradient-warning");
+                $("#txtNotif").text("");
+              },3000)
+            }
+         }
+       });
+      }
+    });
+
+    function confirmDeleteSlider(id) {
+      $("#btnYes").attr('onclick','deleteSlider('+id+')');
+      $("#confirmDelete").modal("show");
+      $("#txtConfirm").text("Yakin, Hapus Data Slider ?");
+    }
+
+    function deleteSlider(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/deleteSlider') ?>",
+        data : {id:id},
+        success : function(response){
+          if (jQuery.trim(response)==="success") {
+            $("#confirmDelete").modal("hide");
+            dataTbSlider();
+            cancelAddSlider();
+            $("#modalColor").addClass("bg-gradient-success");
+            $("#txtNotif").text("Data Berhasil Dihapus!");
+            $("#notif").modal('show');
+
+            setTimeout (function(){
+              $("#notif").modal('hide');
+              $("#modalColor").removeClass("bg-gradient-success");
+              $("#txtNotif").text("");
+            },3000)
+          }else if(jQuery.trim(response)==="failed"){
+            $("#confirmDelete").modal("hide");
+            $("#modalColor").addClass("bg-gradient-warning");
+            $("#txtNotif").text("Data Gagal Dihapus!");
+            $("#notif").modal('show');
+
+            setTimeout (function(){
+              $("#notif").modal('hide');
+              $("#modalColor").removeClass("bg-gradient-warning");
+              $("#txtNotif").text("");
+            },3000)
+          }
+        }
+      });
+    }
+
+    function editSlider(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/admin/getSliderById'); ?>",
+        dataType : "JSON",
+        data : {id:id},
+        success : function(response){
+          $("#statinput").val('update')
+          $("#id_slider").val(response[0].id_slider);
+          $("#gambar").val(response[0].gambar);
+          $("#nm_slider").val(response[0].nm_slider);
+          $("#urutan").val(response[0].urutan);
+          $("#keterangan").val(response[0].keterangan);
+          $("#status").val(response[0].status);
+
+          $("#frmTbSlider").hide(500);
+          $("#frmAddSlider").show(1000);
+          $("#btnAddSlider").hide();
+          $("#btnCancel").show(1001);
+          $("#btnUpdate").show(1001);
+        }
+      });
+    }
+
+     </script>
+
 </body>
 </html>

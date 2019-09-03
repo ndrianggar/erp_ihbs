@@ -131,7 +131,75 @@
 				return "success";
 			}
 		}
+			/*ini untuk tampilan front*/
+		public function showslider()
+		{
+			$this->db->order_by("id_slider","DESC");
+			$query=$this->db->get("tb_slider");
+			$this->db->limit(6);
+			return $query;
+		}
+         //////////////////////////////////////////////
 
+		
+			public function getslider()
+			{
+				$query = $this->db->query("SELECT * FROM tb_slider WHERE id_slider")->
+				result_array();
+			return json_encode($query);
+			}
+
+			public function muploadslider($data)
+			{
+				$this->db->trans_start();
+				$result = $this->db->insert('tb_slider',$data);
+
+				if ($this->db->trans_status()===FALSE) {
+					$this->db->trans_rollback();
+					return "failed";
+				}else{
+					$this->db->trans_commit();
+					return "success";
+				}					
+			}
+
+			public function getSliderById($id)
+			{
+				$query = $this->db->query("SELECT * FROM tb_slider WHERE id_slider ='$id'")->result_array();
+				return json_encode($query);
+			}
+
+			public function updateSlider($data,$id)
+			{
+				
+				$this->db->trans_start();
+				$this->db->set($data);
+				$this->db->where('id_slider', $id);
+				$this->db->update('tb_slider');
+
+				if ($this->db->trans_status()===FALSE) {
+					$this->db->trans_rollback();
+					return "failed";
+				}else{
+					$this->db->trans_commit();
+					return "success";
+				}
+			}
+		 	
+		 	public function deleteListSlider($id)
+		 	{
+		 		$this->db->trans_start();
+		 		$this->db->where("id_slider",$id);
+		 		$this->db->delete("tb_slider");
+		 			if($this->db->trans_status()===FALSE){
+		 				$this->db->trans_rollback();
+		 				return "failed";
+		 			}else{
+
+		 				$this->db->trans_commit();
+		 				return "success";
+		 			}
+		 	}
 		public function get_dataSekolah()
 		{
 			$query = $this->db->query("SELECT * FROM tb_id_sekolah WHERE deleted = 'false'")->result_array();
@@ -186,6 +254,53 @@
 				$this->db->trans_commit();
 				return "success";
 			}
+		}
+
+		public function getDataKurikulum()
+		{
+			$query = $this->db->query("SELECT * FROM tb_kurikulum WHERE deleted = 'false'")->result_array();
+			return json_encode($query);
+		}
+
+		public function changeStatusKurikulum($id)
+		{
+			$this->db->trans_start();
+			$check = $this->db->query("SELECT * FROM tb_kurikulum WHERE kd_kurikulum = '$id'");
+			if ($check->row()->status == "nonaktif") {
+				$this->db->set("status","aktif");
+			}else{
+				$this->db->set("status","nonaktif");
+			}
+			$this->db->where("kd_kurikulum",$id);
+			$this->db->update("tb_kurikulum");
+
+			if ($this->db->trans_status()===FALSE){
+				$this->db->trans_rollback();
+				return "failed";
+			}else{
+				$this->db->trans_commit();
+				return "success";
+			}
+		}
+
+		public function saveKurikulum($data)		
+		{
+			$this->db->trans_start();
+			$this->db->set('nm_kurikulum', $data);
+			$this->db->insert("tb_kurikulum");
+			if ($this->db->trans_status()===FALSE) {
+				$this->db->trans_rollback();
+				return "failed";
+			}else{
+				$this->db->trans_commit();
+				return "success";
+			}
+		}
+
+		public function getKurikulumById($id)
+		{
+			$query = $this->db->query("SELECT * FROM tb_kurikulum WHERE deleted ='false' AND kd_kurikulum = '$id'")->result_array();
+			return json_encode($query);
 		}
 
 		public function getDataThnAkademik()
@@ -1298,15 +1413,6 @@
 				$this->db->trans_commit();
 				return "success";
 			}
-		}
-
-
-		public function showslider()
-		{
-			$this->db->order_by("id_slider","DESC");
-			$query=$this->db->get("tb_slider");
-			$this->db->limit(6);
-			return $query;
 		}
 
 		public function getDataTopikSoal($id)
