@@ -9,7 +9,7 @@
             {
                   $data['slider'] = $this->Main_model->showslider();
                   $data["session"] = $this->session->userdata("nama");
-                  $this->template->load("main_v","home_v",$data);
+                  $this->template->load("frontend/main_v","frontend/home_v",$data);
       	}
 
       	public function login()
@@ -169,7 +169,7 @@
 
             public function library()
             {
-                  $this->template->load("main_v","library_v");
+                  $this->template->load("frontend/main_v","frontend/library_v");
             }
 	}
 ?>

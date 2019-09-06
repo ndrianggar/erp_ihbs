@@ -1,41 +1,41 @@
  <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
-	Class Admin extends CI_Controller{
+	Class Main extends CI_Controller{
 		public function __construct(){
                   parent::__construct();
                   $this->load->model("Main_model");
 		}
 
-            public function index()
-            {
-                  $this->isLogin();
-                  $data["parent_title"] = "Dashboard";
-                  $data["child_title"] = "";
-                  $this->template->load("mainAdmin_v","dashboard_v",$data);
-      	}
+      public function index()
+      {
+         $this->isLogin();
+         $data["parent_title"] = "Dashboard";
+         $data["child_title"] = "";
+         $this->template->load("mainAdmin_v","dashboard_v",$data);
+   	}
 
-            private function isLogin(){
-                  $session_kdUser = $this->session->userdata("kd_user");
-                  $session_username = $this->session->userdata("username");
-                  $session_section = $this->session->userdata("section");
-                  $session_jabatan = $this->session->userdata("jabatan");
-                  $session_level = $this->session->userdata("level");
-                  if(!empty($session_kdUser)&&
-                        !empty($session_username)&&
-                        !empty($session_section)&&
-                        !empty($session_jabatan)&&
-                        !empty($session_level))
-                  {
-                        
-                  }else{
-                         redirect();
-                  }
+      private function isLogin(){
+            $session_kdUser = $this->session->userdata("kd_user");
+            $session_username = $this->session->userdata("username");
+            $session_section = $this->session->userdata("section");
+            $session_jabatan = $this->session->userdata("jabatan");
+            $session_level = $this->session->userdata("level");
+            if(!empty($session_kdUser)&&
+                  !empty($session_username)&&
+                  !empty($session_section)&&
+                  !empty($session_jabatan)&&
+                  !empty($session_level))
+            {
+                  
+            }else{
+                   redirect();
             }
+      }
 
             public function data_slider()
             {
                   $data["parent_title"] = "Master";
                   $data["child_title"]  = "Data Slider";
-                  $this->template->load("mainAdmin_v","admin/slider_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/front/slider_v",$data);
             }
 
           public function get_data_slider()
@@ -52,6 +52,7 @@
 
                 $this->load->library('upload', $config);
                 if($this->upload->do_upload("gambar")){
+                  echo "string";
                     $data =array('upload_data' => $this->upload->data());
                     $image      = $data['upload_data']['file_name'];
                     $id =  $this->input->post('id_slider');
@@ -65,11 +66,10 @@
                     $statinput = $this->input->post('statinput');
                     if ($statinput=="save") {
                       $result=$this->Main_model->muploadslider($dataslider); 
-                      echo $result;
 
                     }elseif($statinput=="update"){
                        $result=$this->Main_model->updateSlider($dataslider,$id); 
-                      echo $result;
+                  
                     }
                     
                  }
@@ -108,7 +108,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Master";
                   $data["child_title"]  = "Data Unit Sekolah";
-                  $this->template->load("mainAdmin_v","data_master/unit_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_master/unit_v",$data);
             }
 
             public function getDataUnit()
@@ -164,7 +164,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Master";
                   $data["child_title"]  = "Data Indentitas Sekolah";
-                  $this->template->load("mainAdmin_v","data_master/idSekolah_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_master/idSekolah_v",$data);
             }
 
             public function get_dataSekolah()
@@ -243,7 +243,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Master";
                   $data["child_title"]  = "Data Kurikulum";
-                  $this->template->load("mainAdmin_v","data_master/kurikulum_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_master/kurikulum_v",$data);
             }
 
             public function getDataKurikulum()
@@ -282,7 +282,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Master";
                   $data["child_title"]  = "Data Tahun Akademik";
-                  $this->template->load("mainAdmin_v","data_master/thnAkademik_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_master/thnAkademik_v",$data);
             }
 
             public function getDataThnAkademik()
@@ -340,7 +340,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Master";
                   $data["child_title"]  = "Data Gedung";
-                  $this->template->load("mainAdmin_v","data_master/gedung_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_master/gedung_v",$data);
             }
 
             public function getDataGedung()
@@ -404,7 +404,7 @@
                   $data["parent_title"] = "Master";
                   $data["child_title"]  = "Data Ruangan";
                   $data["gedung"] = $this->Main_model->getDataGedung();
-                  $this->template->load("mainAdmin_v","data_master/ruangan_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_master/ruangan_v",$data);
             }
 
             public function getDataRuangan()
@@ -462,7 +462,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Master";
                   $data["child_title"]  = "Data Jurusan";
-                  $this->template->load("mainAdmin_v","data_master/jurusan_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_master/jurusan_v",$data);
             }
 
             public function getDataJurusan()
@@ -522,7 +522,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Master";
                   $data["child_title"]  = "Data Kelas";
-                  $this->template->load("mainAdmin_v","data_master/kelas_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_master/kelas_v",$data);
             }
 
             public function getdataKelas()
@@ -579,7 +579,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Master";
                   $data["child_title"]  = "Data Kelas Paralel";
-                  $this->template->load("mainAdmin_v","data_master/klsParalel_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_master/klsParalel_v",$data);
             }
 
             public function getdataKlsParalel()
@@ -641,7 +641,7 @@
                   $data["parent_title"] = "Data Pengguna";
                   $data["child_title"]  = "Data Siswa";
                   $data["sess_unit"] = $this->session->userdata("unit");
-                  $this->template->load("mainAdmin_v","data_pengguna/siswa_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_pengguna/siswa_v",$data);
             }
 
             public function getDataSiswa()
@@ -975,7 +975,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Pengguna";
                   $data["child_title"]  = "Data Guru";
-                  $this->template->load("mainAdmin_v","data_pengguna/guru_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_pengguna/guru_v",$data);
             }
 
             public function getDataGuruByUnit()
@@ -1380,7 +1380,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Pengguna";
                   $data["child_title"]  = "Data Kepala Sekolah";
-                  $this->template->load("mainAdmin_v","data_pengguna/kepsek_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_pengguna/kepsek_v",$data);
             }
 
             public function getDataKepsek()
@@ -1438,7 +1438,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Pengguna";
                   $data["child_title"]  = "Data Admin";
-                  $this->template->load("mainAdmin_v","data_pengguna/admin_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_pengguna/admin_v",$data);
             }
 
             public function getAdminSekolah()
@@ -1499,7 +1499,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Akademik";
                   $data["child_title"]  = "Data Kelompok Mata Pelajaran";
-                  $this->template->load("mainAdmin_v","data_akademik/kelompok_mapel_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_akademik/kelompok_mapel_v",$data);
             }
 
             public function getDataKelompokMapel()
@@ -1562,7 +1562,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Akademik";
                   $data["child_title"]  = "Data Mata Pelajaran";
-                  $this->template->load("mainAdmin_v","data_akademik/mapel_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_akademik/mapel_v",$data);
             }
 
             public function getDataMapel()
@@ -1658,7 +1658,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Akademik";
                   $data["child_title"]  = "Data Jadwal Pelajaran";
-                  $this->template->load("mainAdmin_v","data_akademik/jadwal_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_akademik/jadwal_v",$data);
             }
 
             public function getDataJadwal()
@@ -1753,7 +1753,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Akademik";
                   $data["child_title"]  = "Data Rentang Nilai";
-                  $this->template->load("mainAdmin_v","data_akademik/rentang_nilai_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_akademik/rentang_nilai_v",$data);
             }
 
             public function getDataRentangNilai()
@@ -1815,7 +1815,7 @@
                   $data["parent_title"] = "Data Absensi";
                   $data["child_title"]  = "Data Absensi Siswa";
                   $data["gedung"] = $this->Main_model->getDataGedung();
-                  $this->template->load("mainAdmin_v","data_absensi/absensi_siswa_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_absensi/absensi_siswa_v",$data);
             }
 
             public function getDataAbsensiSiswa()
@@ -2070,7 +2070,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Jurnal KBM";
                   $data["child_title"]  = "Input Jurnal KBM";
-                  $this->template->load("mainAdmin_v","data_jurnal_kbm/input_jurnal_kbm_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_jurnal_kbm/input_jurnal_kbm_v",$data);
             }
 
             public function laporan_jurnal_kbm()
@@ -2078,7 +2078,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Jurnal KBM";
                   $data["child_title"]  = "Laporan Jurnal KBM";
-                  $this->template->load("mainAdmin_v","data_jurnal_kbm/input_jurnal_kbm_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_jurnal_kbm/input_jurnal_kbm_v",$data);
             }
 
             public function data_materi()
@@ -2086,7 +2086,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Materi & CBT";
                   $data["child_title"]  = "Data Materi";
-                  $this->template->load("mainAdmin_v","data_materi_cbt/materi_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_materi_cbt/materi_v",$data);
             }
 
             public function data_cbt()
@@ -2094,7 +2094,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Materi & CBT";
                   $data["child_title"]  = "Data CBT";
-                  $this->template->load("mainAdmin_v","data_materi_cbt/cbt_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_materi_cbt/cbt_v",$data);
                   
             }
 
@@ -2247,7 +2247,7 @@
                   $this->isLogin();
                   $data["parent_title"] = "Data Materi & CBT";
                   $data["child_title"]  = "Bank Soal";
-                  $this->template->load("mainAdmin_v","data_materi_cbt/bank_soal_v",$data);
+                  $this->template->load("mainAdmin_v","dashboard/data_materi_cbt/bank_soal_v",$data);
             }
 
             public function getDataTopikSoal()
