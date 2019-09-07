@@ -89,7 +89,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="<?php echo base_url('circle_student/admin') ?>">
-                <img src="<?php echo base_url() ?>assets/main/img/text_logo.png">
+                <img src="<?php echo base_url() ?>assets/admin/img/text_logo.png">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -1055,17 +1055,38 @@
 
     function saveKurikulum() {
       var kurikulum = $("#inputKurikulum").val();
+      if (!kurikulum) {
+        alertEmptyImportanInput();
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('circle_student/main/saveKurikulum') ?>",
+          data : {kurikulum:kurikulum},
+          success : function(response) {
+            if (jQuery.trim(response)==="success") {
+              $("#modalAddKurikulum").modal("hide");
+              dataTbKurikulum();
+              alertSuccessSave();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedSave();
+            }
+          }
+        });
+      }
+    }
+
+    function deleteKurikulum(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/main/saveKurikulum') ?>",
-        data : {kurikulum:kurikulum},
-        success : function(response) {
+        url  : "<?php echo base_url('circle_student/main/deleteKurikulum') ?>",
+        data : {id:id},
+        success : function(response){
           if (jQuery.trim(response)==="success") {
-            $("#modalAddKurikulum").modal("hide");
+            $("#confirmDelete").modal("hide");
             dataTbKurikulum();
-            alertSuccessSave();
+            alertSuccessDelete();
           }else if(jQuery.trim(response)==="failed"){
-            alertFailedSave();
+            alertFailedDelete();
           }
         }
       });

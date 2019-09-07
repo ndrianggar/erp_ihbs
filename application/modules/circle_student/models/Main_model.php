@@ -86,7 +86,8 @@
 		public function saveUnit($unit)
 		{
 			$this->db->trans_start();
-			$this->db->insert("tb_unit",$unit);
+			$this->db->set('unit', $unit);
+			$this->db->insert("tb_unit");
 			if ($this->db->trans_status()===FALSE) {
 				$this->db->trans_rollback();
 				return "failed";
@@ -288,6 +289,22 @@
 			$this->db->trans_start();
 			$this->db->set('nm_kurikulum', $data);
 			$this->db->insert("tb_kurikulum");
+			if ($this->db->trans_status()===FALSE) {
+				$this->db->trans_rollback();
+				return "failed";
+			}else{
+				$this->db->trans_commit();
+				return "success";
+			}
+		}
+
+		public function deleteKurikulum($id)
+		{
+			
+			$this->db->trans_start();
+			$this->db->set("deleted","true");
+			$this->db->where("kd_kurikulum",$id);
+			$this->db->update("tb_kurikulum");
 			if ($this->db->trans_status()===FALSE) {
 				$this->db->trans_rollback();
 				return "failed";
