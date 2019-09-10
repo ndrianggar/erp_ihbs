@@ -5305,7 +5305,56 @@
       });
     }
 
-     </script>
+    function dataTbCbt(){
+      var unit = $("#selectUnit").val();
+      var kd_kls = $("#selectKlsByUnit").val();
+      if (!unit||!kd_kls) {
+        alertEmptyImportanInput()
+      }else{
+        $("#tbCbt").dataTable().fnDestroy();
+        $("#tbCbt").dataTable({
+          // "fixedHeader" : true,
+          "pageLength" : 50,
+          "autoWidth" : false,
+          "ordering" : false,
+          "bProcessing" : true,
+          "bServerSide" : true,
+          "bJQueryUI" : true,
+          "sPaginationType" : "full_numbers",
+          "sAjaxSource" : "<?php echo base_url(); ?>circle_student/main/getDataCbt/",
+          "aoColumnDefs": [
+            { "sWidth": "10%", "aTargets": [ -1 ] }
+        ],
+          "columns" : [
+            {"data" : "kd_cbt", "name" : "a.kd_cbt"},
+            {"data" : "nm_mapel", "name" : "b.nm_mapel"},
+            {"data" : "nm_cbt", "name" : "a.nm_cbt"},
+            {"data" : "kd_kls", "name" : "a.kd_kls"},
+            {"data" : "kkm", "name" : "b.kkm"},
+            {"data" : "kkm", "name" : "b.kkm"},
+            {"data" : "kkm", "name" : "b.kkm"},
+
+          ],
+          "fnServerData" : function(sSource,aoData,fnCallback){
+            aoData.push({"name":"kd_kls","value":kd_kls});
+            aoData.push({"name":"unit","value":unit});
+            $.ajax({
+              "type"      : "POST",
+              "dataType"  : "JSON",
+              "url"       : sSource,
+              "data"      : aoData,
+              "success"   : fnCallback
+            });
+          },
+          "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
+            $("td:eq(0)",nRow).text(++iDisplayIndex);
+            $("td:eq(6)",nRow).html("<div class='dropdown'><button class='btn btn-secondary btn-sm dropdown-toggle' type='button' id='dropdownMenu2' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Menu</button><div class='dropdown-menu dropdown-menu-right' style='position:relative;' aria-labelledby='dropdownMenu2'><button class='dropdown-item' type='button'><i class='fa fa-edit text-primary'></i> Edit</button><button class='dropdown-item' type='button'><i class='fa fa-plus text-primary'></i> Tambah Soal</button><button class='dropdown-item' type='button'><i class='ni ni-watch-time text-primary'></i>Set Jadwal</button><button class='dropdown-item' type='button'><i class='fa fa-check text-primary'></i>Nilai CBT</button><button class='dropdown-item' type='button'><i class='fa fa-trash text-danger'></i>Hapus CBT</button></div></div>");
+          }
+        });
+      }
+    }
+
+  </script>
 
 </body>
 </html>

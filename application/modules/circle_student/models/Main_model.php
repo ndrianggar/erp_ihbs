@@ -1650,4 +1650,15 @@
 			}
 		}
 
+		public function getDataCbt($data)
+		{
+			$this->datatables->select("a.kd_cbt, a.kd_jenis_cbt, a.nm_cbt,a.kd_kls, b.nm_mapel, b.kkm");
+			$this->datatables->from("tb_cbt a");
+			$this->datatables->join("tb_mapel b","a.kd_mapel = b.kd_mapel");
+			$this->datatables->join("tb_jenis_cbt c", "a.kd_jenis_cbt = c.kd_jenis_cbt");
+			$this->datatables->where("a.unit = '$data[unit]' AND kd_kls = '$data[kd_kls]' AND a.deleted = 'false'");
+			$this->db->order_by("a.kd_cbt asc");
+			return $this->datatables->generate();
+		}
+
 	}

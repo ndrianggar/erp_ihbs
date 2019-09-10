@@ -17,13 +17,13 @@
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteJnsCbtModal" onclick="confirmDeleteJnsCbt()"><i class="fa fa-trash"></i>Delete</a>
         </div>
       </div>
-      <select class="form-control-sm" id="select_JnsCbt">
+      <select class="form-control-sm" id="select_JnsCbt" onchange="dataTbCbt()">
         <option selected="selected" value="">Pilih Jenis CBT *</option>
       </select>
     </div>
     <button class="btn btn-sm btn-primary pull-right" id="btnAddCbt" onclick="add('Cbt')"><i class="fa fa-plus"></i> Tambah</button>
   </div>
-  <div class="table-responsive" id="frmTbCbt">
+  <!-- <div class="table-responsive" id="frmTbCbt"> -->
     <table class="table align-items-center table-flush" id="tbCbt">
       <thead class="thead-light">
         <tr>
@@ -40,7 +40,7 @@
         
       </tbody>
     </table>
-  </div>
+  <!-- </div> -->
   <div class="container" id="frmAddCbt" style="display: none;">
     <form id="inputDataCbt">
     <div class="row">

@@ -233,7 +233,7 @@
             <h2 class="text-center mt-2 font-weight-bold text-dark">Circel Student</h2>
           </div>
         </div>
-        <div class="col-md-3 wow bounce mb-5" id="card_menu" data-wow-duration="3s" style="cursor: pointer;" onclick="window.location = '<?php echo base_url() ?>circle_student/main'">
+        <div class="col-md-3 wow bounce mb-5" id="card_menu" data-wow-duration="3s" style="cursor: pointer;" onclick="window.location = '<?php echo base_url() ?>hris/main'">
           <div class="card shadow border-0" style="background-color:#fff; ">
             <img src="<?php echo base_url(); ?>assets/home/img/bg-mapel1.png" class="card-img-top">
             <h2 class="text-center mt-2 font-weight-bold text-dark">HRD</h2>

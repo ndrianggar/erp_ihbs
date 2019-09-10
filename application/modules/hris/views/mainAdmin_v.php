@@ -114,87 +114,60 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url('circle_student/admin') ?>">
+            <a class="nav-link" href="<?php echo base_url('hris/main/') ?>">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a href="#data-master" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i> Master</a>
+            <a href="#data-master" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i> Master Data</a>
             <ul class="collapse list-inline" id="data-master">
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_identitas_sekolah') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Identitas Sekolah</a>
+                    <a href="<?php echo base_url('hris/main//data_identitas_sekolah') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Master Position</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_kurikulum'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Kurikulum</a>
+                    <a href="<?php echo base_url('hris/admin/data_kurikulum'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Master Division</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_tahun_akademik'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Tahun Akademik</a>
+                    <a href="<?php echo base_url('hris/main/data_tahun_akademik'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Job Title</a>
                 </li>
-                <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_gedung'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Gedung</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_ruangan'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Ruangan</a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Golongan</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_jurusan') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Jurusan</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_kelas'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Kelas</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_kelas_paralel'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Kelas Paralel</a>
-                </li>
+               
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#data-pengguna" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i> Data Pengguna</a>
+            <a href="#data-pengguna" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i>Payroll Employee</a>
             <ul class="collapse list-inline" id="data-pengguna">
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_siswa') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Siswa</a>
+                    <a href="<?php echo base_url('hris/main/data_siswa') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Payroll Employee</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_guru'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Guru</a>
+                    <a href="<?php echo base_url('hris/main/data_guru'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Input Salary</a>
                 </li>
-                <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_kepala_sekolah'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Kepala Sekolah</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_admin'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Admin</a>
-                </li>
+               
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#data-akademik" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i> Data Akademik</a>
+            <a href="#data-akademik" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i> Data Karyawan</a>
             <ul class="collapse list-inline" id="data-akademik">
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_kelompok_mapel') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Kelompok Mata Pelajaran</a>
+                    <a href="<?php echo base_url('hris/main/data_kelompok_mapel') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>View Employee</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_mapel'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Mata Pelajaran</a>
+                    <a href="<?php echo base_url('hris/main/data_mapel'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Approval Employee</a>
                 </li>
-                <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_jadwal_pelajaran'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Jadwal Pelajaran</a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_rentang_nilai'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Rentang Nilai</a>
-                </li>
+               
             </ul>
           </li>
-          <li class="nav-item">
+         <!--  <li class="nav-item">
             <a href="#data-absensi" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i> Data Absensi</a>
             <ul class="collapse list-inline" id="data-absensi">
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_absensi_guru') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Absensi Guru</a>
+                    <a href="<?php echo base_url('hris/main/data_absensi_guru') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Absensi Guru</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_absensi_siswa'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Absensi Siswa</a>
+                    <a href="<?php echo base_url('hris/main/data_absensi_siswa'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Absensi Siswa</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_rekap_absensi_siswa'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Rekap Absensi</a>
+                    <a href="<?php echo base_url('hris/main/data_rekap_absensi_siswa'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Data Rekap Absensi</a>
                 </li>
             </ul>
           </li>
@@ -202,10 +175,10 @@
             <a href="#data-jurnal" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i> Data Jurnal KBM</a>
             <ul class="collapse list-inline" id="data-jurnal">
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/input_jurnal_kbm') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Input Jurnal KBM</a>
+                    <a href="<?php echo base_url('hris/main/input_jurnal_kbm') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Input Jurnal KBM</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/laporan_jurnal_kbm'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Laporan Jurnal KBM</a>
+                    <a href="<?php echo base_url('hris/main/laporan_jurnal_kbm'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Laporan Jurnal KBM</a>
                 </li>
             </ul>
           </li>
@@ -213,12 +186,12 @@
             <a href="#data-materi" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i> Materi & Tugas</a>
             <ul class="collapse list-inline" id="data-materi">
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_materi') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Materi</a>
+                    <a href="<?php echo base_url('hris/main/data_materi') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Materi</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('circle_student/admin/data_cbt'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>CBT</a>
+                    <a href="<?php echo base_url('hris/main/data_cbt'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>CBT</a>
                 </li>
-            </ul>
+            </ul> -->
         </ul>
         <!-- Divider -->
         <hr class="my-3">
@@ -487,7 +460,7 @@
     function dataTbSekolah() {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/get_dataSekolah') ?>",
+        url  : "<?php echo base_url('hris/main/get_dataSekolah') ?>",
         dataType : "JSON",
         success:function(response){
           $("#tbDataSekolah > tbody").empty();var no=1;
@@ -667,7 +640,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/saveDataSekolah'); ?>",
+          url  : "<?php echo base_url('hris/main/saveDataSekolah'); ?>",
           data : {
             unit:unit,
             nmSekolah : nmSekolah,
@@ -700,7 +673,7 @@
     function deleteSekolah(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteListSekolah'); ?>",
+        url  : "<?php echo base_url('hris/main/deleteListSekolah'); ?>",
         data : {id:id},
         success:function(response) {
           if (jQuery.trim(response)==="success") {
@@ -719,7 +692,7 @@
     function editSekolah(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataSekolahById') ?>",
+        url  : "<?php echo base_url('hris/main/getDataSekolahById') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function(response) {
@@ -767,7 +740,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/updateSekolah') ?>",
+          url  : "<?php echo base_url('hris/main/updateSekolah') ?>",
           data : {
             id:id,
             unit:unit,
@@ -800,7 +773,7 @@
     function detailSekolah(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataSekolahById') ?>",
+        url  : "<?php echo base_url('hris/main/getDataSekolahById') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function(response) {
@@ -829,7 +802,7 @@
     function dataTbThnAkademik() {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataThnAkademik'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataThnAkademik'); ?>",
         dataType : "JSON",
         success : function(response){var no=1;
           $("#tbThnAkademik > tbody").empty();
@@ -860,7 +833,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/saveThnAkademik') ?>",
+          url  : "<?php echo base_url('hris/main/saveThnAkademik') ?>",
           data : {unit:unit, nmThn:nmThn, ket:ket, stat:stat},
           success : function(response){
             if (jQuery.trim(response)==="success") {
@@ -878,7 +851,7 @@
     function deleteThnAkademik(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteThnAkademik') ?>",
+        url  : "<?php echo base_url('hris/main/deleteThnAkademik') ?>",
         data : {id:id},
         success : function(response){
           if (jQuery.trim(response)==="success") {
@@ -896,7 +869,7 @@
     function editThnAkademik(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getThnAkademikById'); ?>",
+        url  : "<?php echo base_url('hris/main/getThnAkademikById'); ?>",
         dataType : "JSON",
         data : {id:id},
         success : function(response){
@@ -926,7 +899,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/updateThnAkademik'); ?>",
+          url  : "<?php echo base_url('hris/main/updateThnAkademik'); ?>",
           data : {id:id, unit:unit, nmThn:nmThn, ket:ket, stat:stat},
           success : function(response){
             if (jQuery.trim(response)==="success") {
@@ -944,7 +917,7 @@
     function dataTbGedung(){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataGedung') ?>",
+        url  : "<?php echo base_url('hris/main/getDataGedung') ?>",
         dataType : "JSON",
         success  : function(response) {
           $("#tbGedung > tbody").empty(); var no=1;
@@ -979,7 +952,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/insertDataGedung'); ?>",
+          url  : "<?php echo base_url('hris/main/insertDataGedung'); ?>",
           data : {
             nm_gedung:nm_gedung, 
             jml_lantai:jml_lantai, 
@@ -1003,7 +976,7 @@
     function deleteGedung(id){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteGedung'); ?>",
+        url  : "<?php echo base_url('hris/main/deleteGedung'); ?>",
         data : {id:id},
         success : function(response){
           if (jQuery.trim(response)==="success") {
@@ -1021,7 +994,7 @@
     function editGedung(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getGedungById');?>",
+        url  : "<?php echo base_url('hris/main/getGedungById');?>",
         dataType : "JSON",
         data : {id:id},
         success : function(response){
@@ -1055,7 +1028,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/updateDataGedung'); ?>",
+          url  : "<?php echo base_url('hris/main/updateDataGedung'); ?>",
           data : {
             id:id,
             nm_gedung:nm_gedung, 
@@ -1080,7 +1053,7 @@
     function dataTbRuangan(){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataRuangan') ?>",
+        url  : "<?php echo base_url('hris/main/getDataRuangan') ?>",
         dataType : "JSON",
         success  : function(response) {
           $("#tbRuangan > tbody").empty(); var no=1;
@@ -1102,7 +1075,7 @@
     function selectGedung() {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataGedung'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataGedung'); ?>",
         dataType : "JSON",
         success : function(response){
           $("#nmGedung").empty();
@@ -1121,7 +1094,7 @@
     function deleteRuangan(id){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteRuangan'); ?>",
+        url  : "<?php echo base_url('hris/main/deleteRuangan'); ?>",
         data : {id:id},
         success : function(response){
           if (jQuery.trim(response)==="success") {
@@ -1147,7 +1120,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/saveRuangan'); ?>",
+          url  : "<?php echo base_url('hris/main/saveRuangan'); ?>",
           data : {nm_ruangan:nm_ruangan, kd_gedung:kd_gedung, kapasitas:kapasitas,unit:unit},
           success : function(response){
             if (jQuery.trim(response)==="success") {
@@ -1165,7 +1138,7 @@
     function editRuangan(id){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataRuanganById') ?>",
+        url  : "<?php echo base_url('hris/main/getDataRuanganById') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function(response){
@@ -1194,7 +1167,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/updateRuangan'); ?>",
+          url  : "<?php echo base_url('hris/main/updateRuangan'); ?>",
           data : {id:id, nm_ruangan:nm_ruangan, kd_gedung:kd_gedung, kapasitas:kapasitas, unit:unit},
           success : function(response) {
             if (jQuery.trim(response)==="success") {
@@ -1213,7 +1186,7 @@
     {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataJurusan') ?>",
+        url  : "<?php echo base_url('hris/main/getDataJurusan') ?>",
         dataType : "JSON",
         success  : function(response) {
           $("#tbJurusan > tbody").empty(); var no=1;
@@ -1246,7 +1219,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/insertDataJurusan'); ?>",
+          url  : "<?php echo base_url('hris/main/insertDataJurusan'); ?>",
           data : {jurusan:jurusan, nm_jurusan:nm_jurusan, bidang_keahlian:bidang_keahlian, kopetensi_umum: kopetensi_umum, kopetensi_khusus:kopetensi_khusus},
           success : function(response) {
             if (jQuery.trim(response)==="success") {
@@ -1264,7 +1237,7 @@
     function editJurusan(id){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataJurusanById') ?>",
+        url  : "<?php echo base_url('hris/main/getDataJurusanById') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function(response){
@@ -1296,7 +1269,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/updateDataJurusan'); ?>",
+          url  : "<?php echo base_url('hris/main/updateDataJurusan'); ?>",
           data : {id:id, jurusan:jurusan, nm_jurusan:nm_jurusan, bidang_keahlian:bidang_keahlian, kopetensi_umum: kopetensi_umum, kopetensi_khusus:kopetensi_khusus},
           success : function(response) {
             if (jQuery.trim(response)==="success") {
@@ -1314,7 +1287,7 @@
     function deleteJurusan(id){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteJurusan'); ?>",
+        url  : "<?php echo base_url('hris/main/deleteJurusan'); ?>",
         data : {id:id},
         success : function(response){
           if (jQuery.trim(response)==="success") {
@@ -1332,7 +1305,7 @@
     function dataTbKelas(){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataKelas') ?>",
+        url  : "<?php echo base_url('hris/main/getDataKelas') ?>",
         dataType : "JSON",
         success  : function(response) {
           $("#tbKelas > tbody").empty(); var no=1;
@@ -1361,7 +1334,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/insertDataKelas'); ?>",
+          url  : "<?php echo base_url('hris/main/insertDataKelas'); ?>",
           data : {unit:unit, kd_kls:kd_kls, nm_kelas:nm_kelas, angka:angka},
           success : function(response) {
             if (jQuery.trim(response)==="success") {
@@ -1379,7 +1352,7 @@
     function editKelas(id){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataKelasById') ?>",
+        url  : "<?php echo base_url('hris/main/getDataKelasById') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function(response){
@@ -1408,7 +1381,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/updateDataKelas'); ?>",
+          url  : "<?php echo base_url('hris/main/updateDataKelas'); ?>",
           data : {unit:unit, kd_kls:kd_kls, nm_kelas:nm_kelas, angka:angka},
           success : function(response) {
             if (jQuery.trim(response)==="success") {
@@ -1427,7 +1400,7 @@
     {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteKelas'); ?>",
+        url  : "<?php echo base_url('hris/main/deleteKelas'); ?>",
         data : {id:id},
         success : function(response){
           if (jQuery.trim(response)==="success") {
@@ -1445,7 +1418,7 @@
     function dataTbKlsParalel() {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataKlsParalel') ?>",
+        url  : "<?php echo base_url('hris/main/getDataKlsParalel') ?>",
         dataType : "JSON",
         success  : function(response) {
           $("#tbKlsParalel > tbody").empty(); var no=1;
@@ -1469,7 +1442,7 @@
     function selectKelas() {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataKelas'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataKelas'); ?>",
         dataType : "JSON",
         success : function(response){
           $("#kd_kls_select").empty();
@@ -1501,7 +1474,7 @@
     function selectWaliKelas(){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataGuru'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataGuru'); ?>",
         dataType : "JSON",
         success : function(response){
           $("#wali_kelas").empty();
@@ -1531,7 +1504,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/insertKlsParalel'); ?>",
+          url  : "<?php echo base_url('hris/main/insertKlsParalel'); ?>",
           data : {kd_kls:kd_kls, kls_paralel:kls_paralel, wali_kelas:wali_kelas},
           success : function(response){
             if (jQuery.trim(response)==="success") {
@@ -1549,7 +1522,7 @@
     function deleteKlsParalel(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteKlsParalel'); ?>",
+        url  : "<?php echo base_url('hris/main/deleteKlsParalel'); ?>",
         data : {id:id},
         success : function(response) {
           if (jQuery.trim(response)==="success") {
@@ -1567,7 +1540,7 @@
     function editKlsParalel(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataKlsParalelById') ?>",
+        url  : "<?php echo base_url('hris/main/getDataKlsParalelById') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function(response){
@@ -1595,7 +1568,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/updateKlsParalel'); ?>",
+          url  : "<?php echo base_url('hris/main/updateKlsParalel'); ?>",
           data : {id:id, kd_kls:kd_kls, kls_paralel:kls_paralel, wali_kelas:wali_kelas},
           success : function(response){
             if (jQuery.trim(response)==="success") {
@@ -1626,7 +1599,7 @@
           "bServerSide" : true,
           "bJQueryUI" : true,
           "sPaginationType" : "full_numbers",
-          "sAjaxSource" : "<?php echo base_url(); ?>circle_student/admin/getDataSiswa/",
+          "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getDataSiswa/",
           "aoColumnDefs": [
             { "sWidth": "10%", "aTargets": [ -1 ] }
         ],
@@ -1665,7 +1638,7 @@
       var unit = $("#selectUnit").val();
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataKlsParalelByUnit'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataKlsParalelByUnit'); ?>",
         data : {unit:unit},
         dataType : "JSON",
         success : function(response){
@@ -1715,7 +1688,7 @@
     function detailSiswa(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataSiswaByNipd'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataSiswaByNipd'); ?>",
         data : {id:id},
         dataType : "JSON",
         success : function(response){
@@ -1952,7 +1925,7 @@
       var nipd = $("#nipd").val();
       e.preventDefault(); 
       $.ajax({
-        url:"<?php echo base_url('circle_student/admin/insertDataSiswa');?>",
+        url:"<?php echo base_url('hris/main/insertDataSiswa');?>",
         type:"post",
         data:new FormData(this),
         processData:false,
@@ -1975,7 +1948,7 @@
       var nipd = $("#edit_nipd").val();
       e.preventDefault(); 
       $.ajax({
-        url:"<?php echo base_url('circle_student/admin/updateDataSiswa');?>",
+        url:"<?php echo base_url('hris/main/updateDataSiswa');?>",
         type:"post",
         data:new FormData(this),
         processData:false,
@@ -1999,7 +1972,7 @@
       var unit = $("#edit_unit").val();
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataKlsByUnit'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataKlsByUnit'); ?>",
         data : {unit:unit},
         dataType : "JSON",
         success : function(response){
@@ -2020,7 +1993,7 @@
       var kd_kls = $("#edit_kls").val();
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataKlsParalelByKls'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataKlsParalelByKls'); ?>",
         data : {kd_kls:kd_kls},
         dataType : "JSON",
         success : function(response){
@@ -2040,7 +2013,7 @@
     function deleteSiswa(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteSiswa'); ?>",
+        url  : "<?php echo base_url('hris/main/deleteSiswa'); ?>",
         data : {id:id},
         success : function(response) {
           if (jQuery.trim(response)==="success") {
@@ -2067,7 +2040,7 @@
     $('#importDataSiswa').submit(function(e){
       e.preventDefault(); 
       $.ajax({
-        url:"<?php echo base_url('circle_student/admin/importDataSiswa');?>",
+        url:"<?php echo base_url('hris/main/importDataSiswa');?>",
         type:"post",
         data:new FormData(this),
         processData:false,
@@ -2092,7 +2065,7 @@
       if (!unit||!kls_paralel) {
         alertEmptyImportanInput();
       }else{
-        window.open("<?php echo base_url() ?>circle_student/admin/printSiswa/"+unit+"/"+kls_paralel+"",'_blank');
+        window.open("<?php echo base_url() ?>hris/main/printSiswa/"+unit+"/"+kls_paralel+"",'_blank');
       }
     }
 
@@ -2108,7 +2081,7 @@
         "bServerSide" : true,
         "bJQueryUI" : true,
         "sPaginationType" : "full_numbers",
-        "sAjaxSource" : "<?php echo base_url(); ?>circle_student/admin/getDataGuruByUnit/",
+        "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getDataGuruByUnit/",
         "aoColumnDefs": [
           { "sWidth": "10%", "aTargets": [ -1 ] }
         ],
@@ -2144,7 +2117,7 @@
     function detailGuru(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDetailGuru'); ?>",
+        url  : "<?php echo base_url('hris/main/getDetailGuru'); ?>",
         data : {id:id},
         dataType : "JSON",
         success : function(response) {
@@ -2466,7 +2439,7 @@
       var nip = $("#edit_nip").val();
       e.preventDefault(); 
       $.ajax({
-        url:"<?php echo base_url('circle_student/admin/updateDataGuru');?>",
+        url:"<?php echo base_url('hris/main/updateDataGuru');?>",
         type:"post",
         data:new FormData(this),
         processData:false,
@@ -2497,7 +2470,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo site_url("circle_student/admin/change_pass_guru") ?>",
+          url  : "<?php echo site_url("hris/main/change_pass_guru") ?>",
           data : {oldPass:oldPass,newPass:newPass,nip:nip},
           success:function(response){
             if (jQuery.trim(response)==="success") {
@@ -2533,7 +2506,7 @@
     $('#inputDataGuru').submit(function(e){
       e.preventDefault(); 
       $.ajax({
-        url:"<?php echo base_url('circle_student/admin/inputDataGuru');?>",
+        url:"<?php echo base_url('hris/main/inputDataGuru');?>",
         type:"post",
         data:new FormData(this),
         processData:false,
@@ -2555,7 +2528,7 @@
     function deleteGuru(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteGuru') ?>",
+        url  : "<?php echo base_url('hris/main/deleteGuru') ?>",
         data : {id:id},
         success : function(response) {
           if (jQuery.trim(response)==="success") {
@@ -2582,7 +2555,7 @@
     $('#importDataGuru').submit(function(e){
       e.preventDefault(); 
       $.ajax({
-        url:"<?php echo base_url('circle_student/admin/importDataGuru');?>",
+        url:"<?php echo base_url('hris/main/importDataGuru');?>",
         type:"post",
         data:new FormData(this),
         processData:false,
@@ -2612,7 +2585,7 @@
         "bServerSide" : true,
         "bJQueryUI" : true,
         "sPaginationType" : "full_numbers",
-        "sAjaxSource" : "<?php echo base_url(); ?>circle_student/admin/getDataKepsek/",
+        "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getDataKepsek/",
         "aoColumnDefs": [
           { "sWidth": "10%", "aTargets": [ -1 ] }
       ],
@@ -2643,7 +2616,7 @@
     function selectKepsek(){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataGuru'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataGuru'); ?>",
         dataType : "JSON",
         success : function(response){
           $("#select_nmKepsek").empty();
@@ -2671,7 +2644,7 @@
       var unit = $("#input_unit").val();
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataSekolahByUnit'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataSekolahByUnit'); ?>",
         data : {unit:unit},
         dataType : "JSON",
         success : function(response){
@@ -2695,7 +2668,7 @@
     function editKepsek(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDetailKepsek') ?>",
+        url  : "<?php echo base_url('hris/main/getDetailKepsek') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function(response){
@@ -2722,7 +2695,7 @@
       var kd_kepsek = $("#kd_kepsek").val();
       if (!kd_kepsek) {
         $.ajax({
-          url:"<?php echo base_url('circle_student/admin/inputDataKepsek');?>",
+          url:"<?php echo base_url('hris/main/inputDataKepsek');?>",
           type:"post",
           data:new FormData(this),
           processData:false,
@@ -2741,7 +2714,7 @@
         });  
       }else{
         $.ajax({
-          url:"<?php echo base_url('circle_student/admin/updateDataKepsek');?>",
+          url:"<?php echo base_url('hris/main/updateDataKepsek');?>",
           type:"post",
           data:new FormData(this),
           processData:false,
@@ -2765,7 +2738,7 @@
     function deleteKepsek(id){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteKepsek') ?>",
+        url  : "<?php echo base_url('hris/main/deleteKepsek') ?>",
         data : {id:id},
         success : function(response){
           if (jQuery.trim(response)==="success") {
@@ -2792,7 +2765,7 @@
         "bServerSide" : true,
         "bJQueryUI" : true,
         "sPaginationType" : "full_numbers",
-        "sAjaxSource" : "<?php echo base_url(); ?>circle_student/admin/getAdminSekolah/",
+        "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getAdminSekolah/",
         "aoColumnDefs": [
           { "sWidth": "10%", "aTargets": [ -1 ] }
       ],
@@ -2823,7 +2796,7 @@
     function selectNmAdmin(){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataGuru'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataGuru'); ?>",
         dataType : "JSON",
         success : function(response){
           $("#select_nmAdmin").empty();
@@ -2852,7 +2825,7 @@
       var kd_user = $("#input_kdUser").val();
       if (!kd_user) {
         $.ajax({
-          url:"<?php echo base_url('circle_student/admin/inputDataAdminSekolah');?>",
+          url:"<?php echo base_url('hris/main/inputDataAdminSekolah');?>",
           type:"post",
           data:new FormData(this),
           processData:false,
@@ -2871,7 +2844,7 @@
         });
       }else{
         $.ajax({
-          url:"<?php echo base_url('circle_student/admin/updateDataAdminSekolah');?>",
+          url:"<?php echo base_url('hris/main/updateDataAdminSekolah');?>",
           type:"post",
           data:new FormData(this),
           processData:false,
@@ -2894,7 +2867,7 @@
     function editAdmin(id){
         $.ajax({
             type : "POST",
-            url  : "<?php echo base_url('circle_student/admin/getDataAdminSekolahById'); ?>",
+            url  : "<?php echo base_url('hris/main/getDataAdminSekolahById'); ?>",
             data : {id:id},
             dataType : "JSON",
             success : function(response){
@@ -2917,7 +2890,7 @@
       function deleteAdmin(id) {
         $.ajax({
             type : "POST",
-            url  : "<?php echo base_url('circle_student/admin/deleteAdmin'); ?>",
+            url  : "<?php echo base_url('hris/main/deleteAdmin'); ?>",
             data : {id:id},
             success : function(response) {
               if (jQuery.trim(response)==="success") {
@@ -2935,7 +2908,7 @@
       function dataTbKelompokMapel() {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataKelompokMapel') ?>",
+        url  : "<?php echo base_url('hris/main/getDataKelompokMapel') ?>",
         dataType : "JSON",
         success:function(response){
           $("#tbKelompokMapel > tbody").empty();var no=1;
@@ -2957,7 +2930,7 @@
     function editKelompokMapel(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getKelompokMapelById') ?>",
+        url  : "<?php echo base_url('hris/main/getKelompokMapelById') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function (response) {
@@ -2981,7 +2954,7 @@
       if (!id) {
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/inputDataKelompokMapel') ?>",
+          url  : "<?php echo base_url('hris/main/inputDataKelompokMapel') ?>",
           data : new FormData(this),
           processData:false,
           contentType:false,
@@ -3000,7 +2973,7 @@
       }else{
         $.ajax({
         type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/updateDataKelompokMapel') ?>",
+          url  : "<?php echo base_url('hris/main/updateDataKelompokMapel') ?>",
           data : new FormData(this),
           processData:false,
           contentType:false,
@@ -3022,7 +2995,7 @@
     function deleteKelompokMapel(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteKelompokMapel') ?>",
+        url  : "<?php echo base_url('hris/main/deleteKelompokMapel') ?>",
         data : {id:id},
         success : function(response) {
           if (jQuery.trim(response)==="success") {
@@ -3047,7 +3020,7 @@
         "bServerSide" : true,
         "bJQueryUI" : true,
         "sPaginationType" : "full_numbers",
-        "sAjaxSource" : "<?php echo base_url(); ?>circle_student/admin/getDataMapel/",
+        "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getDataMapel/",
         "aoColumnDefs": [
           { "sWidth": "10%", "aTargets": [ -1 ] }
       ],
@@ -3083,7 +3056,7 @@
     function selectGuru(){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataGuru'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataGuru'); ?>",
         dataType : "JSON",
         success : function(response){
           $("#select_guru").empty();
@@ -3117,7 +3090,7 @@
       var unit = $("#input_unit").val().split(" ");
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataKelasByUnit'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataKelasByUnit'); ?>",
         data : {unit:unit[0]},
         dataType : "JSON",
         success : function(response){
@@ -3137,7 +3110,7 @@
         $("#input_jurusan").prop("disabled",false);
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/getDataJurusan') ?>",
+          url  : "<?php echo base_url('hris/main/getDataJurusan') ?>",
           dataType : "JSON",
           success : function(response) {
             $("#input_jurusan").empty();
@@ -3162,7 +3135,7 @@
       if (!id) {
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/inputDataMapel') ?>",
+          url  : "<?php echo base_url('hris/main/inputDataMapel') ?>",
           data : new FormData(this),
           processData:false,
           contentType:false,
@@ -3181,7 +3154,7 @@
       }else{
         $.ajax({
           type : "POST",
-          url  : "<?php echo base_url('circle_student/admin/updateDataMapel') ?>",
+          url  : "<?php echo base_url('hris/main/updateDataMapel') ?>",
           data : new FormData(this),
           processData:false,
           contentType:false,
@@ -3204,7 +3177,7 @@
     function editMapel(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getMapelById') ?>",
+        url  : "<?php echo base_url('hris/main/getMapelById') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function (response) {
@@ -3237,7 +3210,7 @@
     function deleteMapel(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteMapel') ?>",
+        url  : "<?php echo base_url('hris/main/deleteMapel') ?>",
         data : {id:id},
         success : function(response) {
           if (jQuery.trim(response)==="success") {
@@ -3268,7 +3241,7 @@
           "bServerSide" : true,
           "bJQueryUI" : true,
           "sPaginationType" : "full_numbers",
-          "sAjaxSource" : "<?php echo base_url(); ?>circle_student/admin/getDataJadwal/",
+          "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getDataJadwal/",
           "aoColumnDefs": [
             { "sWidth": "10%", "aTargets": [ -1 ] }
         ],
@@ -3309,7 +3282,7 @@
     function editJadwal(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getJadwalById') ?>",
+        url  : "<?php echo base_url('hris/main/getJadwalById') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function (response) {
@@ -3343,7 +3316,7 @@
     function selectHari() {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataHari'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataHari'); ?>",
         dataType : "JSON",
         success : function(response){
           $("#select_nmHari").empty();
@@ -3367,7 +3340,7 @@
       var kd_kls = $("#input_kelas").val();
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataKlsParalelByKls') ?>",
+        url  : "<?php echo base_url('hris/main/getDataKlsParalelByKls') ?>",
         data : {kd_kls:kd_kls},
         dataType : "JSON",
         success : function (response) {
@@ -3387,7 +3360,7 @@
     function selectRuangan() {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url("circle_student/admin/getDataRuangan"); ?>",
+        url  : "<?php echo base_url("hris/main/getDataRuangan"); ?>",
         dataType : "JSON",
         success : function (response) {
           $("#select_ruangan").empty();
@@ -3405,7 +3378,7 @@
     function selectThnAkademik() {
       $.ajax({
         type : "POST",
-        url  :  "<?php echo base_url('circle_student/admin/getDataThnAkademik'); ?>",
+        url  :  "<?php echo base_url('hris/main/getDataThnAkademik'); ?>",
         dataType : "JSON",
         success : function (response) {
           $("#select_thnAkademik").empty();
@@ -3426,7 +3399,7 @@
       var kd_jadwal = $("#input_kdJadwal").val();
       if (!kd_jadwal) {
         $.ajax({
-          url:"<?php echo base_url('circle_student/admin/inputDataJadwal');?>",
+          url:"<?php echo base_url('hris/main/inputDataJadwal');?>",
           type:"post",
           data:new FormData(this),
           processData:false,
@@ -3445,7 +3418,7 @@
         });
       }else{
         $.ajax({
-          url:"<?php echo base_url('circle_student/admin/updateDataJadwal');?>",
+          url:"<?php echo base_url('hris/main/updateDataJadwal');?>",
           type:"post",
           data:new FormData(this),
           processData:false,
@@ -3468,7 +3441,7 @@
     function selectMapel() {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getListMapel') ?>",
+        url  : "<?php echo base_url('hris/main/getListMapel') ?>",
         dataType : "JSON",
         success : function (response) {
           $("#input_mapel").empty();
@@ -3490,7 +3463,7 @@
       
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getGuruByMapel'); ?>",
+        url  : "<?php echo base_url('hris/main/getGuruByMapel'); ?>",
         data : {kd_mapel:kd_mapel},
         dataType : "JSON",
         success :function (response) {
@@ -3502,7 +3475,7 @@
     function deleteJadwal(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteJadwal') ?>",
+        url  : "<?php echo base_url('hris/main/deleteJadwal') ?>",
         data : {id:id},
         success : function(response) {
           if (jQuery.trim(response)==="success") {
@@ -3520,7 +3493,7 @@
       var unit = $("#selectUnit").val();
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataRentangNilai') ?>",
+        url  : "<?php echo base_url('hris/main/getDataRentangNilai') ?>",
         data : {unit:unit},
         dataType : "JSON",
         success : function(response) {
@@ -3547,7 +3520,7 @@
       var kd_predikat = $("#kd_predikat").val();
       if (!kd_predikat) {
         $.ajax({
-          url:"<?php echo base_url('circle_student/admin/inputDataPredikat');?>",
+          url:"<?php echo base_url('hris/main/inputDataPredikat');?>",
           type:"post",
           data:new FormData(this),
           processData:false,
@@ -3566,7 +3539,7 @@
         });
       }else{
         $.ajax({
-          url:"<?php echo base_url('circle_student/admin/updateDataPredikat');?>",
+          url:"<?php echo base_url('hris/main/updateDataPredikat');?>",
           type:"post",
           data:new FormData(this),
           processData:false,
@@ -3589,7 +3562,7 @@
     function editPredikat(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getPredikatById') ?>",
+        url  : "<?php echo base_url('hris/main/getPredikatById') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function (response) {
@@ -3615,7 +3588,7 @@
     function deletePredikat(id) {
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deletePredikat') ?>",
+        url  : "<?php echo base_url('hris/main/deletePredikat') ?>",
         data : {id:id},
         success : function (response) {
           if (jQuery.trim(response)==="success") {
@@ -3651,7 +3624,7 @@
       $("#idMpl").val(idMpl);
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/absensi_siswa'); ?>",
+        url  : "<?php echo base_url('hris/main/absensi_siswa'); ?>",
         data : {idKls:idKls,idJdwl:idJdwl,idMpl:idMpl,bulan:bulan,thn:thn},
         dataType : "JSON",
         success : function (response) {
@@ -3701,7 +3674,7 @@
           "bServerSide" : true,
           "bJQueryUI" : true,
           "sPaginationType" : "full_numbers",
-          "sAjaxSource" : "<?php echo base_url(); ?>circle_student/admin/getDataJadwal/",
+          "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getDataJadwal/",
           "aoColumnDefs": [
             { "sWidth": "10%", "aTargets": [ -1 ] }
         ],
@@ -3747,7 +3720,7 @@
       var idMpl = $("#idMpl").val();
       e.preventDefault(); 
       $.ajax({
-        url:"<?php echo base_url('circle_student/admin/inputAbsenSiswa');?>",
+        url:"<?php echo base_url('hris/main/inputAbsenSiswa');?>",
         type:"post",
         data:new FormData(this),
         processData:false,
@@ -3785,7 +3758,7 @@
           "bServerSide" : true,
           "bJQueryUI" : true,
           "sPaginationType" : "full_numbers",
-          "sAjaxSource" : "<?php echo base_url(); ?>circle_student/admin/getDataJadwal/",
+          "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getDataJadwal/",
           "aoColumnDefs": [
             { "sWidth": "10%", "aTargets": [ -1 ] }
         ],
@@ -3832,7 +3805,7 @@
       $("#idMpl").val(idMpl);
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/rekap_absensi_siswa'); ?>",
+        url  : "<?php echo base_url('hris/main/rekap_absensi_siswa'); ?>",
         data : {idKls:idKls,idJdwl:idJdwl,idMpl:idMpl,thn:thn},
         dataType : "JSON",
         success : function (response) {
@@ -3870,7 +3843,7 @@
       var idJdwl = $("#idJdwl").val();
       var idMpl = $("#idMpl").val();
       var unit = $("#selectUnit").val();
-      window.open("<?php echo base_url() ?>circle_student/admin/printRekapAbsenSiswa/"+unit+"/"+thnAkdmk+"/"+idKls+"/"+idJdwl+"/"+idMpl+"",'_blank');
+      window.open("<?php echo base_url() ?>hris/main/printRekapAbsenSiswa/"+unit+"/"+thnAkdmk+"/"+idKls+"/"+idJdwl+"/"+idMpl+"",'_blank');
     }
 
     function dataTbMapelMateri() {
@@ -3891,7 +3864,7 @@
           "bServerSide" : true,
           "bJQueryUI" : true,
           "sPaginationType" : "full_numbers",
-          "sAjaxSource" : "<?php echo base_url(); ?>circle_student/admin/getDataMapelMateri/",
+          "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getDataMapelMateri/",
           "aoColumnDefs": [
             { "sWidth": "10%", "aTargets": [ -1 ] }
         ],
@@ -3927,7 +3900,7 @@
       var unit = $("#selectUnit").val();
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getdataKlsByUnit') ?>", 
+        url  : "<?php echo base_url('hris/main/getdataKlsByUnit') ?>", 
         data : {unit:unit},
         dataType : "JSON",
         success : function(response) {
@@ -3944,7 +3917,7 @@
       $("#frmTbMateri").show(500);
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataMateri') ?>",
+        url  : "<?php echo base_url('hris/main/getDataMateri') ?>",
         data : {id:id},
         success : function(response) {
           $("#frmTbMateri").empty();
@@ -3966,7 +3939,7 @@
       var kd_mapel = $("#kdMapel").text();
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataJdlBab'); ?>",
+        url  : "<?php echo base_url('hris/main/getDataJdlBab'); ?>",
         data : {kd_mapel:kd_mapel},
         dataType : "JSON",
         success : function(response){
@@ -3997,7 +3970,7 @@
       form_data.append('kdSubMateri', kdSubMateri)
       if (kdSubMateri !="") {
         $.ajax({
-          url:"<?php echo base_url('circle_student/admin/updateDataMateri');?>",
+          url:"<?php echo base_url('hris/main/updateDataMateri');?>",
           type:"POST",
           data: form_data,
           processData:false,
@@ -4016,7 +3989,7 @@
         });
       }else{
         $.ajax({
-          url:"<?php echo base_url('circle_student/admin/insertDataMateri');?>",
+          url:"<?php echo base_url('hris/main/insertDataMateri');?>",
           type:"POST",
           data: form_data,
           processData:false,
@@ -4040,7 +4013,7 @@
       var kd_mapel = $("#kdMapel").text();
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/deleteMateri') ?>",
+        url  : "<?php echo base_url('hris/main/deleteMateri') ?>",
         data : {id:id},
         success : function(response) {
           if (jQuery.trim(response)==="success") {
@@ -4062,7 +4035,7 @@
     function editMateri(id){
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/getDataMateriById') ?>",
+        url  : "<?php echo base_url('hris/main/getDataMateriById') ?>",
         data : {id:id},
         dataType : "JSON",
         success : function(response) {
@@ -4083,7 +4056,7 @@
       var jns_cbt = $("#inputJnsCbt").val();
       $.ajax({
         type : "POST",
-        url  : "<?php echo base_url('circle_student/admin/addJnsCbt') ?>",
+        url  : "<?php echo base_url('hris/main/addJnsCbt') ?>",
         data : {jns_cbt:jns_cbt},
         success : function(response) {
           alertSuccessSave();

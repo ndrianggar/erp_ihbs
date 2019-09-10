@@ -2554,5 +2554,14 @@
             $result = $this->Main_model->deleteJnsCbt($id);
             echo $result;
       }
+
+      public function getDataCbt()
+      {
+            $this->isLogin();
+            $data["kd_kls"] = $this->input->post("kd_kls");
+            $data["unit"] = $this->input->post("unit");
+            $result = $this->Main_model->getDataCbt($data);
+            echo $result;
+      }
 	}
 ?>

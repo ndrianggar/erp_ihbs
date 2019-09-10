@@ -1,5 +1,10 @@
  <?php defined('BASEPATH') OR exit('No direct script access allowed'); 
 	Class Main extends CI_Controller{
+		public function __construct(){
+			parent::__construct();
+			$this->load->model("Main_model");	
+			
+		}
 
 		public function index()
 		{
@@ -26,6 +31,19 @@
 			}else{
 			     redirect();
 			}
+    	}
+
+    	public function employee_data()
+    	{
+    		  $data["parent_title"] = "Dashboard";
+         		$data["child_title"] = "";
+    		$this->template->load("mainAdmin_v","dashboard/master_data/v_employee",$data);	
+    	}
+
+    	public function get_data_employee()
+    	{
+    		$result = $this->Main_model->getEmployeeById();
+    		echo $result;
     	}
 	}
 ?>
