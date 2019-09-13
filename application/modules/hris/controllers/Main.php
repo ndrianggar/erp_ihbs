@@ -40,8 +40,9 @@
     		$this->template->load("mainAdmin_v","dashboard/master_data/v_employee",$data);	
     	}
 
-    	public function get_data_employee()
+    	public function getEmployee()
     	{
+    		$this->isLogin();
     		$result = $this->Main_model->getEmployeeById();
     		echo $result;
     	}

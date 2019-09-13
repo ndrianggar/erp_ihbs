@@ -23,7 +23,7 @@
     </div>
     <button class="btn btn-sm btn-primary pull-right" id="btnAddCbt" onclick="add('Cbt')"><i class="fa fa-plus"></i> Tambah</button>
   </div>
-  <!-- <div class="table-responsive" id="frmTbCbt"> -->
+  <div class="table-responsive" id="frmTbCbt">
     <table class="table align-items-center table-flush" id="tbCbt">
       <thead class="thead-light">
         <tr>
@@ -40,7 +40,7 @@
         
       </tbody>
     </table>
-  <!-- </div> -->
+  </div>
   <div class="container" id="frmAddCbt" style="display: none;">
     <form id="inputDataCbt">
     <div class="row">

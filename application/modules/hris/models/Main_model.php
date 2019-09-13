@@ -3,12 +3,12 @@
 
 		
 
-		public function getEmployeeById($id)
+		public function getEmployeeById()
 		{
 			$this->datatables->select("*");
-			$this->datatables->from("tb_pegawai");
-			$this->datatables->order_by("asc");
-			return $this->datatables->genarate();
+			$this->datatables->from("tb_karyawan");
+		/*	$this->datatables->order_by("nip asc");*/
+			return $this->datatables->generate();
  		}
 
 	}
