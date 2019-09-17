@@ -402,14 +402,13 @@
       ],
 
      "columns" : [
-                    {"data" : "nip", "name" : "nip"},
-                    {"data" : "nip"},
-                    {"data" : "foto"},
-                    {"data" : "nama"},
-                    {"data" : "jabatan"},
+                    {"data" : "photo_pegawai", "name" : "photo_pegawai"},            
+                    {"data" : "id_jabatan"},
+                      {"data" : "biodata_pegawai", "name" : "biodata_pegawai"},
                     {"data" : "status"},
                     {"data" : "action"},
                   ],
+
      
         "fnServerdata" : function(sSource,aoData,fnCallback){
           $.ajax({
