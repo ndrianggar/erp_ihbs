@@ -27,7 +27,7 @@
         <tr>
           <th scope="col">No</th>
           <th scope="col">Foto</th>
-          <th scope="col">Biodata Pegawai</th>
+          <th scope="col" width="50">Biodata Pegawai</th>
           <th scope="col">Pangkat Jabatan</th>        
           <th scope="col">Status</th>
           <th scope="col" width="10%">Action</th>

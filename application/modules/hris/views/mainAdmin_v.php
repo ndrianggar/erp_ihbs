@@ -389,39 +389,37 @@
    function dataTbEmployee(){
     $('#tbEmployee').dataTable().fnDestroy();
     $('#tbEmployee').dataTable({
+      
       "pageLength" : [25, 50, 75, 100 ],
-      "autoWidth" : false,
-      "ordering" : false,
+      "autoWidth" : true,
+      "ordering" : true,
       "bProcessing" : true,
       "bServerSide" : true,
       "bJQuery/UI" : true,
       "sPaginationType" : "full_numbers",
       "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getEmployee/",
-     "aoColumnDefs": [
-          { "sWidth": "10%", "aTargets": [ -1 ] }
-      ],
-
+      
      "columns" : [
+                    {"data" : "no", "name" : "no"},
                     {"data" : "photo_pegawai", "name" : "photo_pegawai"},            
-                    {"data" : "id_jabatan"},
-                      {"data" : "biodata_pegawai", "name" : "biodata_pegawai"},
+                    {"data" : "biodata_pegawai", "name" : "biodata_pegawai"},
+                    {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"},
                     {"data" : "status"},
                     {"data" : "action"},
                   ],
 
-     
-        "fnServerdata" : function(sSource,aoData,fnCallback){
-          $.ajax({
-            "type"        : "POST",
-            "datatype"    : "JSON",
-            "url"         : sSource,
-            "data"        : aoData,
-            "success"     : fnCallback
-          });
-        },
-         "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
-            $("td:eq(0)",nRow).text(++iDisplayIndex);
+       "columnDefs":   [
+                  { className: "text-center", "targets": [0,1] },
+                  { width: 30, targets: 0},
+                  { width: 100, targets: 1},
+                  { width: 100, targets: 2}
+                ],
+        "fixedColumns": true,           
 
+              "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
+            $("td:eq(0)",nRow).text(++iDisplayIndex);
+            $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/photo_karyawan/"+aData['photo_pegawai']+"' width='100'>");
+ 
           }
      /* columns" : [
           {"data" : "nip", "name" : "nip"},
