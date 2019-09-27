@@ -299,6 +299,13 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
+          <style media="screen" type="text/css">
++     th.biodata {
++       max-width: 120px;
++       white-space: nowrap;
++       text-overflow: ellipsis;
++     }
++    </style>
           <?php echo $contents; ?>
         </div>
       </div>
@@ -356,7 +363,7 @@
   <script src="<?php echo base_url(); ?>/assets/home/js/wow.min.js"></script>
   <script src="<?php echo base_url() ?>/assets/admin/vendor/select-2/select2.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/plugin/datatables/jquery.dataTables.js"></script>
- <!--  <script src="<?php echo base_url(); ?>assets/plugin/datatables/dataTables.bootstrap.min.js"></script> -->
+  <script src="<?php echo base_url(); ?>assets/plugin/datatables/dataTables.bootstrap.min.js"></script>
   <script src="<?php echo base_url(); ?>/assets/plugin/ckeditor/ckeditor.js"></script>
   <!-- <script src="<?php echo base_url(); ?>/assets/plugin/ckeditor5/ckeditor.js"></script> -->
   <script src="<?php echo base_url(); ?>/assets/admin/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
@@ -366,7 +373,6 @@
       if ($("#tbEmployee").length) {
         dataTbEmployee();
       }
-      
 
      /* $('#input_wktMulai').inputmask(
         "hh:mm:ss", {
@@ -390,29 +396,36 @@
     $('#tbEmployee').dataTable().fnDestroy();
     $('#tbEmployee').dataTable({
       
-      "pageLength" : [25, 50, 75, 100 ],
-      "autoWidth" : true,
+      "pageLength" : 50,
+      "responsive" : true,
+      "autoWidth" : false,
       "ordering" : true,
       "bProcessing" : true,
       "bServerSide" : true,
-      "bJQuery/UI" : true,
+      "bJQueryUI" : true,
       "sPaginationType" : "full_numbers",
       "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getEmployee/",
+        "aoColumnDefs": [
+           /* { "sWidth": "10%", "aTargets": [ -1 ] }*/
+        ],
+
       
      "columns" : [
-                    {"data" : "no", "name" : "no"},
+                    {"data" : "photo_pegawai", "name" : "photo_pegawai"},
                     {"data" : "photo_pegawai", "name" : "photo_pegawai"},            
                     {"data" : "biodata_pegawai", "name" : "biodata_pegawai"},
                     {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"},
-                    {"data" : "status"},
-                    {"data" : "action"},
+           /*         {"data" : "status"},
+                    {"data" : "action"},*/
                   ],
 
        "columnDefs":   [
                   { className: "text-center", "targets": [0,1] },
                   { width: 30, targets: 0},
                   { width: 100, targets: 1},
-                  { width: 100, targets: 2}
+                  { width: 100, targets: 2},
+                  { width: 100, targets: 3},
+                  { width: 100, targets: 4},
                 ],
         "fixedColumns": true,           
 
@@ -421,15 +434,6 @@
             $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/photo_karyawan/"+aData['photo_pegawai']+"' width='100'>");
  
           }
-     /* columns" : [
-          {"data" : "nip", "name" : "nip"},
-          {"data" : "nip", "name" : "nip"},
-          {"data" : "username", "name" : "username"},
-          {"data" : "jabatan", "name" : "jabatan"},
-          {"data" : "level", "name" : "level"},
-         
-
-        "fixedColumns" :true   */
 
     });
    }
