@@ -125,7 +125,7 @@
                     <a href="<?php echo base_url('hris/main/employee_data') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Master Employee</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('hris/main//data_identitas_sekolah') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Master Position</a>
+                    <a href="<?php echo base_url('hris/main/position_data') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Master Position</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url('hris/admin/data_kurikulum'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Master Division</a>
@@ -414,9 +414,8 @@
                     {"data" : "photo_pegawai", "name" : "photo_pegawai"},
                     {"data" : "photo_pegawai", "name" : "photo_pegawai"},            
                     {"data" : "biodata_pegawai", "name" : "biodata_pegawai"},
-                    {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"},
-           /*         {"data" : "status"},
-                    {"data" : "action"},*/
+                    {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"}
+    
                   ],
 
        "columnDefs":   [
@@ -438,7 +437,33 @@
     });
    }
 
-    
+    $(function () {
+      if ($("#tbDataPosition").length) {
+        dataTbPosition()
+      }
+    });
+  function dataTbPosition(){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('hris/main/getDataPosition') ?>",
+        dataType : "JSON",
+        success : function(response) {
+          $("#tbDataPosition > tbody").empty(); var no=1; i=1;
+          $.each(response, function (Index, Value) {
+            $("#tbDataPosition > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td align='center'>"+Value.id_jabatan+"</td>"+
+                 "<td align='center'>"+Value.nm_jbtn+"</td>"+
+             /*   "<td align='center'><label class='custom-toggle'><input type='checkbox' "+ (Value.status == 'aktif' ? 'checked' : '') +" onchange='changeStatusUnit("+Value.kd_unit+")'><span class='custom-toggle-slider rounded-circle'></span></label></td>"+*/
+                "<td><button class='btn btn-warning btn-sm' onclick=editUnit('"+Value.kd_unit+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Unit','"+Value.kd_unit+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          })
+        }
+      })
+    }
+ 
   </script>
 </body>
 

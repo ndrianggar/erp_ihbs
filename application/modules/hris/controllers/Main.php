@@ -36,8 +36,8 @@
     	public function employee_data()
     	{
     		  $data["parent_title"] = "Dashboard";
-         		$data["child_title"] = "";
-    		$this->template->load("mainAdmin_v","dashboard/master_data/v_employee",$data);	
+         	  $data["child_title"] = "";
+    		  $this->template->load("mainAdmin_v","dashboard/master_data/v_employee",$data);	
     	}
 
     	public function getEmployee()
@@ -46,5 +46,24 @@
     		$result = $this->Main_model->getEmployeeById();
     		echo $result;
     	}
+    	
+
+    	public function position_data()
+    	{	
+    		$data["parent_title"] = "Dashboard";
+    		$data["child_title"] = "";
+    	/*	$data['kd'] = $this->Main_model->getPositionById();*/
+    		$this->template->load("mainAdmin_v","dashboard/master_data/v_position",$data);
+    	}
+
+    	public function getDataPosition()
+    	{
+    		$this->isLogin();
+    		$result = $this->Main_model->getPosition();
+    		echo $result;
+    	}
+    	
+
+
 	}
 ?>
