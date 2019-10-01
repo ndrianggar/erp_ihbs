@@ -7,16 +7,17 @@
   <meta name="author" content="IHBS">
   <title>Circle Student</title>
   <!-- Favicon -->
-  <link href="<?php echo base_url() ?>/assets/admin/img/brand/favicon.png" rel="icon" type="image/png">
+  <link href="<?php echo base_url() ?>assets/admin/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
-  <link href="<?php echo base_url() ?>/assets/admin/vendor/nucleo/css/nucleo.css" rel="stylesheet">
-  <link href="<?php echo base_url() ?>/assets/admin/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="<?php echo base_url() ?>assets/admin/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+  <link href="<?php echo base_url() ?>assets/admin/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
   <!-- Argon CSS -->
-  <link type="text/css" href="<?php echo base_url() ?>/assets/admin/css/argon.css?v=1.0.0" rel="stylesheet">
+  <link type="text/css" href="<?php echo base_url() ?>assets/admin/css/argon.css?v=1.0.0" rel="stylesheet">
   <link type="text/css" href="<?php echo base_url(); ?>assets/home/css/animate.css" rel="stylesheet">
-  <link href="<?php echo base_url() ?>/assets/admin/vendor/select-2/select2.css" rel="stylesheet" />
+  <link href="<?php echo base_url() ?>assets/admin/vendor/select-2/select2.css" rel="stylesheet" />
+  <link href="<?php echo base_url() ?>assets/smart_wizard_theme_arrows.css" rel="stylesheet" />
   <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugin/ckeditor/styles.css"> -->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugin/datatables/jquery.dataTables_themeroller.css">
 </head>
@@ -394,9 +395,32 @@
   <script src="<?php echo base_url(); ?>assets/plugin/datatables/jquery.dataTables.js"></script>
   <script src="<?php echo base_url(); ?>assets/plugin/datatables/dataTables.bootstrap.min.js"></script>
   <script src="<?php echo base_url(); ?>/assets/plugin/ckeditor/ckeditor.js"></script>
+  <script src="<?php echo base_url(); ?>/assets/jquery.smartWizard.js"></script>
   <!-- <script src="<?php echo base_url(); ?>/assets/plugin/ckeditor5/ckeditor.js"></script> -->
   <script src="<?php echo base_url(); ?>/assets/admin/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url() ?>assets/plugin/input-mask/inputmask.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+
+        // Toolbar extra buttons
+        var btnFinish = $('<button></button>').text('Finish')
+                                         .addClass('btn btn-info')
+                                         .on('click', function(){ alert('Finish Clicked'); });
+        var btnCancel = $('<button></button>').text('Cancel')
+                                         .addClass('btn btn-danger')
+                                         .on('click', function(){ $('#smartwizard').smartWizard("reset"); });
+
+        // Smart Wizard
+        $('.smartwizard').smartWizard({
+                selected: 0,
+                theme: 'arrows',
+                transitionEffect:'fade',
+                toolbarSettings: {toolbarPosition: 'bottom',
+                                  toolbarExtraButtons: [btnFinish, btnCancel]
+                                }
+             });
+    });
+  </script>
   <script type="text/javascript">
     $(function () {
       if ($("#tbDataUnit").length) {

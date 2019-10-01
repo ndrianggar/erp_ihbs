@@ -21928,3 +21928,8 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
     background:#eee;
     visibility:visible;
 }
+
+.col-centered{
+    margin: 0 auto;
+    float: none;
+}
