@@ -414,7 +414,10 @@
                     {"data" : "photo_pegawai", "name" : "photo_pegawai"},
                     {"data" : "photo_pegawai", "name" : "photo_pegawai"},            
                     {"data" : "biodata_pegawai", "name" : "biodata_pegawai"},
+                    {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"},
+                    {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"},
                     {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"}
+               
     
                   ],
 
@@ -431,6 +434,7 @@
               "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
             $("td:eq(0)",nRow).text(++iDisplayIndex);
             $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/photo_karyawan/"+aData['photo_pegawai']+"' width='100'>");
+            $("td:eq(5)",nRow).html("<button class='btn btn-info btn-sm' onclick=detailkaryawan('"+aData["nip"]+"') title='Detail'><i class='fa fa-list'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Siswa','"+aData["nip"]+"') title='Delete'><i class='fa fa-trash'></i></button>");
  
           }
 
