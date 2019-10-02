@@ -2,8 +2,19 @@
 <div class="card shadow" id="mainFormEmployee">
   <div class="card-header border-0">
     <button class="btn btn-sm btn-primary pull-right" id="btnPrintEmployee" onclick="printEmployee()"><i class="fa fa-print"></i> Print Employee</button>
-    <button class="btn btn-sm btn-primary pull-right" id="btnImportEmployee" onclick="importEmployee()"><i class="fa fa-upload"></i> Import Employee</button>
-    <button class="btn btn-sm btn-primary pull-right" id="btnAddEmployee" onclick="add('Employee')"><i class="fa fa-plus"></i> Tambah Employee</button>
+    <li class="nav-item dropdown pull-right">
+                    <a class="nav-link nav-link-icon" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-sm btn-primary pull-right"><i class="fa fa-plus"></i>Tambah Employee</button>
+                        <span class="nav-link-inner--text d-lg-none">Settings</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
+                        <a class="dropdown-item" href="#">Input Manual</a>
+                        <a class="dropdown-item" href="#"><i class="fa fa-upload"></i>Import Employee</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+
     <h3 class="mb-0">Data Employee <?php echo $this->session->userdata("unit")?>
       <select class="form-control-sm" id="selectUnit" onchange="selectUnitEmployee()" <?php if (!empty($sess_unit)) { echo 'style=display:none'; }?>>
         <option selected="selected" value="">Pilih Unit *</option>
