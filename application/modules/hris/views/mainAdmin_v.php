@@ -395,7 +395,6 @@
    function dataTbEmployee(){
     $('#tbEmployee').dataTable().fnDestroy();
     $('#tbEmployee').dataTable({
-      
       "pageLength" : 50,
       "responsive" : true,
       "autoWidth" : false,
@@ -413,7 +412,7 @@
      "columns" : [
                     {"data" : "photo_pegawai", "name" : "photo_pegawai"},
                     {"data" : "photo_pegawai", "name" : "photo_pegawai"},            
-                    {"data" : "biodata_pegawai", "name" : "biodata_pegawai"},
+                    {"data" : "nama", "name" : "nama"},
                     {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"},
                     {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"},
                     {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"}
@@ -429,17 +428,28 @@
                   { width: 100, targets: 3},
                   { width: 100, targets: 4},
                 ],
-        "fixedColumns": true,           
+        "fixedColumns": true,    
 
-              "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
+        "fnServerData" : function(sSource,aoData,fnCallback){
+            // aoData.push({"name":"kd_kls","value":kd_kls});
+            // aoData.push({"name":"unit","value":unit});
+            $.ajax({
+              "type"      : "POST",
+              "dataType"  : "JSON",
+              "url"       : sSource,
+              "data"      : aoData,
+              "success"   : fnCallback
+            });
+          },       
+
+        "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
             $("td:eq(0)",nRow).text(++iDisplayIndex);
             $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/photo_karyawan/"+aData['photo_pegawai']+"' width='100'>");
             $("td:eq(5)",nRow).html("<button class='btn btn-info btn-sm' onclick=detailkaryawan('"+aData["nip"]+"') title='Detail'><i class='fa fa-list'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Siswa','"+aData["nip"]+"') title='Delete'><i class='fa fa-trash'></i></button>");
- 
           }
 
     });
-   }
+  }
 
     $(function () {
       if ($("#tbDataPosition").length) {

@@ -2560,6 +2560,7 @@
             $this->isLogin();
             $data["kd_kls"] = $this->input->post("kd_kls");
             $data["unit"] = $this->input->post("unit");
+            $data["jns_cbt"] = $this->input->post("jns_cbt");
             $result = $this->Main_model->getDataCbt($data);
             echo $result;
       }

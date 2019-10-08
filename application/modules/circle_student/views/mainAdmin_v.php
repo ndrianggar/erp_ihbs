@@ -5332,6 +5332,7 @@
     function dataTbCbt(){
       var unit = $("#selectUnit").val();
       var kd_kls = $("#selectKlsByUnit").val();
+      var jns_cbt = $("#select_JnsCbt").val();
       if (!unit||!kd_kls) {
         alertEmptyImportanInput()
       }else{
@@ -5348,7 +5349,7 @@
           "sAjaxSource" : "<?php echo base_url(); ?>circle_student/main/getDataCbt/",
           "aoColumnDefs": [
             { "sWidth": "10%", "aTargets": [ -1 ] }
-        ],
+          ],
           "columns" : [
             {"data" : "kd_cbt", "name" : "a.kd_cbt"},
             {"data" : "nm_mapel", "name" : "b.nm_mapel"},
@@ -5362,6 +5363,7 @@
           "fnServerData" : function(sSource,aoData,fnCallback){
             aoData.push({"name":"kd_kls","value":kd_kls});
             aoData.push({"name":"unit","value":unit});
+            aoData.push({"name" : "jns_cbt", "value" : jns_cbt });
             $.ajax({
               "type"      : "POST",
               "dataType"  : "JSON",

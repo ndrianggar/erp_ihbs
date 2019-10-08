@@ -72,7 +72,7 @@
         <div class="col-md-6 col-centered">
           <div class="form-group">
             <select class="form-control form-control-alternative">
-              <option>Pilih Jenis CBT</option>
+              <option>Pilih Mata Pelajaran</option>
             </select>
           </div>
         </div>
@@ -80,9 +80,7 @@
       <div id="step-4" class="">
         <div class="col-md-6 col-centered">
           <div class="form-group">
-            <select class="form-control form-control-alternative">
-              <option>Pilih Jenis CBT</option>
-            </select>
+            <input type="text" name="jdl_cbt" class="form-control form-control-alternative" placeholder="Judul CBT">
           </div>
         </div>
       </div>
@@ -115,6 +113,7 @@
       </div>
     </div>
     <!-- <div> -->
+      <button class="btn btn-warning pull-left" id="btnCancel" style="display: none; margin-left: 50px" onclick="cancelAdd('Cbt')">Cancel</button>
       <button class="btn btn-md btn-primary sw-btn-save" style="margin-bottom: 20px; margin-right: 50px; margin-left: 10px;  float: right; display: none;">Save</button>
       <button class="btn btn-md btn-primary sw-btn-next" style="margin-bottom: 20px; margin-right: 50px; margin-left: 10px;  float: right;">Next</button>
       <button class="btn btn-md btn-primary sw-btn-prev" style="margin-bottom: 20px; float: right;">Prev</button>

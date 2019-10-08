@@ -1656,7 +1656,7 @@
 			$this->datatables->from("tb_cbt a");
 			$this->datatables->join("tb_mapel b","a.kd_mapel = b.kd_mapel");
 			$this->datatables->join("tb_jenis_cbt c", "a.kd_jenis_cbt = c.kd_jenis_cbt");
-			$this->datatables->where("a.unit = '$data[unit]' AND kd_kls = '$data[kd_kls]' AND a.deleted = 'false'");
+			$this->datatables->where("a.unit = '$data[unit]' AND a.kd_kls = '$data[kd_kls]' AND a.kd_jenis_cbt = '$data[jns_cbt]' AND a.deleted = 'false'");
 			$this->db->order_by("a.kd_cbt asc");
 			return $this->datatables->generate();
 		}
