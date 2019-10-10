@@ -369,6 +369,32 @@
   <script src="<?php echo base_url(); ?>/assets/admin/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url() ?>assets/plugin/input-mask/inputmask.js"></script>
   <script>
+     function alertSuccessSave() {
+      $("#modalColor").addClass("bg-gradient-success");
+      $("#txtNotif").text("Data Berhasil Disimpan!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-success");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function alertFailedSave() {
+      $("#modalColor").addClass("bg-gradient-warning");
+      $("#txtNotif").text("Data Gagal Disimpan!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+
+
     $(function () {
       if ($("#tbEmployee").length) {
         dataTbEmployee();
@@ -393,13 +419,13 @@
             { "sWidth": "10%", "aTargets": [ -1 ] }
         ],*/
       
-     "aoColumns" : [
-                    {"mData" : "photo_pegawai"},
-                    {"mData" : "photo_pegawai"},            
-                    {"mData" : "biodata_pegawai"},
-                    {"mData" : "pangkat_jabatan"},
-                    {"mData" : "pangkat_jabatan"},
-                    {"mData" : "pangkat_jabatan"}
+     "columns" : [
+                    {"data" : "photo_pegawai",  "name" :"photo_pegawai"},
+                    {"data" : "photo_pegawai",  "name" :"photo_pegawai"},            
+                    {"data" : "biodata_pegawai", "name" : "nip"},
+                    {"data" : "pangkat_jabatan", "name" : "nama"},
+                    {"data" : "pangkat_jabatan", "name" : "tgl_lahir"},
+                    {"data" : "pangkat_jabatan", "name" : "nm_jbtn"}
                
     
                   ],
@@ -411,6 +437,16 @@
                   { width: 50, targets: 4}
                 ],
         "fixedColumns": true,
+           "fnServerData" : function(sSource,aoData,fnCallback){
+    
+          $.ajax({
+            "type"      : "POST",
+            "dataType"  : "JSON",
+            "url"       : sSource,
+            "data"      : aoData,
+            "success"   : fnCallback
+          });
+        },
 
               "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
             $("td:eq(0)",nRow).text(++iDisplayIndex);
@@ -489,14 +525,14 @@
         cache:false,
         async:true,
         success: function(response){
-          if (jQuery.trim(response)==="success"){
-            CancelAdd("Employee");
-            alertSuccesSave();
-            $("$excel_employee").val("");
-          }else if(jQuery.trim(response)==="failed"){
-            alertFailedSave();
+            if (jQuery.trim(response)==="success") {
+              cancelAdd('Employee');
+              dataTbEmployee();
+              alertSuccessSave();
+            }else if(jQuery.trim(response)==="failed"){
+              alertFailedSave();
+            }
           }
-        }
       });
     });
  

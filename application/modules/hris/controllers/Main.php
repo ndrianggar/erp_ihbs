@@ -72,7 +72,7 @@
             $config['upload_path'] = './assets/file_format';
             $config['allowed_types'] = 'xlsx';
             $config['overwrite'] = true;
-            $config['filename'] = "import_employee";
+            $config['file_name'] = "import_employee";
 
             $this->upload->initialize($config);
             if($this->upload->do_upload('excel_employee')){
@@ -98,7 +98,6 @@
                         'username' => $row['A'],
                         'password' => md5($row['B']),
                         'section' => $row['C'],
-                       /* 'id_jabatan' => $row['D'],*/
                         'level' =>  $row['E'],
 
                     ));
@@ -143,8 +142,12 @@
                          'relasi'          => $row['AN'],
                          'id_divisi'       => $row['AO'],
                          'no_kk'          => $row['AP'],
-                         'id_cbg'          => $row['AP'],
-                         'id_job_title'    => $row['AQ'],
+                         'id_cbg'          => $row['AQ'],
+                         'id_job_title'    => $row['AR'],
+                         'created_date'      => date("Y-m-d H:i:s"),
+                         'last_update'     =>'',
+                         'input'           => 'IMPORT',
+
                         
                     ));
 

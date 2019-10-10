@@ -5,7 +5,7 @@
 
 		public function getEmployeeById()
 		{
-			$this->datatables->select("a.photo_pegawai, 
+			$this->datatables->select("a.photo_pegawai, a.nip, a.nama,
 				                       CONCAT(a.nama,' (<i>',YEAR(curdate()) - YEAR(a.tgl_lahir),' th</i>)<br><b>Nip</b> : ',a.nip,'<br>','
 				                       <b>Agama</b> :' ,a.agama, '<br>',a.tempat_lahir,',',a.tgl_lahir,'<br>', a.status_nikah, '<br><br><br>','
 				                       <b>Alamat</b> :', '<br>', a.alamat, '<br>', '<b>RT/RW</b> : ', a.rt,'/',a.rw, '<br>', '<b>Kel</b> : ', a.desa, '<br>', '<b>Kecamatan</b> : ', a.kecamatan, '<br>', '<b>Kota</b> : ', a.kota,'&nbsp;',a.kd_pos) AS biodata_pegawai,
@@ -15,8 +15,10 @@
 			$this->datatables->from("tb_karyawan a");
 			$this->datatables->join("tb_jabatan b"," a.id_jabatan = b.id_jabatan");
 			$this->datatables->join("tb_divisi c"," a.id_divisi = c.id_divisi");	
-			$this->datatables->join("tb_cabang d"," a.id_cbg = d.id_cbg");
+			$this->datatables->join("tb_cabang d"," a.id_cbg = d.id_cbg","LEFT");
 			$this->datatables->join("tb_status_pegawai e"," a.id_status_pegawai = e.id_status_pegawai");
+			$this->db->order_by("a.nama ASC");
+
 
 		/*	$this->datatables->order_by("nip asc");
 	*/		return $this->datatables->generate();
