@@ -1,17 +1,16 @@
 <body <?php if (!empty($sess_unit)) {echo 'onload="selectUnitEmployeeForKls()"';}?>>
 <div class="card shadow" id="mainFormEmployee">
   <div class="card-header border-0">
-    <button class="btn btn-sm btn-primary pull-right" id="btnPrintEmployee" onclick="printEmployee()"><i class="fa fa-print"></i> Print Employee</button>
-    <li class="nav-item dropdown pull-right">
+    <li class="nav-item dropdown pull-right ">
                     <a class="nav-link nav-link-icon" href="#" id="navbar-default_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <button class="btn btn-sm btn-primary pull-right"><i class="fa fa-plus"></i>Tambah Employee</button>
-                        <span class="nav-link-inner--text d-lg-none">Settings</span>
+                        <button class="btn btn-sm btn-primary pull-right"><i class="far fa-caret-square-down"></i> Tambah Employee</button>
+                        <span class="nav-link-inner--text d-lg-none">Settings</span> 
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
-                        <a class="dropdown-item" href="#">Input Manual</a>
-                        <a class="dropdown-item" href="#"><i class="fa fa-upload"></i>Import Employee</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#"><i class="fas fa-file-signature"></i>Input Manual</a>
+                        <button onclick="importEmployee()" class="dropdown-item"id="btnAddKelas" ><i class="fas fa-file-import"></i>Import Employee</button>
+                    <!--     <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a> -->
                     </div>
                 </li>
 
@@ -46,8 +45,8 @@
   <div class="container" id="frmImportEmployee" style="display: none;">
     <div class="nav-wrapper">
       <form id="importDataEmployee">
-        <a href="<?php echo base_url('assets/file_format/format_Employee.xlsx') ?>" ><button class="btn btn-success" type="button"><i class="fa fa-download"></i> Download Format Excel</button></a>
-        <input type="file" name="excel_Employee" style="height:50px">
+        <a href="<?php echo base_url('assets/file_format/format_Employee.xlsx') ?>" ><button class="btn btn-outline-warning" type="button"><i class="fa fa-download"></i> Download Format Excel</button>&nbsp;&nbsp;</a>
+        <input type="file" name="excel_employee" style="height:50px">
     </div>
   </div>
   <div class="card-footer py-4">

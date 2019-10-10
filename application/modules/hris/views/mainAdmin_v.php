@@ -373,68 +373,53 @@
       if ($("#tbEmployee").length) {
         dataTbEmployee();
       }
-
-     /* $('#input_wktMulai').inputmask(
-        "hh:mm:ss", {
-          placeholder: "HH:MM:SS", 
-          insertMode: false, 
-          showMaskOnHover: false,
-          // hourFormat: 24
-        }
-      );
-      $('#input_wktSelesai').inputmask(
-        "hh:mm:ss", {
-          placeholder: "HH:MM:SS", 
-          insertMode: false, 
-          showMaskOnHover: false,
-          // hourFormat: 24
-        }
-      );*/
     });
 
    function dataTbEmployee(){
     $('#tbEmployee').dataTable().fnDestroy();
     $('#tbEmployee').dataTable({
       
-      "pageLength" : 50,
+    "pageLength" : 50,
       "responsive" : true,
       "autoWidth" : false,
       "ordering" : true,
       "bProcessing" : true,
       "bServerSide" : true,
       "bJQueryUI" : true,
+      "lengthMenu":   [ 25, 50, 75, 100 ],
       "sPaginationType" : "full_numbers",
       "sAjaxSource" : "<?php echo base_url(); ?>hris/main/getEmployee/",
-        "aoColumnDefs": [
-           /* { "sWidth": "10%", "aTargets": [ -1 ] }*/
-        ],
-
+    /*    "aoColumnDefs": [
+            { "sWidth": "10%", "aTargets": [ -1 ] }
+        ],*/
       
-     "columns" : [
-                    {"data" : "photo_pegawai", "name" : "photo_pegawai"},
-                    {"data" : "photo_pegawai", "name" : "photo_pegawai"},            
-                    {"data" : "biodata_pegawai", "name" : "biodata_pegawai"},
-                    {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"},
-                    {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"},
-                    {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"}
+     "aoColumns" : [
+                    {"mData" : "photo_pegawai"},
+                    {"mData" : "photo_pegawai"},            
+                    {"mData" : "biodata_pegawai"},
+                    {"mData" : "pangkat_jabatan"},
+                    {"mData" : "pangkat_jabatan"},
+                    {"mData" : "pangkat_jabatan"}
                
     
                   ],
                 
-
-       "columnDefs":   [
+  "columnDefs":   [
                   { className: "text-center", "targets": [0,1] },
                   { width: 30, targets: 0},
                   { width: 100, targets: 1},
-                  { width: 100, targets: 2},
-                  { width: 100, targets: 3},
-                  { width: 100, targets: 4},
+                  { width: 50, targets: 4}
                 ],
-        "fixedColumns": true,           
+        "fixedColumns": true,
 
               "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
             $("td:eq(0)",nRow).text(++iDisplayIndex);
-            $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/photo_karyawan/"+aData['photo_pegawai']+"' width='100'>");
+            if(!aData['photo_pegawai']){
+               $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/photo_karyawan/avatar2.jpg' width='120'>");
+            }else{
+               $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/photo_karyawan/"+aData['photo_pegawai']+"' width='100'>");
+            }
+          
             $("td:eq(5)",nRow).html("<button class='btn btn-info btn-sm' onclick=detailkaryawan('"+aData["nip"]+"') title='Detail'><i class='fa fa-list'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Siswa','"+aData["nip"]+"') title='Delete'><i class='fa fa-trash'></i></button>");
  
           }
@@ -468,6 +453,52 @@
         }
       })
     }
+      function cancelAdd(param){
+      $("#frmTbEmployee").show(1000);
+       $("#btnImport").hide();
+        $("#frmImportEmployee").hide();
+      /*$("#frmImport"+param).hide(500);
+      $("#btnAdd"+param).show();
+      $("#btnPrint"+param).show();
+      $("#btnImport"+param).show();
+     
+      $("#btnCancel").hide();
+      $("#btnSave").hide();
+      $("#btnUpdate").hide();
+      $("#btnCancel").text("Cancel");*/
+      $("#btnCancelImport").hide();
+    }
+
+   function importEmployee(){
+      $("#frmImportEmployee").show(500);
+      $("#frmAddGuru").hide();
+      $("#frmTbEmployee").hide();
+      $("#btnCancel").hide();
+      $("#btnImport").show();
+      $("#btnCancelImport").show();
+    }
+
+    $('#importDataEmployee').submit(function(e){
+      e.preventDefault();
+      $.ajax({
+        url:"<?php echo base_url('hris/main/importDataEmployee');?>",
+        type:"post",
+        data:new FormData(this),
+        processData:false,
+        contentType:false,
+        cache:false,
+        async:true,
+        success: function(response){
+          if (jQuery.trim(response)==="success"){
+            CancelAdd("Employee");
+            alertSuccesSave();
+            $("$excel_employee").val("");
+          }else if(jQuery.trim(response)==="failed"){
+            alertFailedSave();
+          }
+        }
+      });
+    });
  
   </script>
 </body>
