@@ -86,15 +86,21 @@
 
                 $data_karyawan = array ();
                 $data_akun     = array ();
+                $kode_baru     = $this->Main_model->buat_kodeOtmts()-1;
 
                 $numrow = 1;
                 foreach($sheet as $row){
+                    if($row['I']=='1'){
+                        $gender= 'Laki-laki';
+                    }elseif($row['I']== '2'){
+                        $gender= 'Perempuan';
+                    }
 
                   if($numrow > 1){
 
                     array_push($data_akun, array(
 
-                        'nip' => $row['A'],
+                        'nip'      => date('Ym').$row['I'].$kode_baru,
                         'username' => $row['A'],
                         'password' => md5($row['B']),
                         'section' => $row['C'],
@@ -103,12 +109,13 @@
                     ));
 
                     array_push($data_karyawan, array(
-                        'nip'              => $row['A'],
+                  
+                        'nip'              => date('Ym').$row['I'].$kode_baru,
                         'id_jabatan'       => $row['D'],
                         'nama'             => $row['F'],
                         'nm_pnggilan'      => $row['G'],
                         'agama'            => $row['H'],
-                        'gender'           => $row['I'],
+                        'gender'           => $gender,
                         'gol_darah'        => $row['J'],
                         'unit'             => $row['K'],
                         'alamat'           => $row['L'],
@@ -120,7 +127,7 @@
                         'no_tlp'           => $row['R'],
                         'email'            => $row['S'],
                         'tempat_lahir'     => $row['T'],
-                        'tgl_lahir'        => $row['U'],
+                        'tgl_lahir'        => date('Y-m-d',strtotime($row['U'])),
                         'no_ktp'           => $row['V'],
                         'npwp'             => $row['W'],
                         'id_negara'        => $row['X'],
@@ -134,7 +141,7 @@
                         'id_jurusan_krywn' => $row['AF'],
                         'ipk'              => $row['AG'],
                         'mulai_brgbg'       => $row['AH'],
-                        'id_status_pegawai'=> $row['AI'],
+                        'id_status_karyawan'=> $row['AI'],
                         'nmr_darurat1'     => $row['AJ'],
                         'nm_nmr_darurat1'  => $row['AK'],
                         'nmr_darurat2'     => $row['AL'],
@@ -153,18 +160,111 @@
 
                   }
                   $numrow++;
+                  $kode_baru++;
 
 
                 }
 
                 $return = $this->Main_model->importDataEmployee($data_akun,$data_karyawan);
                 echo $return;
+      /*       print_r($data_karyawan);*/
             }else{
                 echo "failed";
             }
         }
+
+         public function importDataUniv()
+          {
+            $this->isLogin();
+            $this->load->library('upload');
+
+
+            $config['upload_path'] = './assets/file_format';
+            $config['allowed_types'] = 'xlsx';
+            $config['overwrite'] = true;
+            $config['file_name'] = "import_univ";
+
+            $this->upload->initialize($config);
+            if($this->upload->do_upload('excel_univ')){
+                $this->upload->data();
+
+                include APPPATH.'third_party/PHPExcel/PHPExcel.php';
+
+                $excelreader = new PHPExcel_Reader_Excel2007();
+                $loadexcel = $excelreader->load('assets/file_format/import_univ.xlsx');
+
+                $sheet = $loadexcel->getActiveSheet()->toArray(null, true, true, true);
+
+                $datauniv = array();
+
+                $numrow = 1;
+
+                foreach ($sheet as $row) {
+
+                    if($numrow > 1){
+                        array_push($datauniv, array(
+                            'nm_college_krywn' => $row['A'],
+                    ));
+                    }
+
+                    $numrow++;               
+                }
+             /*   print_r($datauniv); untuk mengecek apabila array tidak terkirim pada js 10-31-2019*/ 
+
+                $return = $this->Main_model->importDataUniv($datauniv);
+
+                echo $return;
+
+            }else{
+                echo "failed";
+            }
+             
+        }   
         
+        public function GetStatusKrywan(){
 
+            $this->isLogin();
+            $data = $this->Main_model->GetsttsKrywn();
+            echo $data;
+            
+            
+        }
+    
+         public function GetJbtn(){
 
+            $this->isLogin();
+            $data = $this->Main_model->GetMjbtn();
+            echo $data;           
+        }
+
+        public function GetPendidikanTrkhr(){
+            $this->isLogin();
+            $data = $this->Main_model->GetMpendidikanTrkhr();
+            echo $data;    
+            
+        }
+
+        public function GetUniversitas(){
+            $this->isLogin();
+            $data = $this->Main_model->GetMuniversitas();
+            echo $data;
+        }  
+        public function GetFakultas(){
+            $this->isLogin();
+            $data = $this->Main_model->GetMfakultas();
+            echo $data;
+        }  
+
+        public function GetJurusan(){
+            $this->isLogin();
+            $data = $this->Main_model->GetMjurusan();
+            echo $data;
+        } 
+
+        public function GetProvinsi(){
+            $this->isLogin();
+            $data = $this->Main_model->GetMprovinsi();
+            echo $data;
+        }
     }
 ?>

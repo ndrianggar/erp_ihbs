@@ -7,7 +7,7 @@
                         <span class="nav-link-inner--text d-lg-none">Settings</span> 
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
-                        <a class="dropdown-item" href="#"><i class="fas fa-file-signature"></i>Input Manual</a>
+                        <button onclick="inputEmployee()"class="dropdown-item"><i class="fas fa-file-signature"></i>Input Manual</button>
                         <button onclick="importEmployee()" class="dropdown-item"id="btnAddKelas" ><i class="fas fa-file-import"></i>Import Employee</button>
                     <!--     <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a> -->
@@ -33,7 +33,6 @@
           <th scope="col" width="25%">Foto</th>
           <th scope="col" width="20%">Biodata Pegawai</th>
           <th scope="col" width="20%">Pangkat Jabatan</th>        
-          <th scope="col" width="10%">Status</th>
           <th scope="col" width="10%">Action</th>
         </tr>
       </thead>
@@ -42,11 +41,11 @@
       </tbody>
     </table>
   </div>
-  <div class="container" id="frmImportEmployee" style="display: none;">
+  <div class="row" id="frmImportEmployee" style="display: none;">
     <div class="nav-wrapper">
       <form id="importDataEmployee">
-        <a href="<?php echo base_url('assets/file_format/format_Employee.xlsx') ?>" ><button class="btn btn-outline-warning" type="button"><i class="fa fa-download"></i> Download Format Excel</button>&nbsp;&nbsp;</a>
-        <input type="file" name="excel_employee" style="height:50px">
+        <a href="<?php echo base_url('assets/file_format/format_Employee.xlsx') ?>" ><button class="btn btn-outline-warning ml-5" type="button"><i class="fa fa-download"></i> Download Format Excel</button></a>
+        <input type="file" class="ml-3" name="excel_employee" style="height:50px">
     </div>
   </div>
   <div class="card-footer py-4">
@@ -61,69 +60,86 @@
           <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#input-Employee" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false">Data Employee</a>
         </li>
         <li class="nav-item" id="do1" onclick="changeData('do1')">
-          <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#input-ortu" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false">Data Orang Tua</a>
+          <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#input-Pendidikan" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false">Data Pendidikan</a>
+        </li>
+        <li class="nav-item" id="do2" onclick="changeData('do2')">
+          <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#input-File" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false">Data File</a>
         </li>
       </ul>
       </div>
-      <form id="saveDataEmployee">
-        <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show active" id="input-Employee" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+        <form id="saveDataEmployee">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="input-Employee" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                   <label class="form-control-label" for="input-username">Nip *</label>
+                     <input type="text" id="nip" name="nip" value="" readonly class="form-control form-control-alternative">
+                  </div>
+                </div>
+               <div class="col-lg-6">
+                 <div class="form-group">
+                   <label class="form-control-label" for="input-username">Nama *</label>
+                    <input type="text" id="nama" name="nama" class="form-control form-control-alternative" placeholder="Nama">
+                 </div>
+              </div>
+             </div>
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
-                <label class="form-control-label" for="input-username">NIPD *</label>
-                <input type="text" id="nipd" name="nipd" class="form-control form-control-alternative" placeholder="NIPD">
+                <label class="form-control-label" for="input-username">Nama Panggilan*</label>
+                <input type="text" id="nama" name="nama" class="form-control form-control-alternative" placeholder="Nama Panggilan">
               </div>
             </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">NISN *</label>
-                <input type="text" id="nisn" name="nisn" class="form-control form-control-alternative" placeholder="NISN">
-              </div>
-            </div>
+           <div class="col-lg-6">
+               <div class="form-group">
+                 <label class="form-control-label" for="input-username">Nomor Identitas (KTP)*</label>
+                 <input type="text" id="no_ktp" name="no_ktp" class="form-control form-control-alternative" placeholder="Nomor Identitas (KTP)">
+               </div>
+           </div>
           </div>
           <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Nama *</label>
-                <input type="text" id="nama" name="nama" class="form-control form-control-alternative" placeholder="Nama Employee">
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">NIK *</label>
-                <input type="text" id="nik" name="nik" class="form-control form-control-alternative" placeholder="NIK">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group">
+             <div class="col-lg-6">
+               <div class="form-group">
                 <label class="form-control-label" for="input-username">Tempat Lahir *</label>
                 <input type="text" id="tempat_lahir" name="tempat_lahir" class="form-control form-control-alternative" placeholder="Tempat Lahir">
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Tanggal Lahir *</label>
-                <input type="text" id="tanggal_lahir" name="tanggal_lahir" class="form-control form-control-alternative datepicker" placeholder="Tanggal Lahir" autocomplete="off">
-              </div>
+               </div>
+             </div>
+          <div class="col-lg-6">
+             <div class="form-group">
+               <label class="form-control-label" for="input-username">Tanggal Lahir *</label>
+               <input type="text" id="tanggal_lahir" name="tanggal_lahir" class="form-control form-control-alternative datepicker" placeholder="Tanggal Lahir" autocomplete="off">
+             </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Jenis Kelamin *</label>
-                <select class="form-control form-control-alternative" id="gender" name="gender">
+             <div class="col-lg-6">
+               <div class="form-group">
+                  <label class="form-control-label" for="input-username">Status Pernikahan *</label>
+                   <select class="form-control form-control-alternative" id="gender" name="gender">
+                      <option selected>Status</option>
+                      <option value="Laki-laki">Menikah</option>
+                      <option value="Perempuan">Belum Menikah</option>
+                      <option value="Perempuan">Duda</option>
+                      <option value="Perempuan">Janda</option>
+                  </select>
+               </div>
+            </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Jenis Kelamin *</label>
+                  <select class="form-control form-control-alternative" id="gender" name="gender">
                   <option selected>Jenis Kelamin</option>
                   <option value="Laki-laki">Laki-laki</option>
                   <option value="Perempuan">Perempuan</option>
-                </select>
+                  </select>
               </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Agama *</label>
+             </div>
+          </div>
+          <div class="row">
+           <div class="col-lg-6">
+            <div class="form-group">
+              <label class="form-control-label" for="input-username">Agama *</label>
                 <select class="form-control form-control-alternative" id="agama" name="agama">
                   <option selected>Agama</option>
                   <option value="Islam">Islam</option>
@@ -131,227 +147,506 @@
                   <option value="Katolik">Katolik</option>
                   <option value="Hindu">Hindu</option>
                   <option value="Budha">Budha</option>
-                </select>
+               </select>
+            </div>
+          </div>
+            <div class="col-lg-2">
+              <div class="form-group">
+                <label class="form-control-label" for="input-username">Jumlah Anak *</label>
+                 <input type="number" id="jml_anak" name="jml_anak" class="form-control form-control-alternative" placeholder="Jumlah Anak">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Unit *</label>
-                <select class="form-control form-control-alternative" id="input_unit" name="unit" onchange="getKelasByUnit(),changeUnit()">
-                  <option>Pilih Unit *</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Kelas</label>
-                <select id="input_kls" name="kd_kls" class="form-control form-control-alternative" onchange="getKelasParalerByKls()">
-                  <option>Pilih Kelas *</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Kelas Paralel</label>
-                <select id="input_klsParalel" name="kd_kls_paralel" class="form-control form-control-alternative">
-                  <option>Pilih Kelas Paralel *</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Jurusan</label>
-                <select  id="input_jurusan" name="kd_jurusan" class="form-control form-control-alternative" disabled>
-                  <option>Pilih Jurusan</option>
-                </select>  
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Angkatan</label>
-                <input type="text" id="angkatan" name="angkatan" placeholder="Angkatan" class="form-control form-control-alternative">
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">SKHUN</label>
-                <input type="text" id="skhun" name="skhun" placeholder="SKHUN" class="form-control form-control-alternative">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Penerima KPS</label>
-                <input type="text" id="status_kps" name="status_kps" placeholder="Penerima KPS" class="form-control form-control-alternative">
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">No KPS</label>
-                <input type="text" id="no_kps" name="no_kps" placeholder="No KPS" class="form-control form-control-alternative">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Alamat </label>
-                <input type="text" id="alamat" name="alamat" placeholder="Alamat" class="form-control form-control-alternative">
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">No Telepon</label>
-                <input type="text" id="no_tlp" name="no_tlp" placeholder="No Telepon" class="form-control form-control-alternative">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="row">
-                <div class="form-group col-lg-5">
-                  <label class="form-control-label" for="input-username">RT</label>
-                  <input type="text" id="rt" name="rt" class="form-control form-control-alternative" placeholder="RT">
-                </div>
-                <div class="form-group col-lg-2">
-                  <label class="form-control-label">&nbsp;</label>
-                  <input type="text" class="form-control form-control-alternative" placeholder="    /" readonly style="background: #fff;">
-                </div>
-                <div class="form-group col-lg-5">
-                  <label class="form-control-label" for="input-username">RW</label>
-                  <input type="text" id="rw" name="rw" class="form-control form-control-alternative" placeholder="RW">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Provinsi</label>
+                 <select id="idselectProvinsi" name="id_prov" class="form-control" required="required">
+                    
+                   </select>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Desa / Kelurahan</label>
-                <input type="text" id="desa" name="desa" class="form-control form-control-alternative" placeholder="Desa / Kelurahan">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Desa / Kelurahan</label>
+                  <input type="text" id="desa" name="desa" class="form-control form-control-alternative" placeholder="Desa / Kelurahan">
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
                 <label class="form-control-label" for="input-username">Kecamatan </label>
                 <input type="text" id="kecamatan" name="kecamatan" class="form-control form-control-alternative" placeholder="Kecamatan">
               </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Kabupaten / Kota</label>
-                <input type="text" id="kota" name="kota" class="form-control form-control-alternative" placeholder="Kabupaten / Kota">
+           </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Kabupaten / Kota</label>
+                    <input type="text" id="kota" name="kota" class="form-control form-control-alternative" placeholder="Kabupaten / Kota">
+                </div>
               </div>
+          </div>
+         <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Alamat </label>
+                  <input type="text" id="alamat" name="alamat" placeholder="Alamat" class="form-control form-control-alternative">
+                </div>
+           </div>
+            <div class="col-lg-6">
+              <div class="row">
+                  <div class="form-group col-lg-5">
+                    <label class="form-control-label" for="input-username">RT</label>
+                     <input type="text" id="rt" name="rt" class="form-control form-control-alternative" placeholder="RT">
+                  </div>
+                  <div class="form-group col-lg-2">
+                        <label class="form-control-label">&nbsp;</label>
+                         <input type="text" class="form-control form-control-alternative" placeholder="/" readonly style="background: #fff;">
+                  </div>
+                 <div class="form-group col-lg-5">
+                    <label class="form-control-label" for="input-username">RW</label>
+                      <input type="text" id="rw" name="rw" class="form-control form-control-alternative" placeholder="RW">
+                 </div>
+             </div>
             </div>
           </div>
+         <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="form-control-label" for="input-kode-pos">Kodepos</label>
+              <input type="text" name="kodepos" class="form-control form-control-alternative" placeholder="Kodepos">
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+               <label class="form-control-label" for="input-golongan-darah">Golongan Darah</label>
+                <select class="form-control form-control-alternative" id="gol_darah" name="gol_darah">
+                 <option selected>Pilih Darah</option>
+                  <option value="O">O</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="AB">AB</option>
+              </select>
+            </div>
+          </div>
+        </div>
           <div class="row">
             <div class="col-lg-6">
-              <div class="form-group">
-                <label class="form-control-label" for="input-username">Kode Pos </label>
-                <input type="text" id="kd_pos" name="kd_pos" class="form-control form-control-alternative" placeholder="Kode Pos">
+              <label class="form-control-label" for="input-nik">Keahlian Bahasa English</label>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mb-3 ">
+                      <input class="custom-control-input" id="customCheck1" type="checkbox" name="status[]">
+                      <label class="custom-control-label" for="customCheck1">Aktif</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input class="custom-control-input" id="customCheck2" type="checkbox" name="status[]">
+                      <label class="custom-control-label" for="customCheck2">Pasif</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mb-3 ">
+                      <input class="custom-control-input" id="customCheck3" type="checkbox">
+                      <label class="custom-control-label" for="customCheck3">Bersertifikat</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input class="custom-control-input" id="customCheck4" type="checkbox">
+                      <label class="custom-control-label" for="customCheck4">Tidak Bersertifikat</label>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-lg-6">
+              <label class="form-control-label" for="input-nik">Keahlian Bahasa Arab</label>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mb-3 ">
+                      <input class="custom-control-input" id="customCheck5" type="checkbox">
+                      <label class="custom-control-label" for="customCheck5">Aktif</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input class="custom-control-input" id="customCheck6" type="checkbox">
+                      <label class="custom-control-label" for="customCheck6">Pasif</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mb-3 ">
+                      <input class="custom-control-input" id="customCheck7" type="checkbox">
+                      <label class="custom-control-label" for="customCheck7">Bersertifikat</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input class="custom-control-input" id="customCheck8" type="checkbox">
+                      <label class="custom-control-label" for="customCheck8">Tidak Bersertifikat</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+             <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-unit">Status Kepegawaian</label>
+                    <select id="idselectStatusKrywan" name="id_status_karyawan" class="form-control" required="required">
+                    
+                  
+                   </select>
+                 </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-unit">Jabatan</label>
+                    <select id="idselectJbtn" name="id_jabatan" class="form-control">                 
+                   </select>
+                 </div>
+              </div>
+          </div>
+         <div class="row">
+            <div class="col-lg-6">
+              <label class="form-control-label" for="input-nik">Ukuran Seragam</label>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3 ">
+                      <input class="custom-control-input" id="customRadio1" type="radio" name="seragam[]">
+                      <label class="custom-control-label" for="customRadio1">S</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3">
+                      <input class="custom-control-input" id="customRadio2" type="radio" name="seragam[]">
+                      <label class="custom-control-label" for="customRadio2">M</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3 ">
+                      <input class="custom-control-input" id="customRadio3" type="radio" name="seragam[]">
+                      <label class="custom-control-label" for="customRadio3">XL</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3">
+                      <input class="custom-control-input" id="customRadio4" type="radio" name="seragam[]">
+                      <label class="custom-control-label" for="customRadio4">XXL</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="col-lg-3">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-unit">Tanggal Bergabung</label>
+                  <div class="form-group">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                       <input class="form-control datepicker" placeholder="Mulai Bergabung">
+                   </div>
+                </div>
+               </div>
+              </div>
+            </div>
+         <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="form-control-label" for="input">Email</label>
+               <div class="form-group">
+                 <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+               </div>
+            </div>
+            </div>
+            <div class="col-lg-4">
               <div class="form-group">
-                <label class="form-control-label" for="input-username">Photo </label>
-                <input type="file" id="photo_Employee" name="photo_Employee" class="form-control form-control-alternative" placeholder="photo">
-              </div>
-            </div>
+               <label class="form-control-label" for="input">Nomor Telp</label>
+              <input type="text" class="form-control" name="no_tlp" placeholder="Nomor Telp">
           </div>
-          </div>
-          <div class="tab-pane fade" id="input-ortu" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-username">Nama Ayah *</label>
-                  <input type="text" id="nm_bpk" name="nm_bpk" class="form-control form-control-alternative" placeholder="Nama Ayah">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-username">Nama Ibu *</label>
-                  <input type="text" id="nm_ibu" name="nm_ibu" class="form-control form-control-alternative" placeholder="Nama Ibu">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-username">Tanggal Lahir Ayah *</label>
-                  <input type="text" id="thn_lahir_bpk" name="thn_lahir_bpk" class="form-control form-control-alternative datepicker" placeholder="Tanggal Lahir Ayah" autocomplete="off">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-username">Tanggal Lahir Ibu *</label>
-                  <input type="text" id="thn_lahir_ibu" name="thn_lahir_ibu" class="form-control form-control-alternative datepicker" placeholder="Tanggal Lahir Ibu" autocomplete="off">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-username">Pendidikan Ayah *</label>
-                  <input type="text" id="pendidikan_bpk" name="pendidikan_bpk" class="form-control form-control-alternative" placeholder="Pendidikan Ayah">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-username">Pendidikan Ibu *</label>
-                  <input type="text" id="pendidikan_ibu" name="pendidikan_ibu" class="form-control form-control-alternative" placeholder="Pendidikan Ibu">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-username">Pekerjaan Ayah *</label>
-                  <input type="text" id="pekerjaan_bpk" name="pekerjaan_bpk" class="form-control form-control-alternative" placeholder="Pekerjaan Ayah">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-username">Pekerjaan Ibu *</label>
-                  <input type="text" id="pekerjaan_ibu" name="pekerjaan_ibu" class="form-control form-control-alternative" placeholder="Pekerjaan Ibu">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-username">No Telepon Ayah *</label>
-                  <input type="text" id="no_tlp_bpk" name="no_tlp_bpk" class="form-control form-control-alternative" placeholder="No Telepon Ayah">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="form-control-label" for="input-username">No Telepon Ibu *</label>
-                  <input type="text" id="no_tlp_ibu" name="no_tlp_ibu" class="form-control form-control-alternative" placeholder="No Telepon Ibu">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="mb-sm-3 pull-right">
-            <button type="button" class="btn btn-warning" id="btnCancelEdit" onclick="cancelEditDataEmployee()" style="display: none;">CANCEL</button>
-            <button type="submit" class="btn btn-primary mr-4" id="btnUpdate" style="display: none;">UPDATE</button>
-            </form>
-          </div> -->
         </div>
-    </div>
-    <div class="card-footer py-4">
-        <button type="submit" class="btn btn-success pull-right ml-3" id="btnImport" style="display: none;">Import</button>
-        <button type="submit" class="btn btn-success pull-right ml-3" id="btnSave" style="display: none;">Save</button>
-        <button type="button" class="btn btn-warning pull-right" id="btnCancel" style="display: none;" onclick="cancelAdd('Employee')">Cancel</button>
-        </form>
-    </div>
-  </div> 
+      </div>
+    <div class="row">
+      <div class="col-lg-6">
+              <label class="form-control-label" for="input-nik">Hak Akses Aplikasi</label>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mb-3 ">
+                      <input class="custom-control-input" id="customCheck28" type="checkbox">
+                      <label class="custom-control-label" for="customCheck28">Circle Student</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input class="custom-control-input" id="customCheck29" type="checkbox">
+                      <label class="custom-control-label" for="customCheck29">HRD</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    <div class="tab-pane fade" id="input-Pendidikan" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+        <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                  <label class="form-control-label" for="input-username">Pendidikan Terakhir</label>
+                    <select class="form-control form-control-alternative" id="idselectPndkkanterakhir" name="nm_jnjng_pddk">
+                     
+                   </select>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Tahun Lulus</label>
+                  <input type="text" id="thn_lulus" name="thn_lulus" class="form-control form-control-alternative" placeholder="Tahun Lulus">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <label class="form-control-label" for="input-username">Nama Sekolah/Universitas </label>
+                <div class="input-group">
+                  <!-- <select class="form-control form-control-alternative" id="idselectUniversitas" name="nm_college_krywn" style="width: 80%">
+                   </select> -->
+                   <select type="text" id="idselectUniversitas" class="form-control"></select>
+                  <div class="input-group-append">
+                  <!--   <button type="button" class="btn btn-success">Action</button> -->
+                     <button type="button" class="btn btn-outline-primary mr-4 dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="sr-only">Toggle Dropdown</span>
+                     </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add-univ"x>Add</a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#import-univ">Import</a>
+                    <!-- <a class="dropdown-item" href="#">Something else here</a>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a> -->
+                  </div>
+                </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="form-control-label" for="input-username">Fakultas </label>
+                  <select class="form-control form-control-alternative" id="idselectFakultas" name="">
+                     
+                   </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                   <label class="form-control-label" for="input-username">Jurusan</label>
+                  <select class="form-control form-control-alternative" id="idselectJurusan" name="">
+                     
+                   </select>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">IPK</label>
+                  <input type="text" id="ipk" name="ipk" class="form-control form-control-alternative" placeholder="IPK">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-lg-6">
+              <label class="form-control-label" for="input-nik">Tilawah Al-Qur'an</label>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3 ">
+                      <input class="custom-control-input" id="customRadio6" type="radio" name="seragam[]">
+                      <label class="custom-control-label" for="customRadio6">Cukup</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3">
+                      <input class="custom-control-input" id="customRadio7" type="radio" name="seragam[]">
+                      <label class="custom-control-label" for="customRadio7">Bisa</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3 ">
+                      <input class="custom-control-input" id="customRadio8" type="radio" name="seragam[]">
+                      <label class="custom-control-label" for="customRadio8">Mahir</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>           
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Pengisi Kajian</label>
+                  <input type="text" id="p_kjian" name="p_kjian" class="form-control form-control-alternative" placeholder="Pengisi Kajian">
+                </div>
+              </div>
+            </div>
+             <div class="row">
+            <div class="col-lg-6">
+              <label class="form-control-label" for="input-nik">Komputer</label>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3 ">
+                      <input class="custom-control-input" id="customRadio10" type="radio" name="seragam[]">
+                      <label class="custom-control-label" for="customRadio10">Cukup</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3">
+                      <input class="custom-control-input" id="customRadio11" type="radio" name="seragam[]">
+                      <label class="custom-control-label" for="customRadio11">Bisa</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3 ">
+                      <input class="custom-control-input" id="customRadio12" type="radio" name="seragam[]">
+                      <label class="custom-control-label" for="customRadio12">Mahir</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Pelatihan yang diinginkan</label>
+                  <input type="text" id="" name="" class="form-control form-control-alternative" placeholder="Pelatihan">
+                </div>
+              </div>
+            </div>      
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Halafalan Qur'an</label>
+                  <input type="number" id="hfln_quran" name="hfln_quran" class="form-control form-control-alternative" placeholder="">
+                </div>
+              </div>
+               <div class="col-lg-6">
+              <label class="form-control-label" for="input-nik">Aktivitas Kajian</label>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3 ">
+                      <input class="custom-control-input" id="customRadio22" type="radio" name="status[]">
+                      <label class="custom-control-label" for="customRadio22">Aktif</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <div class="custom-control custom-radio mb-3">
+                      <input class="custom-control-input" id="customRadio23" type="radio" name="status[]">
+                      <label class="custom-control-label" for="customRadio23">Pasif</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>      
+      <div class="tab-pane fade" id="input-File" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">  
+       
+         <div class="form-group">
+             <label class="col-md-4 col-sm-4 col-xs-12 label-control">Foto Pegawai</label>
+               <div class="col-md-4 col-sm-4 col-xs-12">
+                 <input id="photo_pegawai" name="photo_pegawai" type="file" class="form-control" accept="image/x-png,image/jpeg" onchange="readURL(this);">
+               </div>
+         </div>
+            <div class="row">
+               <div class="form-group">
+                   <label class="col-md-4 col-sm-4 col-xs-12 label-control"></label>
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                        <img id="PrevPhoto_pgwi" src="<?php echo base_url('assets/photo_karyawan/avatar.png')?>" style="width: 300px;max-width: 300px;">
+                     </div>
+               </div>
+            </div>
+          <div class="form-group">
+             <label class="col-md-4 col-sm-4 col-xs-12 label-control">Gambar KTP</label>
+               <div class="col-md-4 col-sm-4 col-xs-12">
+                 <input id="file_ktp" name="file_ktp" type="file" class="form-control" accept="image/x-png,image/jpeg" onchange="readURL2(this);">
+               </div>
+         </div>
+               <div class="form-group">
+                   <label class="col-md-4 col-sm-4 col-xs-12 label-control"></label>
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                        <img id="Prevfile_ktp" src="<?php echo base_url('assets/photo_karyawan/KTP elektronik.jpg')?>" style="width: 150px;max-width: 150px;">
+                     </div>
+               </div>
+        <div class="form-group">
+             <label class="col-md-4 col-sm-4 col-xs-12 label-control">Gambar KK</label>
+               <div class="col-md-4 col-sm-4 col-xs-12">
+                 <input id="file_kk" name="file_kk" type="file" class="form-control" accept="image/x-png,image/jpeg" onchange="readURL3(this);">
+               </div>
+         </div>
+               <div class="form-group">
+                   <label class="col-md-4 col-sm-4 col-xs-12 label-control"></label>
+                      <div class="col-md-8 col-sm-8 col-xs-12">
+                        <img id="Prevfile_kk" src="<?php echo base_url('assets/photo_karyawan/kk2.png')?>" style="width: 150px;max-width: 150px;">
+                     </div>
+               </div>
+      </div>
+  </div>
+</div>
+
+          <div class="card-footer py-4">
+          <button type="submit" class="btn btn-success pull-right ml-3" id="btnImport" style="display: none;">Import</button>
+          <button type="submit" class="btn btn-success pull-right ml-3" id="btnSave" style="display: none;">Save</button>
+          <button type="button" class="btn btn-warning pull-right" id="btnCancel" style="display: none;" onclick="cancelAdd('Employee')">Cancel</button>
+          </form>
+          </div>
+          </div> 
+
 
   <div class="container-fluid" style="display: none;" id="formDetailEmployee">
     <div class="card card-profile shadow">
@@ -700,4 +995,129 @@
         </div>
       </div>
     </div>
+</div>
+
+
+
+<div class="modal fade" id="add-univ" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">FORM TAMBAH UNIVERSITAS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-university"></i></span>
+
+                    </div>
+                    <input class="form-control" placeholder="Universitas" type="text" name="">
+                </div>
+            </div>      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="import-univ" tabindex="-1" role="dialog" aria-labelledby="import-univ" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="import-univ">FORM IMPORT UNIVERSITAS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <!--  <span aria-hidden="true">&times;</span> -->
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      
+
+                    </div>
+              </div>
+            </div>  
+            <div class="input-group">
+  <div class="custom-file">
+    <form id="importDataUniv">
+    <input type="file" class="custom-file-input" id="inputGroupFile04" name="excel_univ">
+    <label class="custom-file-label" for="inputGroupFile04"><i class="ni ni-cloud-upload-96"></i> Choose file</label>
+  </div>
+  <div class="input-group-append">
+    <button type="submit" class="btn btn-outline-primary">Upload</button>
+  </form>
+  </div>  
+</div>    
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       <!--  <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+   <div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">         
+              <div class="card bg-secondary shadow border-0">
+                 <div class="card-header bg-transparent pb-5">
+                  <div class="text-muted text-center mt-2 mb-3"><h1>Form Tambah Universitas</h1> <button type="button" class="close" data-dismiss="modal" aria-label="Close"></div>
+
+                    <!-- <div class="btn-wrapper text-center">
+                    <a href="#" class="btn btn-neutral btn-icon">
+                      <span class="btn-inner--icon"><img src="../../assets/img/icons/common/github.svg"></span>
+                      <span class="btn-inner--text">Github</span>
+                   </a>
+                    <a href="#" class="btn btn-neutral btn-icon">
+                      <span class="btn-inner--icon"><img src="../../assets/img/icons/common/google.svg"></span>
+                      <span class="btn-inner--text">Google</span>
+                   </a>
+                 </div> -->
+               </div>
+      <div class="card-body px-lg-5 py-lg-5">
+           <!--  <div class="text-center text-muted mb-4">
+                  <small>Or sign in with credentials</small>
+            </div> -->
+           <form role="form">
+              <div class="form-group mb-3">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Nama Universitas :</span>
+
+                    </div>
+                    <input class="form-control" placeholder="Universitas" type="text">
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Password" type="password">
+                </div>
+            </div>
+            <div class="custom-control custom-control-alternative custom-checkbox">
+                <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                <label class="custom-control-label" for=" customCheckLogin">
+                    <span class="text-muted">Remember me</span>
+                </label>
+            </div> -->
+            <div class="text-center">
+                <button type="button" class="btn btn-primary my-4">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+   </div>
+    </div>
+    </div>
+</div>
+  </div>
 </div>
