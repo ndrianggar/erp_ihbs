@@ -229,7 +229,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                    <label class="form-control-label" for="input-username">Nip<font color="red">*</font></label>
-                    <input type="hidden" id="kd_karyawan">
+                    <input type="hidden" id="kd_karyawan" name="kd_karyawan">
                      <input type="text" id="input_nip" name="nip" readonly="" class="form-control form-control-alternative">
                   </div>
                 </div>
@@ -291,7 +291,7 @@
                 <div class="form-group">
                   <label class="form-control-label" for="input-username">Jenis Kelamin<font color="red">*</font></label>
                   <select class="form-control form-control-alternative" id="input_gender" name="gender" onchange="selectGenderForCode()"  required="">
-                  <option selected>Jenis Kelamin</option>
+                  <option value ="" selected>Jenis Kelamin</option>
                   <option value="Laki-laki">Laki-laki</option>
                   <option value="Perempuan">Perempuan</option>
                   </select>

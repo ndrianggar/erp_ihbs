@@ -120,7 +120,7 @@
 
             }
 
-            if ($upload1 && $upload2 && $upload3){
+            if ($upload1 || $upload2 || $upload3){
             $data_akun["nip"] = $this->input->post("nip");
             $data_akun["username"] = $this->input->post("nip");
             $data_akun["password"] = md5($this->input->post("password"));
@@ -152,6 +152,8 @@
             $data["id_kab"] = $this->input->post("id_kab");
             $data["id_kec"] = $this->input->post("id_kec");
             $data["id_kel"] = $this->input->post("id_kel");
+            $data["rt"] = $this->input->post("rt");
+            $data["rw"] = $this->input->post("rw");
             $data["kd_pos"] = $this->input->post("kd_pos");
             $data["no_tlp"] = $this->input->post("no_tlp");
             $data["email"] = $this->input->post("email");
@@ -170,11 +172,11 @@
             $data["id_jurusan_krywn"] = $this->input->post("id_jurusan_krywn");
             $data["ipk"] = $this->input->post("ipk");
             $data["mulai_brgbg"] = $this->input->post("mulai_brgbg");
-            $data["masa_kerja"] = $this->input->post("masa_kerja");
+            /*$data["masa_kerja"] = $this->input->post("masa_kerja");*/
             $data["id_status_karyawan"] = $this->input->post("id_status_karyawan");
             $data["photo_pegawai"] = $image1;
-            $data["file_kk"] = $image2;
-            $data["file_ktp"] = $image3;
+            $data["file_kk"] = $image3;
+            $data["file_ktp"] = $image2;
             $data["nmr_darurat1"] = $this->input->post("nmr_darurat1");
             $data["nm_nmr_darurat1"] = $this->input->post("nm_nmr_darurat1");
            /* $data["nm_nmr_darurat2"] = $this->input->post("nm_nmr_darurat2");
@@ -229,6 +231,8 @@
             $data["id_kab"] = $this->input->post("id_kab");
             $data["id_kec"] = $this->input->post("id_kec");
             $data["id_kel"] = $this->input->post("id_kel");
+            $data["rt"] = $this->input->post("rt");
+            $data["rw"] = $this->input->post("rw");
             $data["kd_pos"] = $this->input->post("kd_pos");
             $data["no_tlp"] = $this->input->post("no_tlp");
             $data["email"] = $this->input->post("email");
@@ -247,7 +251,7 @@
             $data["id_jurusan_krywn"] = $this->input->post("id_jurusan_krywn");
             $data["ipk"] = $this->input->post("ipk");
             $data["mulai_brgbg"] = $this->input->post("mulai_brgbg");
-            $data["masa_kerja"] = $this->input->post("masa_kerja");
+           /* $data["masa_kerja"] = $this->input->post("masa_kerja");*/
             $data["id_status_karyawan"] = $this->input->post("id_status_karyawan");
            /* $data["photo_pegawai"] = $image1;
             $data["file_kk"] = $image2;
@@ -283,7 +287,136 @@
 
 
         public function updateDataEmploye(){
+
+            $this->isLogin();
+
+            $config['upload_path']   ="./assets/file_karyawan";
+            $config['allowed_types'] ="gif|jpg|png|tif";
+            $config['encrypt_name']  = TRUE;
+
+            // if(!empty($_FILE['photo_pegawai']['name'])){
+            $this->load->library('upload', $config);
+            if ($upload1 = $this->upload->do_upload("photo_pegawai")){
+                $datafoto = array('upload_data' => $this->upload->data());
+                $image1 =$datafoto['upload_data']['file_name'];
+
+            }
+        // }
+            // if(!empty($_FILE['file_ktp']['name'])){
+            $this->load->library('upload', $config);
+            if  ($upload2 = $this->upload->do_upload("file_ktp")){
+                $dataktp = array('upload_data' => $this->upload->data());
+                $image2 =$dataktp['upload_data']['file_name'];
+
+            }
+        // }
+               // if(!empty($_FILE['file_kk']['name'])){
+            $this->load->library('upload', $config);
+            if ($upload3 =$this->upload->do_upload("file_kk")){
+                $datakk = array('upload_data' => $this->upload->data());
+                $image3 =$datakk['upload_data']['file_name'];
+            }
+        // }
+/*
+            if ($upload1 || $upload2 || $upload3){*/
+            $data_akun["nip"] = $this->input->post("nip");
+            $data_akun["username"] = $this->input->post("nip");
+            $data_akun["password"] = md5($this->input->post("password"));
+          /*  $data_akun["section"] = $this->input->post("section");*/
+            /*$data_akun["jabatan"] = $this->input->post("jabatan");*/
+  
+            $session = $this->session->userdata("level");
+            if($session==="1"){
+            $data_akun["level"] = $this->input->post("level");
+            }else{
+            $data_akun["level"] = "3";
+            };
+            $data_akun["hak_akses"] = implode(',', $this->input->post("hak_akses"));
             
+            //  variable sebelah kiri bersumber dari database
+            // variable sebelah kanan bersumber dari name/id inputan
+
+            $kd_karyawan = $this->input->post("kd_karyawan");
+            $data["nip"] = $this->input->post("nip");
+            $data["nama"] = $this->input->post("nama");
+            $data["no_ktp"] = $this->input->post("no_ktp");
+            $data["no_kk"] = $this->input->post("no_kk");
+            $data["nm_pnggilan"] = $this->input->post("nm_pnggilan");
+            $data["agama"] = $this->input->post("agama");
+            $data["gender"] = $this->input->post("gender");
+            $data["gol_darah"] = $this->input->post("gol_darah");
+        /*    $data["unit"] = $this->input->post("unit");*/
+            $data["alamat"] = $this->input->post("alamat");
+            $data["id_prov"] = $this->input->post("id_prov");
+            $data["id_kab"] = $this->input->post("id_kab");
+            $data["id_kec"] = $this->input->post("id_kec");
+            $data["id_kel"] = $this->input->post("id_kel");
+            $data["rt"] = $this->input->post("rt");
+            $data["rw"] = $this->input->post("rw");
+            $data["kd_pos"] = $this->input->post("kd_pos");
+            $data["no_tlp"] = $this->input->post("no_tlp");
+            $data["email"] = $this->input->post("email");
+            $data["tempat_lahir"] = $this->input->post("tempat_lahir");
+            $data["tgl_lahir"] = $this->input->post("tgl_lahir");
+           /* $data["npwp"] = $this->input->post("npwp");*/
+            $data["id_negara"] = $this->input->post("id_negara");
+            $data["status_nikah"] = $this->input->post("status_nikah");
+            $data["jml_anak"] = $this->input->post("jml_anak");
+           /* $data["nm_ibu"] = $this->input->post("nm_ibu");*/
+           /* $data["mulai_tugas"] = $this->input->post("mulai_tugas");*/
+            $data["id_jnjng_pddk"] = $this->input->post("id_jnjng_pddk");
+            $data["id_college_krywn"] = $this->input->post("id_college_krywn");
+            $data["id_fakultas_krywn"] = $this->input->post("id_fakultas_krywn");
+            $data["thn_lulus"] = $this->input->post("thn_lulus");
+            $data["id_jurusan_krywn"] = $this->input->post("id_jurusan_krywn");
+            $data["ipk"] = $this->input->post("ipk");
+            $data["mulai_brgbg"] = $this->input->post("mulai_brgbg");
+           /* $data["masa_kerja"] = $this->input->post("masa_kerja");*/
+            $data["id_status_karyawan"] = $this->input->post("id_status_karyawan");
+
+            if(!empty($image1)){
+                $data["photo_pegawai"] = $image1;
+            }
+            if(!empty($image2)){
+                $data["file_ktp"] = $image2;
+            }
+            if(!empty($image3)){
+                $data["file_kk"] = $image3;
+            }
+            $data["nmr_darurat1"] = $this->input->post("nmr_darurat1");
+            $data["nm_nmr_darurat1"] = $this->input->post("nm_nmr_darurat1");
+           /* $data["nm_nmr_darurat2"] = $this->input->post("nm_nmr_darurat2");
+            $data["nmr_darurat2"] = $this->input->post("nmr_darurat2");*/
+            $data ["bhs_eng"] = implode('',$this->input->post("sts_eng"));
+            $data["bhs_arab"] = implode('',$this->input->post("sts_arb"));
+            $data["serti_eng"] = implode('',$this->input->post("sts_brs"));
+            $data["serti_arab"] = implode('',$this->input->post("sts_brs_arb")); 
+            $data["tilawah"] = implode('', $this->input->post("tilawah"));
+            $data["hfln_quran"] = $this->input->post("hfln_quran");
+            $data["pelatihan"] = $this->input->post("pelatihan");
+            $data["p_kajian"] = $this->input->post("p_kajian");
+            $data["aktifitas_kajian"] = implode('',$this->input->post("aktifitas_kajian"));
+            $data["komputer"] = implode('',$this->input->post("komputer"));
+           /* $data["relasi"] = $this->input->post("relasi");*/
+            $data["id_divisi"] = $this->input->post("id_divisi");
+            $data["id_jabatan"] = $this->input->post("id_jabatan");
+            $data["id_cbg"] = $this->input->post("id_cbg");
+            $data["id_job_title"] = $this->input->post("id_job_title");
+            $data["no_kk"] = $this->input->post("no_kk");
+            $data["input"] = 'MANUAL';
+
+            $result = $this->Main_model->updateDataEmployee($data,$data_akun, $kd_karyawan);
+            echo $result;
+
+        
+    }
+
+        public function deleteEmployee()
+        {
+            $this->isLogin();
+            $id = $this->input->post("id");
+            $result = $this->Main_model->deleteMemployee($id);
+            echo $result;
         }
 
         public function getEmployeeById()
@@ -328,10 +461,10 @@
 
                 $numrow = 1;
                 foreach($sheet as $row){
-                    if($row['I']=='1'){
-                        $gender= 'Laki-laki';
-                    }elseif($row['I']== '2'){
-                        $gender= 'Perempuan';
+                    if($row['I']=='Laki-Laki'){
+                        $gender= '1';
+                    }elseif($row['I']== 'Perempuan'){
+                        $gender= '2';
                     }
 
                   if($numrow > 1){
@@ -343,61 +476,66 @@
                     };
                     array_push($data_akun, array(
 
-                        'nip'      => date('Ym').$row['A'].$kode_baru,
-                        'username' => $row['A'],
+                        'nip'      => date('Ym').$row['I'].$kode_baru,
+                        'username' => date('Ym').$gender.$kode_baru,
                         'password' => md5($row['B']),
-                        'section' => $row['C'],
+                        'hak_akses' => $row['C'],
                         'level' =>$level,
 
                          
                         
                     ));
 
-                    array_push($data_employee, array(                    
-                    'nip'                => date('Ym').$row['A'].$kode_baru,
+                    array_push($data_employee, array(                  
+
+                    'nip'                => date('Ym').$gender.$kode_baru,
                     'nama'               => $row['D'],
                     'nm_pnggilan'        => $row['E'],
                     'no_ktp'             => $row['F'],
                     'no_kk'              => $row['G'],
                     'agama'              => $row['H'],
                     'gender'             => $row['I'],
-                    'alamat'             => $row['J'],
-                    'id_prov'            => $row['K'],
-                    'id_kab'             => $row['L'],
-                    'id_kec'             => $row['M'],
-                    'id_kel'             => $row['N'],
-                    'kd_pos'             => $row['O'],
-                    'no_tlp'             => $row['P'],
-                    'email'              => $row['Q'],
-                    'tempat_lahir'       => $row['R'],
-                    'tgl_lahir'          => date('Y-m-d',strtotime($row['S'])),
-                    'id_negara'          => $row['T'],
-                    'status_nikah'       => $row['U'],
-                    'jml_anak'           => $row['V'],
-                    'id_jnjng_pddk'      => $row['W'],
-                    'id_college_krywn'   => $row['X'],
-                    'id_fakultas_krywn'  => $row['Y'],
-                    'thn_lulus'          => $row['Z'],
-                    'id_jurusan_krywn'   => $row['AA'],
-                    'ipk'                => $row['AB'],
-                    'mulai_brgbg'        => date('Y-m-d',strtotime($row['AC'])),
-                    'id_status_karyawan' => $row['AD'],
-                     'nmr_darurat1'      => $row['AE'],
-                    'nm_nmr_darurat1'    => $row['AF'],
-                     'bhs_eng'           => $row['AG'],
-                    'bhs_arab'           => $row['AH'],
-                     'serti_eng'         => $row['AI'],
-                     'serti_arab'        => $row['AJ'],
-                     'tilawah'           => $row['AK'],
-                      'hfln_quran'       => $row['AL'],
-                     'pelatihan'         => $row['AM'],
-                      'p_kajian'         => $row['AN'],
-                      'aktifitas_kajian' => $row['AO'],
-                      'komputer'         => $row['AP'],
-                      'id_divisi'        => $row['AQ'],
-                      'id_jabatan'       => $row['AR'],
-                      'id_cbg'           => $row['AS`'],
-                      'id_job_title'     => $row['AT'],
+                    'gol_darah'          => $row['J'],
+                    'alamat'             => $row['K'],
+                    'id_prov'            => $row['L'],
+                    'id_kab'             => $row['M'],
+                    'id_kec'             => $row['N'],
+                    'id_kel'             => $row['O'],
+                    'rt'                 => $row['P'],
+                    'rw'                 => $row['Q'],
+                    'kd_pos'             => $row['R'],
+                    'no_tlp'             => $row['S'],
+                    'email'              => $row['T'],
+                    'tempat_lahir'       => $row['U'],
+                    'tgl_lahir'          => date('Y-m-d',strtotime($row['V'])),
+                    'id_negara'          => $row['W'],
+                    'status_nikah'       => $row['X'],
+                    'jml_anak'           => $row['Y'],
+                    'id_jnjng_pddk'      => $row['Z'],
+                    'id_college_krywn'   => $row['AA'],
+                    'id_fakultas_krywn'  => $row['AB'],
+                    'thn_lulus'          => $row['AC'],
+                    'id_jurusan_krywn'   => $row['AD'],
+                    'ipk'                => $row['AE'],
+                    'mulai_brgbg'        => date('Y-m-d',strtotime($row['AF'])),
+                    'id_status_karyawan' => $row['AG'],
+                     'nmr_darurat1'      => $row['AH'],
+                    'nm_nmr_darurat1'    => $row['AI'],
+                     'bhs_eng'           => $row['AJ'],
+                    'bhs_arab'           => $row['AK'],
+                     'serti_eng'         => $row['AL'],
+                     'serti_arab'        => $row['AM'],
+                     'tilawah'           => $row['AN'],
+                      'hfln_quran'       => $row['AO'],
+                     'pelatihan'         => $row['AP'],
+                      'p_kajian'         => $row['AQ'],
+                      'aktifitas_kajian' => $row['AR'],
+                      'komputer'         => $row['AS'],
+                      'id_divisi'        => $row['AT'],
+                      'id_jabatan'       => $row['AU'],
+                      'id_cbg'           => $row['AV'],
+                      'id_job_title'     => $row['AW'],
+                      'id_job_title'     => $row['AX'],
                       'created_date'     => date("Y-m-d H:i:s"),
                       'input'            => 'IMPORT',
                                        

@@ -21,6 +21,7 @@
 			$this->datatables->join("tb_kelurahan g"," a.id_kel = g.id_kel");
 			$this->datatables->join("tb_provinsi h"," a.id_prov = h.id_prov");
 			$this->datatables->join("tb_status_karyawan i"," a.id_status_karyawan =i.id_status_karyawan");
+			$this->datatables->WHERE("a.deleted = 'false'");
 			$this->db->order_by("a.nama ASC");
 
 
@@ -64,6 +65,43 @@
  				return "success";
  			}
 
+ 		}
+
+ 		public function updateDataEmployee($data, $data_akun, $kd_karyawan)
+ 		{
+ 			$this->db->trans_start();
+ 			$this->db->set($data);
+ 			$this->db->WHERE("kd_karyawan",$kd_karyawan);
+ 			$this->db->update("tb_karyawan");
+
+ 			$this->db->set($data_akun);
+ 			$this->db->WHERE("nip",$data['nip']);
+ 			$this->db->update("tb_user");
+
+ 			if($this->db->trans_status()===FALSE){
+ 				$this->db->trans_rollback();
+ 				return "failed";
+ 			}else{
+ 				$this->db->trans_commit();
+ 				return "success";
+ 			}
+
+ 		}
+
+ 		public function deleteMemployee($id)
+
+ 		{
+ 			$this->db->trans_start();
+ 			$this->db->set("deleted","true");
+ 			$this->db->WHERE("kd_karyawan",$id);
+ 			$this->db->UPDATE("tb_karyawan");
+ 			if($this->db->trans_status()===FALSE){
+ 				$this->db->trans_rollback();
+ 				return "failed";
+ 			}else{
+ 				$this->db->trans_commit();
+ 				return "success";
+ 			}
  		}
 
  		public function importDataUniv($datauniv)

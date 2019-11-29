@@ -398,6 +398,72 @@
       },3000)
     }
 
+   function alertEmptyImportanInput(){
+      $("#modalColor").addClass("bg-gradient-warning");
+      $("#txtNotif").text("Kolom Yang Bertanda (*) Harus Diisi !");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+     function alertEmptyImportanInput(){
+      $("#modalColor").addClass("bg-gradient-warning");
+      $("#txtNotif").text("Kolom Yang Bertanda (*) Harus Diisi !");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function alertSuccessDelete() {
+      $("#modalColor").addClass("bg-gradient-success");
+      $("#txtNotif").text("Data Berhasil Dihapus!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function alertFailedDelete() {
+      $("#modalColor").addClass("bg-gradient-warning");
+      $("#txtNotif").text("Data Gagal Dihapus!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function confirmDelete(param,id){
+      $("#btnYes").attr('onclick','delete'+param+'("'+id+'")');
+      $("#confirmDelete").modal("show");
+      $("#txtConfirm").text("Yakin, Hapus Daftar "+param+" ?");
+    }
+
+    function alertEmptyImportanInput(){
+      $("#modalColor").addClass("bg-gradient-warning");
+      $("#txtNotif").text("Kolom Yang Bertanda (*) Harus Diisi !");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
 
 
     $(function () {
@@ -576,7 +642,7 @@
 
               }
           
-            $("td:eq(4)",nRow).html("<button class='btn btn-info btn-sm' onclick=editEmployee('"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='Edit'><i class='fa fa-list'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Employee','"+aData["nip"]+"') title='Delete'><i class='fa fa-trash'></i></button>");
+            $("td:eq(4)",nRow).html("<button class='btn btn-info btn-sm' onclick=editEmployee('"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='Edit'><i class='fa fa-list'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Employee','"+aData["kd_karyawan"]+"') title='Delete'><i class='fa fa-trash'></i></button>");
  
           }
 
@@ -585,6 +651,9 @@
 
    $('#inputDataEmployee').submit(function(e){
     e.preventDefault();
+    var kd_karyawan = $("#kd_karyawan").val();
+    if (kd_karyawan == ''){
+
     $.ajax({
       url:"<?php echo base_url('hris/main/inputDataEmployee');?>",
       type:"post",
@@ -604,7 +673,30 @@
       }
 
     });
+  }else{
+    $.ajax({
+      url:"<?php echo base_url('hris/main/updateDataEmploye');?>",
+      type:"post",
+      data:new FormData(this),
+      processData:false,
+      contentType:false,
+      cache:false,
+      async:true,
+      success: function(response){
+        if (jQuery.trim(response)==="success") {
+          dataTbEmployee();
+          cancelAdd('Employee');
+          alertSuccessUpdate();
+        }else if(jQuery.trim(response)==="failed"){
+          alertFailedSave();
+        }
+      }
+
+    });
+  
+  }
    });
+
 
     function editEmployee(id,nip) {
       $.ajax({
@@ -623,7 +715,7 @@
           $("#input_tempat_lahir").val(response[0][0].tempat_lahir);
           $("#input_tanggal_lahir").val(response[0][0].tgl_lahir);
           $("#input_status_nikah").val(response[0][0].status_nikah);
-          $("#input_gender").val(response[0][0].gender);
+          $("#input_gender").val(response[0][0].gender).prop('disabled', 'disabled');
           $("#input_agama").val(response[0][0].agama);
           $("#input_jml_anak").val(response[0][0].jml_anak);
           $("#idselectCountries").val(response[0][0].id_negara).trigger("change.select2");
@@ -708,12 +800,24 @@
        });
     }
 
-    $('#updateDataEmploye').submit(function(e){
-      var 
-
-
-    });
-
+    function deleteEmployee(id){
+    $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('hris/main/deleteEmployee') ?>",
+        data : {id:id},
+        success : function(response) {
+          if (jQuery.trim(response)==="success") {
+            $("#confirmDelete").modal("hide");
+            dataTbEmployee();
+            alertSuccessDelete();
+          }else if(jQuery.trim(response)==="failed"){
+            $("#confirmDelete").modal("hide");
+            alertFailedDelete();
+          }
+        }
+      });
+    }
+   
    $('#importDataEmployee').submit(function(e){
       e.preventDefault();
       $.ajax({
@@ -794,7 +898,7 @@
       $("input").val("");
       $("select").val("");
       $("select").val("").trigger('change.select2');
-      $("checkbox").prop('checked',false);
+      $("checkbox").prop('checked', false);
       $("#frmAddEmployee").show(500);
       $("#frmImportEmployee").hide();
       $("view_profile_employe").hide();
