@@ -1196,9 +1196,9 @@
 			}
 		}
 
-		public function getListMapel()
+		public function getListMapel($kls)
 		{
-			$query = $this->db->query("SELECT * FROM tb_mapel WHERE deleted = 'false' AND status = 'aktif'")->result_array();
+			$query = $this->db->query("SELECT * FROM tb_mapel WHERE kelas = '$kls' AND deleted = 'false' AND status = 'aktif'")->result_array();
 			return json_encode($query);
 		}
 
@@ -1652,7 +1652,7 @@
 
 		public function getDataCbt($data)
 		{
-			$this->datatables->select("a.kd_cbt, a.kd_jenis_cbt, a.nm_cbt,a.kd_kls, b.nm_mapel, b.kkm");
+			$this->datatables->select("a.kd_cbt, a.kd_jenis_cbt, a.nm_cbt,a.kd_kls, b.nm_mapel, a.kkm");
 			$this->datatables->from("tb_cbt a");
 			$this->datatables->join("tb_mapel b","a.kd_mapel = b.kd_mapel");
 			$this->datatables->join("tb_jenis_cbt c", "a.kd_jenis_cbt = c.kd_jenis_cbt");
@@ -1661,4 +1661,51 @@
 			return $this->datatables->generate();
 		}
 
+		public function saveDataCbt($data)
+		{
+			$this->db->trans_start();
+			$this->db->insert("tb_cbt",$data);
+			if ($this->db->trans_status()===FALSE) {
+				$this->db->trans_rollback();
+				return "failed";
+			}else{
+				$this->db->trans_commit();
+				return "success";
+			}
+		}
+
+		public function updateDataCbt($data,$id)
+		{
+			$this->db->trans_start();
+			$this->db->where("kd_cbt",$id);
+			$this->db->update("tb_cbt",$data);
+			if ($this->db->trans_status()===FALSE) {
+				$this->db->trans_rollback();
+				return "failed";
+			}else{
+				$this->db->trans_commit();
+				return "success";
+			}
+		}
+
+		public function deleteCbt($id)
+		{
+			$this->db->trans_start();
+			$this->db->set("deleted","true");
+			$this->db->where("kd_cbt",$id);
+			$this->db->update("tb_cbt");
+			if ($this->db->trans_status()===FALSE) {
+				$this->db->trans_rollback();
+				return "failed";
+			}else{
+				$this->db->trans_commit();
+				return "success";
+			}
+		}
+
+		public function getCbtById($id)
+		{
+			$query = $this->db->query("SELECT * FROM tb_cbt WHERE kd_cbt = '$id'")->result_array();
+			return json_encode($query);
+		}
 	}

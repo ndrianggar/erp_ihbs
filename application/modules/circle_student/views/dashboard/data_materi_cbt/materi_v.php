@@ -1,4 +1,5 @@
 <body <?php if (!empty($this->session->userdata("unit"))) {echo 'onload="selectUnitSiswaForKls()"';}?>>
+<?php $this->session->userdata("unit") ?>
 <div class="card shadow" id="mainFormAbsensiSiswa">
   <div class="card-header border-0">
     <h3 class="mb-0">Data Materi

@@ -226,8 +226,8 @@
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--7">
-      <div class="row row-grid">
-        <div class="col-md-3 wow bounce mb-5" id="card_menu" data-wow-duration="3s" style="cursor: pointer;" onclick="window.location = '<?php echo base_url() ?>circle_student/main'">
+      <div class="row row-grid" id="app">
+        <!-- <div class="col-md-3 wow bounce mb-5" id="card_menu" data-wow-duration="3s" style="cursor: pointer;" onclick="window.location = '<?php echo base_url() ?>circle_student/main'">
           <div class="card shadow border-0" style="background-color:#fff; ">
             <img src="<?php echo base_url(); ?>assets/home/img/bg-mapel1.png" class="card-img-top">
             <h2 class="text-center mt-2 font-weight-bold text-dark">Circel Student</h2>
@@ -238,9 +238,8 @@
             <img src="<?php echo base_url(); ?>assets/home/img/bg-mapel1.png" class="card-img-top">
             <h2 class="text-center mt-2 font-weight-bold text-dark">HRD</h2>
           </div>
-        </div>
+        </div> -->
       </div>
-
       <!-- modal -->
       <div class="modal fade" id="logOut_notif" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
         <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
@@ -281,6 +280,9 @@
   <script src="<?php echo base_url(); ?>/assets/home/js/wow.min.js"></script>
   <script src="<?php echo base_url(); ?>/assets/home/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
   <script type="text/javascript">
+    if ($("#app").length) {
+      listApp()
+    }
     new WOW().init();
 
     function confirmLogOut() {
@@ -290,6 +292,21 @@
 
     function logOut() {
       window.location = "<?php echo base_url('master_login/aunt/logOut') ?>";
+    }
+
+    function listApp() {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('superadmin/main/listApp') ?>",
+        dataType : "JSON",
+        success : function(response) {
+          // $.each(response, function(Index,Value){
+            $("#app").append(
+               response
+            )
+          // })
+        }
+      })
     }
   </script>
 </body>

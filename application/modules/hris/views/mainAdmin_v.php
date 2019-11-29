@@ -410,12 +410,12 @@
 
       
      "columns" : [
-                    {"data" : "photo_pegawai", "name" : "photo_pegawai"},
-                    {"data" : "photo_pegawai", "name" : "photo_pegawai"},            
-                    {"data" : "nama", "name" : "nama"},
-                    {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"},
-                    {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"},
-                    {"data" : "pangkat_jabatan", "name" : "pangkat_jabatan"}
+                    {"data" : "photo_pegawai", "name" : "nama"},
+                    {"data" : "photo_pegawai", "name" : "nama"},            
+                    {"data" : "biodata_pegawai", "name" : "nm_jbtn"},
+                    {"data" : "pangkat_jabatan", "name" : "nama"},
+                    {"data" : "pangkat_jabatan", "name" : "nama"},
+                    {"data" : "pangkat_jabatan", "name" : "nama"}
                
     
                   ],

@@ -499,10 +499,6 @@
         selectThnAkademik();
       }
 
-      if ($("#input_mapel").length) {
-        selectMapel();
-      }
-
       if ($("#select_jdlBab").length) {
         selectJdlBab();
       }
@@ -3797,6 +3793,16 @@
               "<option value='"+Value.kd_thn_akademik+"'>"+Value.nm_thn_akademik+"</option>"
             );
           });
+
+          $("#input_thnAkademik").empty();
+          $("#input_thnAkademik").append(
+            "<option selected value=''>Pilih Tahun Akademik</optional>"
+          );
+          $.each(response, function(Index, Value) {
+            $("#input_thnAkademik").append(
+              "<option value='"+Value.kd_thn_akademik+"'>"+Value.nm_thn_akademik+"</option>"
+            );
+          });
         }
       });
     }
@@ -3846,9 +3852,11 @@
     });
 
     function selectMapel() {
+      var kls = $("#input_kelas").val();
       $.ajax({
         type : "POST",
         url  : "<?php echo base_url('circle_student/main/getListMapel') ?>",
+        data : {kls:kls},
         dataType : "JSON",
         success : function (response) {
           $("#input_mapel").empty();
@@ -4316,6 +4324,12 @@
           $.each(response, function(Index,Value){
             $("#selectKlsByUnit").append("<option value='"+Value.kd_kls+"'>"+Value.nm_kelas+"</option>")
           });
+
+          $("#input_kelas").empty()
+          $("#input_kelas").append("<option value=''>Pilih Kelas *</option>")
+          $.each(response, function(Index,Value){
+            $("#input_kelas").append("<option value='"+Value.kd_kls+"'>"+Value.nm_kelas+"</option>")
+          });
         }
       });
     }
@@ -4565,6 +4579,16 @@
             );
           $.each(response, function(Index,Value){
             $("#select_JnsCbt").append(
+              "<option value='"+Value.kd_jenis_cbt+"'>"+Value.nm_jenis_cbt+"</option>"
+            );
+          })
+
+          $("#input_JnsCbt").empty();
+          $("#input_JnsCbt").append(
+              "<option selected>Pilih Jenis CBT</option>"
+            );
+          $.each(response, function(Index,Value){
+            $("#input_JnsCbt").append(
               "<option value='"+Value.kd_jenis_cbt+"'>"+Value.nm_jenis_cbt+"</option>"
             );
           })
@@ -4842,57 +4866,116 @@
       var topik = $("#select_TopikSoal").val();
       var kdMapel = $("#lbKdMapel").text();
       var kdKls = $("#lbKelas").text();
-      $("#tbBankSoalPg").dataTable().fnDestroy();
-      $("#tbBankSoalPg").dataTable({
-        // "fixedHeader" : true,
-        "pageLength" : 50,
-        "autoWidth" : false,
-        "ordering" : false,
-        "bProcessing" : true,
-        "bServerSide" : true,
-        "bJQueryUI" : true,
-        "sPaginationType" : "full_numbers",
-        "sAjaxSource" : "<?php echo base_url(); ?>circle_student/main/getDataBankSoalPg/",
-        "columnDefs": [
+      if (!kdMapel||!kdKls) {
+        var kdMapel = $("#input_mapel").val();
+        var kdKls = $("#input_kelas").val();
+        $("#tbBankSoalPg").dataTable().fnDestroy();
+        $("#tbBankSoalPg").dataTable({
+          // "fixedHeader" : true,
+          "language": { search: '', searchPlaceholder: "  Search..." },
+          "pageLength" : 50,
+          "autoWidth" : false,
+          "ordering" : false,
+          "bProcessing" : true,
+          "bServerSide" : true,
+          "bJQueryUI" : true,
+          "sPaginationType" : "full_numbers",
+          "sAjaxSource" : "<?php echo base_url(); ?>circle_student/main/getDataBankSoalPg/",
+          "columnDefs": [
 
-          { "width": "5%", "targets": 0 },
-          { "width": "10%", "targets": 2 }
-        ],
-        "columns" : [
-          {"data" : "kd_soal_pg", "name" : "a.kd_soal_pg"},
-          {"data" : "pertanyaan_pg", "name" : "a.pertanyaan_pg"},
-          {"data" : "kd_soal_pg", "name" : "a.kd_soal_pg"}
+            { "width": "5%", "targets": 0 },
+            { "width": "10%", "targets": 2 }
+          ],
+          "columns" : [
+            {"data" : "kd_soal_pg", "name" : "a.kd_soal_pg"},
+            {"data" : "pertanyaan_pg", "name" : "a.pertanyaan_pg"},
+            {"data" : "kd_soal_pg", "name" : "a.kd_soal_pg"}
 
-        ],
-        "fnServerData" : function(sSource,aoData,fnCallback){
-          aoData.push({"name":"topik","value":topik});
-          aoData.push({"name":"kdMapel","value":kdMapel});
-          aoData.push({"name":"kdKls","value":kdKls});
-          $.ajax({
-            "type"      : "POST",
-            "dataType"  : "JSON",
-            "url"       : sSource,
-            "data"      : aoData,
-            "success"   : fnCallback
-          });
-        },
-        "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
-          $("td:eq(0)",nRow).text(++iDisplayIndex);
-          if (aData["kunci"]=="A"){
-            $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p><font color='green'><b>A. "+aData["jawab_a"].replace("<p>", "") +"</b></font><p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>"); 
-          }else if(aData["kunci"]=="B"){
-            $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"<font color='green'><b>B. "+aData["jawab_b"].replace("<p>", "")+"</b></font><p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>"); 
-          }else if(aData["kunci"]=="C"){
-            $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"<font color='green'><b>C. "+aData["jawab_c"].replace("<p>", "")+"</b></font><p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>");
-          }else if(aData["kunci"]=="D"){
-            $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"<font color='green'><b>D. "+aData["jawab_d"].replace("<p>", "")+"</b></font><p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>");
-          }else if(aData["kunci"]=="E"){
-            $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"<font color='green'><b>E. "+aData["jawab_e"].replace("<p>", "")+"</b></font><p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>");
+          ],
+          "fnServerData" : function(sSource,aoData,fnCallback){
+            aoData.push({"name":"topik","value":topik});
+            aoData.push({"name":"kdMapel","value":kdMapel});
+            aoData.push({"name":"kdKls","value":kdKls});
+            $.ajax({
+              "type"      : "POST",
+              "dataType"  : "JSON",
+              "url"       : sSource,
+              "data"      : aoData,
+              "success"   : fnCallback
+            });
+          },
+          "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
+            var i = ++iDisplayIndex + 1 ;
+            var h = 0; 
+            $("td:eq(0)",nRow).text(++iDisplayIndex);
+            if (aData["kunci"]=="A"){
+              $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p><font color='green'><b>A. "+aData["jawab_a"].replace("<p>", "") +"</b></font><p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>"); 
+            }else if(aData["kunci"]=="B"){
+              $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"<font color='green'><b>B. "+aData["jawab_b"].replace("<p>", "")+"</b></font><p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>"); 
+            }else if(aData["kunci"]=="C"){
+              $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"<font color='green'><b>C. "+aData["jawab_c"].replace("<p>", "")+"</b></font><p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>");
+            }else if(aData["kunci"]=="D"){
+              $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"<font color='green'><b>D. "+aData["jawab_d"].replace("<p>", "")+"</b></font><p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>");
+            }else if(aData["kunci"]=="E"){
+              $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"<font color='green'><b>E. "+aData["jawab_e"].replace("<p>", "")+"</b></font><p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>");
+            }
+            
+            $("td:eq(2)",nRow).html("<div class='custom-control custom-checkbox mb-3'><input class='custom-control-input' id='customCheck"+ i +"' type='checkbox'><label class='custom-control-label' for='customCheck"+ i +"'></label></div>");
           }
-          
-          $("td:eq(2)",nRow).html("<button class='btn btn-warning btn-sm' onclick=editSoalPg('"+aData["kd_soal_pg"]+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Soal_Pg','"+aData["kd_soal_pg"]+"') title='Delete'><i class='fa fa-trash'></i></button>");
-        }
-      });
+        });
+      }else{
+        $("#tbBankSoalPg").dataTable().fnDestroy();
+        $("#tbBankSoalPg").dataTable({
+          // "fixedHeader" : true,
+          "pageLength" : 50,
+          "autoWidth" : false,
+          "ordering" : false,
+          "bProcessing" : true,
+          "bServerSide" : true,
+          "bJQueryUI" : true,
+          "sPaginationType" : "full_numbers",
+          "sAjaxSource" : "<?php echo base_url(); ?>circle_student/main/getDataBankSoalPg/",
+          "columnDefs": [
+
+            { "width": "5%", "targets": 0 },
+            { "width": "10%", "targets": 2 }
+          ],
+          "columns" : [
+            {"data" : "kd_soal_pg", "name" : "a.kd_soal_pg"},
+            {"data" : "pertanyaan_pg", "name" : "a.pertanyaan_pg"},
+            {"data" : "kd_soal_pg", "name" : "a.kd_soal_pg"}
+
+          ],
+          "fnServerData" : function(sSource,aoData,fnCallback){
+            aoData.push({"name":"topik","value":topik});
+            aoData.push({"name":"kdMapel","value":kdMapel});
+            aoData.push({"name":"kdKls","value":kdKls});
+            $.ajax({
+              "type"      : "POST",
+              "dataType"  : "JSON",
+              "url"       : sSource,
+              "data"      : aoData,
+              "success"   : fnCallback
+            });
+          },
+          "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
+            $("td:eq(0)",nRow).text(++iDisplayIndex);
+            if (aData["kunci"]=="A"){
+              $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p><font color='green'><b>A. "+aData["jawab_a"].replace("<p>", "") +"</b></font><p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>"); 
+            }else if(aData["kunci"]=="B"){
+              $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"<font color='green'><b>B. "+aData["jawab_b"].replace("<p>", "")+"</b></font><p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>"); 
+            }else if(aData["kunci"]=="C"){
+              $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"<font color='green'><b>C. "+aData["jawab_c"].replace("<p>", "")+"</b></font><p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>");
+            }else if(aData["kunci"]=="D"){
+              $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"<font color='green'><b>D. "+aData["jawab_d"].replace("<p>", "")+"</b></font><p>"+"E. "+aData["jawab_e"].replace("<p>", "")+"<p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>");
+            }else if(aData["kunci"]=="E"){
+              $("td:eq(1)",nRow).html(aData["pertanyaan_pg"]+"<p>A. "+aData["jawab_a"].replace("<p>", "") +"<p>"+"B. "+aData["jawab_b"].replace("<p>", "")+"<p>"+"C. "+aData["jawab_c"].replace("<p>", "")+"<p>"+"D. "+aData["jawab_d"].replace("<p>", "")+"<p>"+"<font color='green'><b>E. "+aData["jawab_e"].replace("<p>", "")+"</b></font><p>"+"Pembahasan : "+aData["pembahasan_pg"].replace("<p>", "")+"<p>");
+            }
+            
+            $("td:eq(2)",nRow).html("<button class='btn btn-warning btn-sm' onclick=editSoalPg('"+aData["kd_soal_pg"]+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Soal_Pg','"+aData["kd_soal_pg"]+"') title='Delete'><i class='fa fa-trash'></i></button>");
+          }
+        });
+      }
     }
 
     function dataTbBankSoalEssay() {
@@ -5374,11 +5457,126 @@
           },
           "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
             $("td:eq(0)",nRow).text(++iDisplayIndex);
-            $("td:eq(6)",nRow).html("<div class='dropdown'><button class='btn btn-secondary btn-sm dropdown-toggle' type='button' id='dropdownMenu2' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Menu</button><div class='dropdown-menu dropdown-menu-right' style='position:relative; z-index: 100 !important;' aria-labelledby='dropdownMenu2'><button class='dropdown-item' type='button'><i class='fa fa-edit text-primary'></i> Edit</button><button class='dropdown-item' type='button'><i class='fa fa-plus text-primary'></i> Tambah Soal</button><button class='dropdown-item' type='button'><i class='ni ni-watch-time text-primary'></i>Set Jadwal</button><button class='dropdown-item' type='button'><i class='fa fa-check text-primary'></i>Nilai CBT</button><button class='dropdown-item' type='button'><i class='fa fa-trash text-danger'></i>Hapus CBT</button></div></div>");
+            $("td:eq(6)",nRow).html("<div class='dropdown'><button class='btn btn-secondary btn-sm dropdown-toggle' type='button' id='dropdownMenu2' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Menu</button><div class='dropdown-menu dropdown-menu-right' style='position:relative; z-index: 100 !important;' aria-labelledby='dropdownMenu2'><button class='dropdown-item' type='button' onclick=editCbt('"+aData["kd_cbt"]+"')><i class='fa fa-edit text-primary'></i> Edit</button><button class='dropdown-item' type='button'><i class='fa fa-plus text-primary'></i> Tambah Soal</button><button class='dropdown-item' type='button'><i class='ni ni-watch-time text-primary'></i>Set Jadwal</button><button class='dropdown-item' type='button'><i class='fa fa-check text-primary'></i>Nilai CBT</button><button class='dropdown-item' type='button' onclick=confirmDelete('Cbt','"+aData["kd_cbt"]+"')><i class='fa fa-trash text-danger'></i>Hapus CBT</button></div></div>");
           }
         });
       }
     }
+
+    function saveCBT() {
+      var jns_cbt = $("#input_JnsCbt").val();
+      var kls = $("#input_kelas").val();
+      var mapel = $("#input_mapel").val();
+      var jdl_cbt = $("#input_jdl_cbt").val();
+      var kkm = $("#input_kkm").val();
+      var kd_cbt = $("#kd_cbt").val();
+      if (!kd_cbt) {
+        if (!jns_cbt || !kls || !mapel || !jdl_cbt || !kkm) {
+          alertEmptyImportanInput()
+        }else{
+          $.ajax({
+            type : "POST",
+            url  : "<?php echo base_url('circle_student/main/saveDataCbt') ?>", 
+            data : {jns_cbt:jns_cbt,
+                    kls:kls,
+                    mapel:mapel,
+                    jdl_cbt:jdl_cbt,
+                    kkm:kkm}, 
+            success : function(response) {
+              if (jQuery.trim(response)==="success") {
+                cancelAdd('Cbt');
+                alertSuccessSave();
+                setTimeout (function(){
+                  $('#selectUnit').val(<?php $this->session->userdata("unit"); ?>).trigger('change')
+                },300)
+                 setTimeout (function(){
+                  $("#selectKlsByUnit").val(kls).trigger('change');
+                },300)
+                  $('#select_JnsCbt').val(jns_cbt).trigger('change');
+                $('#formShowCbt').show()
+              }else if(jQuery.trim(response)==="failed"){
+                alertFailedSave();
+              }
+            }
+          });
+        }
+      }else{
+        if (!jns_cbt || !kls || !mapel || !jdl_cbt || !kkm) {
+          alertEmptyImportanInput()
+        }else{
+          $.ajax({
+            type : "POST",
+            url  : "<?php echo base_url('circle_student/main/updateDataCbt') ?>", 
+            data : {kd_cbt:kd_cbt,
+                    jns_cbt:jns_cbt,
+                    kls:kls,
+                    mapel:mapel,
+                    jdl_cbt:jdl_cbt,
+                    kkm:kkm}, 
+            success : function(response) {
+              if (jQuery.trim(response)==="success") {
+                cancelAdd('Cbt');
+                alertSuccessUpdate();
+                setTimeout (function(){
+                  $('#selectUnit').val(<?php $this->session->userdata("unit"); ?>).trigger('change')
+                },300)
+                 setTimeout (function(){
+                  $("#selectKlsByUnit").val(kls).trigger('change');
+                },300)
+                  $('#select_JnsCbt').val(jns_cbt).trigger('change');
+                $('#formShowCbt').show()
+              }else if(jQuery.trim(response)==="failed"){
+                alertFailedUpdate();
+              }
+            }
+          });
+        }
+      } 
+    }
+
+    function deleteCbt(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/main/deleteCbt') ?>",
+        data : {id:id},
+        success : function(response) {
+          if (jQuery.trim(response)==="success") {
+            alertSuccessDelete();
+            dataTbCbt()
+            $("#confirmDelete").modal("hide");
+          }else if(jQuery.trim(response)==="failed"){
+            alertFailedDelete();
+          }  
+        }
+      })
+    }
+
+    function editCbt(id) {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('circle_student/main/getCbtById') ?>",
+        data : {id:id},
+        dataType : "JSON",
+        success : function(response) {
+          $("#kd_cbt").val(response[0].kd_cbt);
+          $("#input_JnsCbt").val(response[0].kd_jenis_cbt).trigger('change');
+          $("#input_kelas").val(response[0].kd_kls).trigger('change');
+          setTimeout(function() {
+            $("#input_mapel").val(response[0].kd_mapel);
+          },300)
+          $("#input_jdl_cbt").val(response[0].nm_cbt);
+          $("#input_kkm").val(response[0].kkm);
+          $("#frmTbCbt").hide();
+          $("#frmAddCbt").show();
+          $("#btnCancel").show();
+          $('#formShowCbt').hide()
+        }
+      })
+    }
+
+    $("#customCheck1").click(function () {
+     $('input:checkbox').not(this).prop('checked', this.checked);
+    });
 
   </script>
 
