@@ -240,7 +240,9 @@
 
  		public function  getMEmployeeid($id){
  		 		   $sql = $this->db->query(
- 		   		"SELECT * FROM tb_karyawan 
+ 		   		"SELECT a.*,b.country_name, c.namaProv FROM tb_karyawan a
+ 		   		 JOIN tb_countries b ON  a.id_country =b.id_country
+ 		   		 JOIN tb_countries c ON  a.id_prov =c.id_prov
  		   		 WHERE kd_karyawan ='$id'")->result_array();
  		   return $sql;
 

@@ -635,10 +635,10 @@
               "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
             $("td:eq(0)",nRow).text(++iDisplayIndex);
             if(!aData['photo_pegawai']){
-               $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/file_karyawan/user.png' class ='photoimg'><div class ='overlay'><a href='#' class='icon' onclick='Profileemploye();' title='User Profile'><i class='fa fa-user'><br>profile</i></a></div>");
+               $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/file_karyawan/user.png' class ='photoimg'><div class ='overlay'><a href='#' class='icon' onclick=Profileemployedetail('"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='User Profile'><i class='fa fa-user'><br>profile</i></a></div>");
 
             }else{
-               $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/file_karyawan/"+aData['photo_pegawai']+"'  class='photoimg'> <div class= 'overlay'><a href='#' class='icon' onclick='Profileemploye();' title='User Profile'><i class='fa fa-user'><br>profile</br></i></a></div>");
+               $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/file_karyawan/"+aData['photo_pegawai']+"'  class='photoimg'> <div class= 'overlay'><a href='#' class='icon' onclick=Profileemployedetail('"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='User Profile'><i class='fa fa-user'><br>profile</br></i></a></div>");
 
               }
           
@@ -796,8 +796,90 @@
       $("#btnSave").show();
       $("#btnImport").hide();
       $("#btnCancelImport").hide();
+      $("#view_profile_employe").hide();
          }
        });
+    }
+
+    function Profileemployedetail(id,nip){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('hris/main/getdetailEmployee')?>",
+        data : {id:id,nip:nip},
+        dataType :"JSON",
+        success : function (response){
+
+      $("#view_profile_employe").show(500);
+      $("#frmAddEmployee").hide();
+      $("#frmImportEmployee").hide();
+      $("#frmTbEmployee").hide();
+      $("#btnCancel").hide();
+      $("#btnSave").hide();
+      $("#btnImport").hide();
+      $("#btnCancelImport").hide();
+
+      $("#username-detail").text(response[1][0].username);
+      $("#nama-detail").text(response[0][0].nama);
+      $("#email-detail").text(response[0][0].email);
+      $("#notlp-detail").text(response[0][0].no_tlp);
+      $("#edit-no_kk").val(response[0][0].no_kk);
+      $("#edit-no_ktp").val(response[0][0].no_ktp);
+      $("#edit-tempat_lahir").val(response[0][0].tempat_lahir);
+      $("#edit-tanggal_lahir").val(response[0][0].tgl_lahir);
+      $("#edit-status_nikah").val(response[0][0].status_nikah);
+      $("#edit-gender").val(response[0][0].gender);
+      $("#edit-agama").val(response[0][0].agama);
+      $("#edit-jml_anak").val(response[0][0].jml_anak);
+      $("#edit-Countries").text(response[0][0].country_name);
+      $("#edit-Provinsi").val(response[0][0].namaProv);
+      $("#edit-Kabupaten").val(response[0][0].id_kab);
+      $("#edit-Kecamatan").val(response[0][0].id_kec)
+      $("#edit-Kelurahan").val(response[0][0].id_kel)
+      $("#edit-alamat").val(response[0][0].alamat);
+      $("#edit-rt").val(response[0][0].rt);
+      $("#edit-rw").val(response[0][0].rw);
+      $("#edit-kd_pos").val(response[0][0].kd_pos);
+      $("#edit-gol_darah").val(response[0][0].gol_darah);
+      $("edit-bhs_eng").val(response[0][0].bhs_eng);  
+      $("edit-serti_eng").val(response[0][0].serti_eng);
+      $("edit-bjs_arab").val(response[0][0].bhs_arab); 
+      $("edit-sert_arab").val(response[0][0].serti_arab);  
+      $("#edit-StatusKrywan").val(response[0][0].id_status_karyawan);
+      $("#edit-Jbtn").val(response[0][0].id_jabatan);
+      $("#edit-JobTitle").val(response[0][0].id_job_title);
+      $("#edit-Cbg").val(response[0][0].id_cbg);
+      $("#edit-Divisi").val(response[0][0].id_divisi);     
+      $("").val(response[0][0].seragam);
+      $("#input_mulai_brgbg").val(response[0][0].mulai_brgbg);
+      $("#input_email").val(response[0][0].email);
+      $("#input_no_tlp").val(response[0][0].no_tlp);
+      $("#input_nmr_darurat1").val(response[0][0].nmr_darurat1);
+      $("#input_nm_nmr_darurat1").val(response[0][0].nm_nmr_darurat1);
+      $("#input_nm_nmr_darurat1").val(response[0][0].nm_nmr_darurat1);
+     
+      $("#input_idselectPndkkanterakhir").val(response[0][0].id_jnjng_pddk);
+       $("#input_thn_lulus").val(response[0][0].thn_lulus);
+    
+      $("#input_idselectUniversitas").val(response[0][0].id_jnjng_pddk);
+      $("#input_idselectJurusan").val(response[0][0].id_jurusan_krywn).trigger("change.select2");
+      $("#input_idselectFakultas").val(response[0][0].id_fakultas_krywn).trigger("change.select2");
+      $("#input_ipk").val(response[0][0].ipk);
+      $("input[name='tilawah[]'][value='"+response[0][0].tilawah+"']").prop("checked",true);
+      $("#input_p_kajian").val(response[0][0].p_kajian);
+      $("input[name='komputer[]'][value='"+response[0][0].komputer+"']").prop("checked",true);
+      $("#input_pelatihan").val(response[0][0].pelatihan);
+      $("#input_hfln_quran").val(response[0][0].hfln_quran);
+      $("input[name='aktifitas_kajian[]'][value='"+response[0][0].aktifitas_kajian+"']").prop("checked",true);
+
+     if (!response[0][0].photo_pegawai) {
+          $("#img-detail").attr("src","<?php echo base_url() ?>assets/file_karyawan/user.png")
+          }else{
+            $("#img-detail").attr("src","<?php echo base_url() ?>assets/file_karyawan/"+response[0][0].photo_pegawai+"")
+          }
+        }
+
+
+      });
     }
 
     function deleteEmployee(id){
@@ -916,18 +998,11 @@
       $("#btnCancel").hide();
       $("#btnImport").show();
     }
-
+/*
     function Profileemploye(){
-      $("#view_profile_employe").show(500);
-      $("#frmAddEmployee").hide();
-      $("#frmImportEmployee").hide();
-      $("#frmTbEmployee").hide();
-      $("#btnCancel").hide();
-      $("#btnSave").hide();
-      $("#btnImport").hide();
-      $("#btnCancelImport").hide();
+     
     }
-
+*/
     
 
     $('#importDataUniv').submit(function(e){

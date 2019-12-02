@@ -34,22 +34,7 @@
             }
         }
 
-        public function employee_data()
-        {
-              $data["parent_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href=''>Master Employee &nbsp</a>";
 
-              $data["child_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href='#' onclick=cancelAdd('Employee'),AddLblForm('')>Data Employee &nbsp</a>";
-
-              $this->template->load("mainAdmin_v","dashboard/master_data/v_employee",$data);    
-        }
-
-        public function getEmployee()
-        {
-            $this->isLogin();
-            $result = $this->Main_model->getEmployee();
-            echo $result;
-        }
-        
 
         public function position_data()
         {   
@@ -89,6 +74,22 @@
 
             echo $gen_code;         
 
+        }
+
+          public function employee_data()
+        {
+              $data["parent_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href=''>Master Employee &nbsp</a>";
+
+              $data["child_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href='#' onclick=cancelAdd('Employee'),AddLblForm('')>Data Employee &nbsp</a>";
+
+              $this->template->load("mainAdmin_v","dashboard/master_data/v_employee",$data);    
+        }
+
+        public function getEmployee()
+        {
+            $this->isLogin();
+            $result = $this->Main_model->getEmployee();
+            echo $result;
         }
 
         public function inputDataEmployee()
@@ -411,15 +412,7 @@
         
     }
 
-        public function deleteEmployee()
-        {
-            $this->isLogin();
-            $id = $this->input->post("id");
-            $result = $this->Main_model->deleteMemployee($id);
-            echo $result;
-        }
-
-        public function getEmployeeById()
+     public function getEmployeeById()
         {
             $this->isLogin();
             $kd_karywn=$this->input->post('id');
@@ -433,6 +426,27 @@
 
 
         }
+
+    public function getdetailEmployee()
+    {
+        $this->isLogin();
+        $kd_karywn=$this->input->post('id');
+        $nip=$this->input->post('nip');
+        $result =array();
+        $getemploy=$this->Main_model->getMEmployeeid($kd_karywn);
+        $getuser=$this->Main_model->getMUserid($nip);
+        array_push($result, $getemploy,$getuser);
+        echo json_encode($result);
+    }
+
+        public function deleteEmployee()
+        {
+            $this->isLogin();
+            $id = $this->input->post("id");
+            $result = $this->Main_model->deleteMemployee($id);
+            echo $result;
+        }
+
 
         public function importDataEmployee()
         {
