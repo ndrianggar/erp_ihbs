@@ -102,6 +102,11 @@
                             <th>Status <br>Pernikahan</th>
                             <td width="30" align="center">:</td>
                             <td id="status_nikah-detail"></td>
+                         </tr> 
+                         <tr>
+                            <th>Email</th>
+                            <td width="30" align="center">:</td>
+                            <td id="status_nikah-detail"></td>
                          </tr>                                              
 
 
