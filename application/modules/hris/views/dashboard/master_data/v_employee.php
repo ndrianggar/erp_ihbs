@@ -45,115 +45,104 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container emp-profile" id="view_profile_employe" style="display: none;">
-  <form method="post">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="profile-img">
-            <img alt="" id="img-detail" style="height: 350px;" />
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="profile-head">
-          <h5>
-             <p id="nama-detailats"> Kshiti Ghelani</p>
-          </h5>
-          <!-- <h6>
-              Web Developer and Designer
-          </h6> -->
-          <!-- <p class="proile-rating">RANKINGS : <span>8/10</span></p> -->
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
-                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-              </li>
-          </ul>
-          </div>
-          <div class="tab-content profile-tab" id="myTabContent">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">                                       
+                            <img alt="" id="img-detail" style="height: 30px;" />
+                            <div class="file btn btn-lg btn-primary">
+                                Change Photo
+                                <input type="file" name="file"/>
+                            </div>
+                        </div>
+                    </div>                   
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work text-center">
+                            <p><h3>ABDUL SUNARNO</h3></p>
+                            <a href="">Tenaga Kependidikan PNS ( PNS )</a><br/>
+                            <a href="">Bagian Umum dan Keuangan</a><br/>
+                            <a href="">Bootply Profile</a>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                      <table>
+                        <tr>
+                          <th>Nama Lengkap</th>
+                           <td width="30" align="center">:</td>
+                           <td id="nama-detail"></td>
+                        </tr> 
+                         <tr>
+                           <th>Nama Panggilan</th>
+                            <td width="30" align="center">:</td>
+                            <td id="namap-detail"></td>
+                         </tr>                       
+                         <tr>
+                          <th>Nip</th>
+                            <td width="30" align="center">:</td>
+                            <td id="nip-detail"></td>
+                         </tr>  
+                         <tr>
+                            <th>Tempat Lahir</th>
+                            <td width="30" align="center">:</td>
+                            <td id="tempat_lahir-detail"></td>
+                         </tr>                       
+                          <tr>
+                          <th>Tanggal Lahir</th>
+                            <td width="30" align="center">:</td>
+                            <td id="tanggal_lahir-detail"></td>
+                         </tr>                       
+                         <tr>
+                          <th>Jenis Kelamin</th>
+                            <td width="30" align="center">:</td>
+                            <td id="gender-detail"></td>
+                         </tr> 
+                         <tr>
+                            <th>Agama</th>
+                            <td width="30" align="center">:</td>
+                            <td id="agama-detail"></td>
+                         </tr>     
+                         <tr>
+                            <th>Golongan Darah</th>
+                            <td width="30" align="center">:</td>
+                            <td id="gol_darah-detail"></td>
+                         </tr>                       
+              
+                        
+                        
+
+
+                      </table>
+                        
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                      <div class="profile-head">
+                             
+                          <ul class="nav nav-tabs" id="myTab" role="tablist">
+                              <li class="nav-item">
+                                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
+                              </li>
+                          </ul>
+                    </div>
+                    <!-- <div class="col-md-2">
+                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+                    </div> -->
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="tab-content profile-tab" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>User Id</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <span id="username-detail"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Nama</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <span id="nama-detail"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Email</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <span id="email-detail"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Phone</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <span id="notlp-detail"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Profession</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <span id="edit-Countries"></span>
-                                            </div>
-                                        </div>
+                                        
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Experience</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Hourly Rate</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>10$/hr</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Total Projects</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>230</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>English Level</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Availability</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>6 months</p>
-                                            </div>
-                                        </div>
+                                       
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label>Your Bio</label><br/>
@@ -162,12 +151,8 @@
                                 </div>
                             </div>
                         </div>
-        </div>
-        <div class="col-md-2">
-          <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
-       </div>
-      </div>
-                
+                  </div>
+                </div>
             </form>           
         </div>
     

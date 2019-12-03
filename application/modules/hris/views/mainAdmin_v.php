@@ -820,42 +820,45 @@
 
       $("#username-detail").text(response[1][0].username);
       $("#nama-detail").text(response[0][0].nama);
+      $("#namap-detail").text(response[0][0].nm_pnggilan);
+      $("#nip-detail").text(response[0][0].nip);
       $("#email-detail").text(response[0][0].email);
       $("#notlp-detail").text(response[0][0].no_tlp);
-      $("#edit-no_kk").val(response[0][0].no_kk);
-      $("#edit-no_ktp").val(response[0][0].no_ktp);
-      $("#edit-tempat_lahir").val(response[0][0].tempat_lahir);
-      $("#edit-tanggal_lahir").val(response[0][0].tgl_lahir);
-      $("#edit-status_nikah").val(response[0][0].status_nikah);
-      $("#edit-gender").val(response[0][0].gender);
-      $("#edit-agama").val(response[0][0].agama);
-      $("#edit-jml_anak").val(response[0][0].jml_anak);
-      $("#edit-Countries").text(response[0][0].country_name);
-      $("#edit-Provinsi").val(response[0][0].namaProv);
-      $("#edit-Kabupaten").val(response[0][0].id_kab);
-      $("#edit-Kecamatan").val(response[0][0].id_kec)
-      $("#edit-Kelurahan").val(response[0][0].id_kel)
-      $("#edit-alamat").val(response[0][0].alamat);
-      $("#edit-rt").val(response[0][0].rt);
-      $("#edit-rw").val(response[0][0].rw);
-      $("#edit-kd_pos").val(response[0][0].kd_pos);
-      $("#edit-gol_darah").val(response[0][0].gol_darah);
-      $("edit-bhs_eng").val(response[0][0].bhs_eng);  
-      $("edit-serti_eng").val(response[0][0].serti_eng);
-      $("edit-bjs_arab").val(response[0][0].bhs_arab); 
-      $("edit-sert_arab").val(response[0][0].serti_arab);  
-      $("#edit-StatusKrywan").val(response[0][0].id_status_karyawan);
-      $("#edit-Jbtn").val(response[0][0].id_jabatan);
-      $("#edit-JobTitle").val(response[0][0].id_job_title);
-      $("#edit-Cbg").val(response[0][0].id_cbg);
-      $("#edit-Divisi").val(response[0][0].id_divisi);     
+      $("#no_kk").val(response[0][0].no_kk);
+      $("#no_ktp").val(response[0][0].no_ktp);
+      $("#tempat_lahir-detail").text(response[0][0].tempat_lahir);
+      $("#tanggal_lahir-detail").text(response[0][0].tgl_lahir);
+      $("#gender-detail").text(response[0][0].gender);
+      $("#agama-detail").text(response[0][0].agama);
+      $("#gol_darah-detail").text(response[0][0].gol_darah);
+      $("#status_nikah").val(response[0][0].status_nikah);
+      $("#jml_anak").val(response[0][0].jml_anak);
+      $("#Countries").text(response[0][0].country_name);
+      $("#Provinsi").text(response[0][0].namaProv);
+      $("#Kabupaten").val(response[0][0].id_kab);
+      $("#Kecamatan").val(response[0][0].id_kec)
+      $("#Kelurahan").val(response[0][0].id_kel)
+      $("#alamat").val(response[0][0].alamat);
+      $("#rt").val(response[0][0].rt);
+      $("#rw").val(response[0][0].rw);
+      $("#kd_pos").val(response[0][0].kd_pos);
+     
+      $("bhs_eng").val(response[0][0].bhs_eng);  
+      $("serti_eng").val(response[0][0].serti_eng);
+      $("bjs_arab").val(response[0][0].bhs_arab); 
+      $("sert_arab").val(response[0][0].serti_arab);  
+      $("#StatusKrywan").val(response[0][0].id_status_karyawan);
+      $("#Jbtn").val(response[0][0].id_jabatan);
+      $("#JobTitle").val(response[0][0].id_job_title);
+      $("#Cbg").val(response[0][0].id_cbg);
+      $("#Divisi").val(response[0][0].id_divisi);     
       $("").val(response[0][0].seragam);
-      $("#input_mulai_brgbg").val(response[0][0].mulai_brgbg);
-      $("#input_email").val(response[0][0].email);
-      $("#input_no_tlp").val(response[0][0].no_tlp);
-      $("#input_nmr_darurat1").val(response[0][0].nmr_darurat1);
-      $("#input_nm_nmr_darurat1").val(response[0][0].nm_nmr_darurat1);
-      $("#input_nm_nmr_darurat1").val(response[0][0].nm_nmr_darurat1);
+      $("#mulai_brgbg").val(response[0][0].mulai_brgbg);
+      $("#email").val(response[0][0].email);
+      $("#no_tlp").val(response[0][0].no_tlp);
+      $("#nmr_darurat1").val(response[0][0].nmr_darurat1);
+      $("#nm_nmr_darurat1").val(response[0][0].nm_nmr_darurat1);
+      $("#nm_nmr_darurat1").val(response[0][0].nm_nmr_darurat1);
      
       $("#input_idselectPndkkanterakhir").val(response[0][0].id_jnjng_pddk);
        $("#input_thn_lulus").val(response[0][0].thn_lulus);
