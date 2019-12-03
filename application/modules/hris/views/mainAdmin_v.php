@@ -648,7 +648,7 @@
         },
 
         "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
-              "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
+              
             $("td:eq(0)",nRow).text(++iDisplayIndex);
             if(!aData['photo_pegawai']){
                $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/file_karyawan/user.png' class ='photoimg'><div class ='overlay'><a href='#' class='icon' onclick=Profileemployedetail('"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='User Profile'><i class='fa fa-user'><br>profile</i></a></div>");
@@ -734,7 +734,7 @@
           $("#input_gender").val(response[0][0].gender).prop('disabled', 'disabled');
           $("#input_agama").val(response[0][0].agama);
           $("#input_jml_anak").val(response[0][0].jml_anak);
-          $("#idselectCountries").val(response[0][0].id_negara).trigger("change.select2");
+          $("#idselectCountries").val(response[0][0].id_country).trigger("change.select2");
           $("#input_idselectProvinsi").val(response[0][0].id_prov).trigger("change.select2");
           setTimeout (function(){
           $("#input_idselectKabupaten").val(response[0][0].id_kab).trigger("change.select2");},100);

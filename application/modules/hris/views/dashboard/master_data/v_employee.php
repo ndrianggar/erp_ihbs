@@ -297,7 +297,7 @@
             <div class="form-group">
               <label class="form-control-label" for="input">Negara<font color="red">*</font></label>
                <div class="form-group">
-                  <select id="idselectCountries" name="id_negara" class="form-control" required="">
+                  <select id="idselectCountries" name="id_country" class="form-control" required="">
                     
                   
                    </select>
