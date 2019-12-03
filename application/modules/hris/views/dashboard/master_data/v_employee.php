@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">                                       
-                            <img alt="" id="img-detail" style="height: 30px;" />
+                            <img alt="" id="img-detail" style="height: 350px;" />
                             <div class="file btn btn-lg btn-primary">
                                 Change Photo
                                 <input type="file" name="file"/>
