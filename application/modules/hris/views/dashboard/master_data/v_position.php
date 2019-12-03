@@ -1,6 +1,7 @@
 <div class="card shadow">
   <div class="card-header border-0">
     <button class="btn btn-sm btn-primary pull-right" id="btnAddUnit" data-toggle="modal" data-target="#modalAddUnit"><i class="fa fa-plus"></i> Tambah</button>
+    
     <h3 class="mb-0">Data Jabatan</h3>
   </div>
   <div class="table-responsive" id="frmTbUnit">
