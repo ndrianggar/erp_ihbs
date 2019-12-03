@@ -831,7 +831,7 @@
       $("#gender-detail").text(response[0][0].gender);
       $("#agama-detail").text(response[0][0].agama);
       $("#gol_darah-detail").text(response[0][0].gol_darah);
-      $("#status_nikah").val(response[0][0].status_nikah);
+      $("#status_nikah-detail").text(response[0][0].status_nikah);
       $("#jml_anak").val(response[0][0].jml_anak);
       $("#Countries").text(response[0][0].country_name);
       $("#Provinsi").text(response[0][0].namaProv);
@@ -842,7 +842,6 @@
       $("#rt").val(response[0][0].rt);
       $("#rw").val(response[0][0].rw);
       $("#kd_pos").val(response[0][0].kd_pos);
-     
       $("bhs_eng").val(response[0][0].bhs_eng);  
       $("serti_eng").val(response[0][0].serti_eng);
       $("bjs_arab").val(response[0][0].bhs_arab); 
@@ -875,9 +874,9 @@
       $("input[name='aktifitas_kajian[]'][value='"+response[0][0].aktifitas_kajian+"']").prop("checked",true);
 
      if (!response[0][0].photo_pegawai) {
-          $("#img-detail").attr("src","<?php echo base_url() ?>assets/file_karyawan/user.png")
+          $("#img-detail").attr("src","<?php echo base_url() ?>assets/file_karyawan/user.png");
           }else{
-            $("#img-detail").attr("src","<?php echo base_url() ?>assets/file_karyawan/"+response[0][0].photo_pegawai+"")
+            $("#img-detail").attr("src","<?php echo base_url() ?>assets/file_karyawan/"+response[0][0].photo_pegawai+"");
           }
         }
 

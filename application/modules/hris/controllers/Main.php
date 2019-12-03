@@ -161,7 +161,7 @@
             $data["tempat_lahir"] = $this->input->post("tempat_lahir");
             $data["tgl_lahir"] = $this->input->post("tgl_lahir");
            /* $data["npwp"] = $this->input->post("npwp");*/
-            $data["id_negara"] = $this->input->post("id_negara");
+            $data["id_country"] = $this->input->post("id_country");
             $data["status_nikah"] = $this->input->post("status_nikah");
             $data["jml_anak"] = $this->input->post("jml_anak");
            /* $data["nm_ibu"] = $this->input->post("nm_ibu");*/
@@ -240,7 +240,7 @@
             $data["tempat_lahir"] = $this->input->post("tempat_lahir");
             $data["tgl_lahir"] = $this->input->post("tgl_lahir");
            /* $data["npwp"] = $this->input->post("npwp");*/
-            $data["id_negara"] = $this->input->post("id_negara");
+            $data["id_country"] = $this->input->post("id_country");
             $data["status_nikah"] = $this->input->post("status_nikah");
             $data["jml_anak"] = $this->input->post("jml_anak");
            /* $data["nm_ibu"] = $this->input->post("nm_ibu");*/
@@ -360,7 +360,7 @@
             $data["tempat_lahir"] = $this->input->post("tempat_lahir");
             $data["tgl_lahir"] = $this->input->post("tgl_lahir");
            /* $data["npwp"] = $this->input->post("npwp");*/
-            $data["id_negara"] = $this->input->post("id_negara");
+            $data["id_country"] = $this->input->post("id_country");
             $data["status_nikah"] = $this->input->post("status_nikah");
             $data["jml_anak"] = $this->input->post("jml_anak");
            /* $data["nm_ibu"] = $this->input->post("nm_ibu");*/
@@ -522,7 +522,7 @@
                     'email'              => $row['T'],
                     'tempat_lahir'       => $row['U'],
                     'tgl_lahir'          => date('Y-m-d',strtotime($row['V'])),
-                    'id_negara'          => $row['W'],
+                    'id_country'          => $row['W'],
                     'status_nikah'       => $row['X'],
                     'jml_anak'           => $row['Y'],
                     'id_jnjng_pddk'      => $row['Z'],

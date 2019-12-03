@@ -55,17 +55,7 @@
                                 <input type="file" name="file"/>
                             </div>
                         </div>
-                    </div>                   
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="profile-work text-center">
-                            <p><h3>ABDUL SUNARNO</h3></p>
-                            <a href="">Tenaga Kependidikan PNS ( PNS )</a><br/>
-                            <a href="">Bagian Umum dan Keuangan</a><br/>
-                            <a href="">Bootply Profile</a>
-                        </div>
-                    </div>
+                    </div> 
                     <div class="col-md-8">
                       <table>
                         <tr>
@@ -107,15 +97,28 @@
                             <th>Golongan Darah</th>
                             <td width="30" align="center">:</td>
                             <td id="gol_darah-detail"></td>
-                         </tr>                       
-              
-                        
-                        
+                         </tr>         
+                          <tr>
+                            <th>Status <br>Pernikahan</th>
+                            <td width="30" align="center">:</td>
+                            <td id="status_nikah-detail"></td>
+                         </tr>                                              
 
 
                       </table>
                         
+                    </div>                  
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work text-center">
+                            <p><h3>ABDUL SUNARNO</h3></p>
+                            <a href="">Tenaga Kependidikan PNS ( PNS )</a><br/>
+                            <a href="">Bagian Umum dan Keuangan</a><br/>
+                            <a href="">Bootply Profile</a>
+                        </div>
                     </div>
+                    
                 </div>
                 <div class="row">
                   <div class="col-md-12">
