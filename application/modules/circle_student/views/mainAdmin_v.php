@@ -814,7 +814,29 @@
       },3000)
     }
 
- 
+    function alertSuccessUpdate() {
+      $("#modalColor").addClass("bg-gradient-success");
+      $("#txtNotif").text("Data Berhasil Diperbarui!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-success");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function alertFailedUpdate() {
+      $("#modalColor").addClass("bg-gradient-warning");
+      $("#txtNotif").text("Data Gagal Diperbarui!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
 
     function cancelAddSekolah(){
       $("#frmTbSekolah").show(1000);
@@ -5557,5 +5579,6 @@
     });
 
   </script>
+  
 </body>
 </html>
