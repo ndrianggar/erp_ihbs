@@ -48,7 +48,7 @@
 	                        $this->session->set_userdata('section', $key["section"]);
 	                        $this->session->set_userdata('jabatan', $key["jabatan"]);
 	                        $this->session->set_userdata('level', $key["level"]);
-	                        $this->session->set_userdata('unit', $key["unit"]);
+	                        $this->session->set_userdata('unit', 'SMP PUTRA');
               		}
 					echo json_encode("success");
 	            }else{

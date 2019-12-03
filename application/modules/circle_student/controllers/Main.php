@@ -1720,7 +1720,8 @@
       public function getListMapel()
       {
             $this->isLogin();
-            $result = $this->Main_model->getListMapel();
+            $kls = $this->input->post("kls");
+            $result = $this->Main_model->getListMapel($kls);
             echo $result;
       }
 
@@ -2560,7 +2561,53 @@
             $this->isLogin();
             $data["kd_kls"] = $this->input->post("kd_kls");
             $data["unit"] = $this->input->post("unit");
+            $data["jns_cbt"] = $this->input->post("jns_cbt");
             $result = $this->Main_model->getDataCbt($data);
+            echo $result;
+      }
+
+      public function saveDataCbt()
+      {
+            $this->isLogin();
+            $data["kd_jenis_cbt"] = $this->input->post("jns_cbt");
+            $data["kd_kls"] = $this->input->post("kls");
+            $data["kd_mapel"] = $this->input->post("mapel");
+            $data["nm_cbt"] = $this->input->post("jdl_cbt");
+            $data["user"] = $this->session->userdata("nip");
+            $data["unit"] = $this->session->userdata("unit");
+            $data["kkm"] = $this->input->post("kkm");
+            $result = $this->Main_model->saveDataCbt($data);
+            echo $result;
+      }
+
+      public function updateDataCbt()
+      {
+            $this->isLogin();
+            $id = $this->input->post("kd_cbt");
+            $data["kd_jenis_cbt"] = $this->input->post("jns_cbt");
+            $data["kd_kls"] = $this->input->post("kls");
+            $data["kd_mapel"] = $this->input->post("mapel");
+            $data["nm_cbt"] = $this->input->post("jdl_cbt");
+            $data["user"] = $this->session->userdata("nip");
+            $data["unit"] = $this->session->userdata("unit");
+            $data["kkm"] = $this->input->post("kkm");
+            $result = $this->Main_model->updateDataCbt($data,$id);
+            echo $result;
+      }
+
+      public function deleteCbt()
+      {
+            $this->isLogin();
+            $id = $this->input->post("id");
+            $result = $this->Main_model->deleteCbt($id);
+            echo $result;
+      }
+
+      public function getCbtById()
+      {
+            $this->isLogin();
+            $id = $this->input->post("id");
+            $result = $this->Main_model->getCbtById($id);
             echo $result;
       }
 	}

@@ -5,6 +5,7 @@
 
 		public function getEmployee()
 		{
+
 			$this->datatables->select("a.photo_pegawai, a.nip, a.nama, a.kd_karyawan,
 				                       CONCAT(a.nama,' (<i>',YEAR(curdate()) - YEAR(a.tgl_lahir),' th</i>)<br><b>Nip</b> : ',a.nip,'<br>','
 				                       <b>Agama</b> :' ,a.agama, '<br>',a.tempat_lahir,',',a.tgl_lahir,'<br>', a.status_nikah, '<br><br><br>','

@@ -603,11 +603,14 @@
         ],*/
       
      "columns" : [
+              
+
                     {"data" : "photo_pegawai",  "name" :"photo_pegawai"},
                     {"data" : "photo_pegawai",  "name" :"tgl_lahir"},            
                     {"data" : "biodata_employee", "name" : "nip"},
                     {"data" : "pangkat_jabatan", "name" : "nama"},
                     {"data" : "pangkat_jabatan", "name" : "nm_jbtn"}           
+
     
                   ],
                 
@@ -618,6 +621,18 @@
                   { className: "pangkat", "targets": [0,3] },
                   { className: "action", "targets": [0,4]},                    
                 ],
+
+        "fnServerData" : function(sSource,aoData,fnCallback){
+            // aoData.push({"name":"kd_kls","value":kd_kls});
+            // aoData.push({"name":"unit","value":unit});
+            $.ajax({
+              "type"      : "POST",
+              "dataType"  : "JSON",
+              "url"       : sSource,
+              "data"      : aoData,
+              "success"   : fnCallback
+            });
+          },       
         "fixedColumns": true,
            "fnServerData" : function(sSource,aoData,fnCallback){
     
@@ -632,6 +647,7 @@
 
         },
 
+        "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
               "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
             $("td:eq(0)",nRow).text(++iDisplayIndex);
             if(!aData['photo_pegawai']){
@@ -647,7 +663,7 @@
           }
 
     });
-   }
+  }
 
    $('#inputDataEmployee').submit(function(e){
     e.preventDefault();

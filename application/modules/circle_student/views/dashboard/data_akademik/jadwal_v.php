@@ -1,15 +1,10 @@
+<body <?php if (!empty($this->session->userdata("unit"))) {echo 'onload="selectUnitSiswa()"';}?>>
 <div class="card shadow" id="mainFormJadwal">
   <div class="card-header border-0">
     <button class="btn btn-sm btn-primary pull-right" id="btnAddJadwal" onclick="add('Jadwal')"><i class="fa fa-plus"></i> Tambah</button>
     <h3 class="mb-0">Data Jadwal Pelajaran
-      <select class="form-control-sm" id="selectUnit" onchange="selectUnitSiswa()">
-        <option selected="selected" value="">Pilih Unit *</option>
-        <option value="TK">TK</option>
-        <option value="SD">SD</option>
-        <option value="SMP PUTRA">SMP PUTRA</option>
-        <option value="SMP PUTRI">SMP PUTRI</option>
-        <option value="SMA PUTRA">SMA PUTRA</option>
-        <option value="SMA PUTRI">SMA PUTRI</option>
+      <select class="form-control-sm ml-2" id="selectUnit" onchange="selectUnitSiswa()" <?php if (!empty($this->session->userdata("unit"))) { echo 'style=display:none'; }?>>
+          <option selected="selected" value="">Pilih Unit *</option>
       </select>
       Kelas
       <select class="form-control-sm" id="selectKlsParalel">
@@ -70,23 +65,6 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
-          <label class="form-control-label" for="input-username">Mata Pelajaran *</label>
-          <select type="text" id="input_mapel" name="input_mapel" class="form-control form-control-alternative" placeholder="Mata Pelajaran" onchange="showGuruMapel()">
-            <option selected value="">Pilih Mata Pelajaran</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label class="form-control-label" for="input-username">Guru *</label>
-          <select type="text" id="select_guru" name="select_guru" class="form-control form-control-alternative" placeholder="Guru">
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="form-group">
           <label class="form-control-label" for="input-username">Unit *</label>
           <select class="form-control form-control-alternative" name="input_unit" id="input_unit" onchange="changeUnit()">
             <option value="" selected>Pilih Unit</option>
@@ -102,7 +80,7 @@
       <div class="col-lg-6">
         <div class="form-group">
           <label class="form-control-label" for="input-username">Kelas</label>
-          <select type="text" class="form-control form-control-alternative" name="input_kelas" id="input_kelas" onchange="changeKelas()">
+          <select type="text" class="form-control form-control-alternative" name="input_kelas" id="input_kelas" onchange="changeKelas(),selectMapel()">
             <option selected value="">Pilih Kelas</option>
           </select>
         </div>
@@ -126,11 +104,28 @@
         </div>
       </div>
     </div>
+     <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="form-control-label" for="input-username">Mata Pelajaran *</label>
+          <select type="text" id="input_mapel" name="input_mapel" class="form-control form-control-alternative" placeholder="Mata Pelajaran" onchange="showGuruMapel()">
+            <option selected value="">Pilih Mata Pelajaran</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="form-control-label" for="input-username">Guru *</label>
+          <select type="text" id="select_guru" name="select_guru" class="form-control form-control-alternative" placeholder="Guru">
+          </select>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-lg-6">
         <div class="form-group">
           <label class="form-control-label" for="input-username">Tahun Akademik</label>
-          <select type="text" class="form-control form-control-alternative" name="select_thnAkademik" id="select_thnAkademik">
+          <select type="text" class="form-control form-control-alternative" name="input_thnAkademik" id="input_thnAkademik">
             <!-- <option selected value="">Pilih Tahun Akademik</option> -->
           </select>
         </div>
