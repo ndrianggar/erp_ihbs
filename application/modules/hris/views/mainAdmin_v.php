@@ -1748,9 +1748,9 @@
               {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},
               {"data" : "nm_jbtn", "name" : "nm_jbtn"},           
               {"data" : "nm_jbtn", "name" : "nm_jbtn"},           
-              {"data" : " jml_anak", "name" : " jml_anak"},           
+              {"data" : " jml_anak", "name" : " jml_anak"},         /*  
               {"data" : "gaji_pokok", "name" : "gaji_pokok"},           
-              {"data" : "nm_jnjng_pddk", "name" : "nm_jnjng_pddk"},           
+              {"data" : "nm_jnjng_pddk", "name" : "nm_jnjng_pddk"}, */          
               {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},           
               {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},           
               {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},           

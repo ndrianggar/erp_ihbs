@@ -363,7 +363,7 @@
  		}	
 */
  		public function GetMEmployenip($kd_unit,$id_divisi){
- 			$this->datatables->select("a.*,b.*,c.*,d.*,e.*,f.*,g.*,h.*,i.*,k.*,m.*"); 
+ 			$this->datatables->select("a.*,b.*,c.*,d.*,e.*,f.*,g.*,h.*,k.*"); 
 
 			$this->datatables->from("tb_karyawan a");
 			$this->datatables->join("tb_jabatan b"," a.id_jabatan = b.id_jabatan");
@@ -373,12 +373,12 @@
 			$this->datatables->join("tb_kecamatan f"," a.id_kec = f.id_kec");
 			$this->datatables->join("tb_kelurahan g"," a.id_kel = g.id_kel");
 			$this->datatables->join("tb_provinsi h"," a.id_prov = h.id_prov");
-			$this->datatables->join("tb_status_karyawan i"," a.id_status_karyawan =i.id_status_karyawan");
+			/*$this->datatables->join("tb_status_karyawan i"," a.id_status_karyawan =i.id_status_karyawan");*/
 			
 			$this->datatables->join("tb_unit k"," a.kd_unit =k.kd_unit");
-			/*$this->datatables->join("tb_penggajian l"," a.id_jnjng_pddk =l.id_gaji", "left");*/
-			$this->datatables->join("tb_renum_gaji m"," m.id_jnjng_pddk =a.id_jnjng_pddk");
-			$this->datatables->WHERE(" m.kategorDi = 'Freshgraduate' AND a.deleted = 'false' AND k.kd_unit='$kd_unit' AND c.id_divisi ='$id_divisi' ");
+			/*$this->datatables->join("tb_penggajian l"," a.id_jnjng_pddk =l.id_gaji", "left");
+			$this->datatables->join("tb_renum_gaji m"," m.id_jnjng_pddk =a.id_jnjng_pddk");*/
+			$this->datatables->WHERE("a.deleted = 'false' AND k.kd_unit='$kd_unit' AND c.id_divisi ='$id_divisi' ");
 			$this->db->order_by("a.nama ASC");
 			
 			return $this->datatables->generate();		

@@ -871,7 +871,7 @@
                <div class="form-group">
                    <label class="col-md-4 col-sm-4 col-xs-12 label-control"></label>
                       <div class="col-md-8 col-sm-8 col-xs-12">
-                        <img id="PrevPhoto_pgwi" src="<?php echo base_url('assets/file_karyawan/user.png')?>" style="width: 300px;max-width: 300px;">
+                        <img id="PrevPhoto_pgwi" src="<?php echo base_url('assets/file_karyawan/images/user.png')?>" style="width: 300px;max-width: 300px;">
                      </div>
                </div>
             </div>
@@ -884,7 +884,7 @@
                <div class="form-group">
                    <label class="col-md-4 col-sm-4 col-xs-12 label-control"></label>
                       <div class="col-md-8 col-sm-8 col-xs-12">
-                        <img id="Prevfile_ktp" src="<?php echo base_url('assets/file_karyawan/KTP elektronik.jpg')?>" style="width: 150px;max-width: 150px;">
+                        <img id="Prevfile_ktp" src="<?php echo base_url('assets/file_karyawan/images/KTP elektronik.jpg')?>" style="width: 150px;max-width: 150px;">
                      </div>
                </div>
         <div class="form-group">
@@ -896,7 +896,7 @@
               <div class="form-group">
                  <label class="col-md-4 col-sm-4 col-xs-12 label-control"></label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
-                      <img id="Prevfile_kk" src="<?php echo base_url('assets/file_karyawan/kk2.png')?>" style="width: 150px;max-width: 150px;">
+                      <img id="Prevfile_kk" src="<?php echo base_url('assets/file_karyawan/images/kk2.png')?>" style="width: 150px;max-width: 150px;">
                     </div>
               </div>
       </div>
