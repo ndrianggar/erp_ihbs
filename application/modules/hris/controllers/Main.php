@@ -38,10 +38,11 @@
 
         public function position_data()
         {   
-            $data["parent_title"] = "Dashboard";
-            $data["child_title"] = "";
-        /*  $data['kd'] = $this->Main_model->getPositionById();*/
-            $this->template->load("mainAdmin_v","dashboard/master_data/v_position",$data);
+             $data["parent_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href=''>Master Position &nbsp</a>";
+
+              $data["child_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href='#' onclick=cancelAdd('Payroll'),AddLblForm('')>Data Position &nbsp</a>";
+
+              $this->template->load("mainAdmin_v","dashboard/master_data/v_position",$data);   
         }
 
         public function getDataPosition()
@@ -51,13 +52,95 @@
             echo $result;
         }
 
-        public function addDataEmployee()
+           public function division_data()
+        {   
+            $data["parent_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href=''>Master Position &nbsp</a>";
+
+            $data["child_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href='#' onclick=cancelAdd('Position'),AddLblForm('')>Data Position &nbsp</a>";
+
+            $this->template->load("mainAdmin_v","dashboard/master_data/v_division",$data);
+        }
+
+        public function getDataDivision()
+        {
+            $this->isLogin();
+            $result = $this->Main_model->getDivison();
+            echo $result;
+        }
+    
+
+    public function job_title_data()
+        {   
+            $data["parent_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href=''>Master Job Title &nbsp</a>";
+
+            $data["child_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href='#' onclick=cancelAdd('JobTitle'),AddLblForm('')>Data Job Title &nbsp</a>";
+
+            $this->template->load("mainAdmin_v","dashboard/master_data/v_Jobtitle",$data);
+        }
+
+        public function getDataJbtitle()
+        {
+            $this->isLogin();
+            $result = $this->Main_model->getJbtitle();
+            echo $result;
+        }
+
+        public function renumerasi_data()
+        {   
+            $data["parent_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href=''>Master Renumerasi Salary &nbsp</a>";
+
+            $data["child_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href='#' onclick=cancelAdd('JobTitle'),AddLblForm('')>Data Renumerasi Salary  &nbsp</a>";
+
+            $this->template->load("mainAdmin_v","dashboard/master_payroll/v_renumerasi",$data);
+        }
+
+        public function getDataRenumerasi()
+        {
+            $this->isLogin();
+            $result = $this->Main_model->getMRenumerasi();
+            echo $result;
+        }
+
+        public function addDataRenumerasi()
         {
             $this->isLogin();
 
            /* $config['']
             $kode_baru = $this->Main_model->buat_kodeOtmts();*/
 
+        }
+
+          public function editDataRenumerasi()
+        {
+            $this->isLogin();
+
+           /* $config['']
+            $kode_baru = $this->Main_model->buat_kodeOtmts();*/
+
+        }
+           public function deleteDataRenumerasi()
+        {
+            $this->isLogin();
+
+           /* $config['']
+            $kode_baru = $this->Main_model->buat_kodeOtmts();*/
+
+        }
+
+       public function payroll_data(){
+
+            $data["parent_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href=''>Master Payroll &nbsp</a>";
+
+              $data["child_title"] = "<i class='fa fa-angle-right text-white '>&nbsp;</i><a class='h4 mb-0 text-white text-uppercase d-none d-lg-inline-block' href='#' onclick=cancelAdd('Payroll'),AddLblForm('')>Data Payroll &nbsp</a>";
+           
+              $this->template->load("mainAdmin_v","dashboard/master_payroll/v_payroll",$data);   
+
+        }
+
+       public function Addpayroll()
+        {
+           
+            $this->template->load("mainAdmin_v","dashboard/master_payroll/v_payroll", $data);
         }
         public function GetCodeOtmts()
         {
@@ -96,7 +179,7 @@
         {
             $this->isLogin();
 
-            $config['upload_path']   ="./assets/file_karyawan";
+            $config['upload_path']   ="./assets/file_karyawan/images";
             $config['allowed_types'] ="gif|jpg|png|tif";
             $config['encrypt_name']  = TRUE;
 
@@ -121,7 +204,7 @@
 
             }
 
-            if ($upload1 || $upload2 || $upload3){
+            /*if ($upload1 || $upload2 || $upload3){*/
             $data_akun["nip"] = $this->input->post("nip");
             $data_akun["username"] = $this->input->post("nip");
             $data_akun["password"] = md5($this->input->post("password"));
@@ -175,9 +258,15 @@
             $data["mulai_brgbg"] = $this->input->post("mulai_brgbg");
             /*$data["masa_kerja"] = $this->input->post("masa_kerja");*/
             $data["id_status_karyawan"] = $this->input->post("id_status_karyawan");
-            $data["photo_pegawai"] = $image1;
-            $data["file_kk"] = $image3;
-            $data["file_ktp"] = $image2;
+             if(!empty($image1)){
+                $data["photo_pegawai"] = $image1;
+            }
+            if(!empty($image2)){
+                $data["file_ktp"] = $image2;
+            }
+            if(!empty($image3)){
+                $data["file_kk"] = $image3;
+            }
             $data["nmr_darurat1"] = $this->input->post("nmr_darurat1");
             $data["nm_nmr_darurat1"] = $this->input->post("nm_nmr_darurat1");
            /* $data["nm_nmr_darurat2"] = $this->input->post("nm_nmr_darurat2");
@@ -203,87 +292,6 @@
             $result = $this->Main_model->inputDataEmployee($data,$data_akun);
             echo $result;
 
-        }else{
-
-            $data_akun["nip"] = $this->input->post("nip");
-            $data_akun["username"] = $this->input->post("nip");
-            $data_akun["password"] = md5($this->input->post("password"));
-           /* $data_akun["section"] = $this->input->post("section");*/
-            /*$data_akun["jabatan"] = $this->input->post("jabatan");*/
-  
-            $session = $this->session->userdata("level");
-            if($session==="1"){
-            $data_akun["level"] = $this->input->post("level");
-            }else{
-            $data_akun["level"] = "3";
-            };
-            $data_akun["hak_akses"] = implode(',',$this->input->post("hak_akses"));
-            
-             $data["nip"] = $this->input->post("nip");
-            $data["nama"] = $this->input->post("nama");
-            $data["no_ktp"] = $this->input->post("no_ktp");
-            $data["nm_pnggilan"] = $this->input->post("nm_pnggilan");
-            $data["agama"] = $this->input->post("agama");
-            $data["gender"] = $this->input->post("gender");
-            $data["gol_darah"] = $this->input->post("gol_darah");
-        /*    $data["unit"] = $this->input->post("unit");*/
-            $data["alamat"] = $this->input->post("alamat");
-            $data["id_prov"] = $this->input->post("id_prov");
-            $data["id_kab"] = $this->input->post("id_kab");
-            $data["id_kec"] = $this->input->post("id_kec");
-            $data["id_kel"] = $this->input->post("id_kel");
-            $data["rt"] = $this->input->post("rt");
-            $data["rw"] = $this->input->post("rw");
-            $data["kd_pos"] = $this->input->post("kd_pos");
-            $data["no_tlp"] = $this->input->post("no_tlp");
-            $data["email"] = $this->input->post("email");
-            $data["tempat_lahir"] = $this->input->post("tempat_lahir");
-            $data["tgl_lahir"] = $this->input->post("tgl_lahir");
-           /* $data["npwp"] = $this->input->post("npwp");*/
-            $data["id_country"] = $this->input->post("id_country");
-            $data["status_nikah"] = $this->input->post("status_nikah");
-            $data["jml_anak"] = $this->input->post("jml_anak");
-           /* $data["nm_ibu"] = $this->input->post("nm_ibu");*/
-           /* $data["mulai_tugas"] = $this->input->post("mulai_tugas");*/
-            $data["id_jnjng_pddk"] = $this->input->post("id_jnjng_pddk");
-            $data["id_college_krywn"] = $this->input->post("id_college_krywn");
-            $data["id_fakultas_krywn"] = $this->input->post("id_fakultas_krywn");
-            $data["thn_lulus"] = $this->input->post("thn_lulus");
-            $data["id_jurusan_krywn"] = $this->input->post("id_jurusan_krywn");
-            $data["ipk"] = $this->input->post("ipk");
-            $data["mulai_brgbg"] = $this->input->post("mulai_brgbg");
-           /* $data["masa_kerja"] = $this->input->post("masa_kerja");*/
-            $data["id_status_karyawan"] = $this->input->post("id_status_karyawan");
-           /* $data["photo_pegawai"] = $image1;
-            $data["file_kk"] = $image2;
-            $data["file_ktp"] = $image3;*/
-            $data["nmr_darurat1"] = $this->input->post("nmr_darurat1");
-            $data["nm_nmr_darurat1"] = $this->input->post("nm_nmr_darurat1");
-           /* $data["nm_nmr_darurat2"] = $this->input->post("nm_nmr_darurat2");
-            $data["nmr_darurat2"] = $this->input->post("nmr_darurat2");*/
-            $data ["bhs_eng"] = implode('',$this->input->post("sts_eng"));
-            $data["bhs_arab"] = implode('',$this->input->post("sts_arb"));
-            $data["serti_eng"] = implode('',$this->input->post("sts_brs"));
-            $data["serti_arab"] = implode('',$this->input->post("sts_brs_arb")); 
-            $data["tilawah"] = implode('', $this->input->post("tilawah"));
-            $data["hfln_quran"] = $this->input->post("hfln_quran");
-            $data["pelatihan"] = $this->input->post("pelatihan");
-            $data["p_kajian"] = $this->input->post("p_kajian");
-            $data["aktifitas_kajian"] = implode('',$this->input->post("aktifitas_kajian"));
-            $data["komputer"] = implode('',$this->input->post("komputer"));
-           /* $data["relasi"] = $this->input->post("relasi");*/
-            $data["id_divisi"] = $this->input->post("id_divisi");
-            $data["id_jabatan"] = $this->input->post("id_jabatan");
-            $data["id_cbg"] = $this->input->post("id_cbg");
-            $data["id_job_title"] = $this->input->post("id_job_title");
-            $data["no_kk"] = $this->input->post("no_kk");
-            $data["input"] = 'MANUAL';
-
-            $result = $this->Main_model->inputDataEmployee($data,$data_akun);
-            echo $result;
-
-
-        }
     }
 
 
@@ -291,7 +299,7 @@
 
             $this->isLogin();
 
-            $config['upload_path']   ="./assets/file_karyawan";
+            $config['upload_path']   ="./assets/file_karyawan/images";
             $config['allowed_types'] ="gif|jpg|png|tif";
             $config['encrypt_name']  = TRUE;
 
@@ -344,8 +352,8 @@
             $data["no_kk"] = $this->input->post("no_kk");
             $data["nm_pnggilan"] = $this->input->post("nm_pnggilan");
             $data["agama"] = $this->input->post("agama");
-            $data["gender"] = $this->input->post("gender");
-            $data["gol_darah"] = $this->input->post("gol_darah");
+/*            $data["gender"] = $this->input->post("gender");
+*/            $data["gol_darah"] = $this->input->post("gol_darah");
         /*    $data["unit"] = $this->input->post("unit");*/
             $data["alamat"] = $this->input->post("alamat");
             $data["id_prov"] = $this->input->post("id_prov");
@@ -442,8 +450,9 @@
         public function deleteEmployee()
         {
             $this->isLogin();
-            $id = $this->input->post("id");
-            $result = $this->Main_model->deleteMemployee($id);
+            $id2 = $this->input->post('id2');
+            $id = $this->input->post('id');
+            $result = $this->Main_model->deleteMemployee($id, $id2);
             echo $result;
         }
 
@@ -490,7 +499,7 @@
                     };
                     array_push($data_akun, array(
 
-                        'nip'      => date('Ym').$row['I'].$kode_baru,
+                        'nip'      => date('Ym').$gender.$kode_baru,
                         'username' => date('Ym').$gender.$kode_baru,
                         'password' => md5($row['B']),
                         'hak_akses' => $row['C'],
@@ -570,6 +579,75 @@
             }
         }
 
+        public function inputJabatanEmployee(){
+            $this->isLogin();
+
+            $config['upload_path']          = './assets/file_karyawan/doc/';
+            $config['allowed_types']        = 'jpg|png|pdf';
+            $config['encrypt_name']         = TRUE;
+            $this->load->library('upload', $config);  
+            if($upload = $this->upload->do_upload('file_sk')){
+               $datask = array('upload_data' => $this->upload->data());
+               $filesk = $datask['upload_data']['file_name'];
+
+            }          
+            
+            $data['file_sk'] =  $filesk;
+            $data["nip"] = $this->input->post("nip");
+            $data["id_jabatan"] = $this->input->post("id_jabatan");
+            $data["id_job_title"] = $this->input->post("id_job_title");
+            $data["tgl_jabatan"] = $this->input->post("tgl_jabatan");
+            $data["tgl_berakhir"] = $this->input->post("tgl_berakhir");
+
+            $result = $this->Main_model->inputMJabatanEmployee($data);
+            echo $result;
+
+        }
+
+        public function getTmbhJbtnEmployee(){
+            $this->isLogin();
+
+
+            $nip = $this->input->post('nip');
+            $id = $this->input->post('id');
+            $result = $this->Main_model->getTmbhJbtnEmployee($nip,$id);
+            echo $result;
+        }
+
+
+        public function updateTmbhJbtnEmployee(){
+            $this->isLogin();
+           $config['upload_path']          = './assets/file_karyawan/doc/';
+            $config['allowed_types']        = 'jpg|png|pdf';
+            $config['encrypt_name']         = TRUE;
+            $this->load->library('upload', $config);  
+            if($upload = $this->upload->do_upload('file_sk')){
+               $datask = array('upload_data' => $this->upload->data());
+               $filesk = $datask['upload_data']['file_name'];
+
+            }          
+            $id = $this->input->post('id_jabatan_tambahan');
+            $data['file_sk'] =  $filesk;
+            $data["nip"] = $this->input->post("nip");
+            $data["id_jabatan"] = $this->input->post("id_jabatan");
+            $data["id_job_title"] = $this->input->post("id_job_title");
+            $data["tgl_jabatan"] = $this->input->post("tgl_jabatan");
+            $data["tgl_berakhir"] = $this->input->post("tgl_berakhir");
+
+               $result = $this->Main_model->updateMJabatanEmployee($data,$id);
+            echo $result;
+
+        }
+
+
+        public function deleteTmbhjbtnEmployee()
+        {
+            $this->isLogin();
+            $id = $this->input->post("id");
+            $result = $this->Main_model->deleteMTmbhjbtnEmployee($id);
+            echo $result;
+        }
+
          public function importDataUniv()
           {
             $this->isLogin();
@@ -617,6 +695,9 @@
             }
              
         }   
+
+
+      
         
         public function GetStatusKrywan(){
 
@@ -706,6 +787,30 @@
             $this->isLogin();
             $id = $this->input->post('id');
             $data = $this->Main_model->GetMkelurahan($id);
+            echo $data;
+        }
+
+       /*  belum digunakan karena pakai tabeljs
+
+       public function GetEmployebyunit(){
+            $this->isLogin();
+            $id=$this->input->post('id');
+            $data=$this->Main_model->GetMEmployebyunit($id);
+            echo $data;
+        }   */
+
+        public function GetEmployenip(){
+            $this->isLogin();
+            $kd_unit=$this->input->post('kd_unit');
+            $id_divisi=$this->input->post('id_divisi');
+            $data=$this->Main_model->GetMEmployenip($kd_unit,$id_divisi);
+            echo $data;
+        } 
+
+        public function GetUnit(){
+            $this->isLogin();
+            $id = $this->input->post('id');
+            $data=$this->Main_model->GetMUnit($id);
             echo $data;
         }
 }

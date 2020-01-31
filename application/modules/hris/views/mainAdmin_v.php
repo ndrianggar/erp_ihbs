@@ -1,4 +1,3 @@
-
 <html>
 
 <head>
@@ -123,16 +122,14 @@
             <a href="#data-master" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i> Master Data</a>
             <ul class="collapse list-inline" id="data-master">
               <li>
-                 <!--    <a href="<?php echo base_url('hris/main/employee_data') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Master Employee</a>
-                </li> -->
                 <li>
                     <a href="<?php echo base_url('hris/main/position_data') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Master Position</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('hris/admin/data_kurikulum'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Master Division</a>
+                    <a href="<?php echo base_url('hris/main/division_data'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Master Division</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('hris/main/data_tahun_akademik'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Job Title</a>
+                    <a href="<?php echo base_url('hris/main/job_title_data'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Job Title</a>
                 </li>
                
             </ul>
@@ -141,10 +138,10 @@
             <a href="#data-pengguna" data-toggle="collapse" aria-expanded="false" class="nav-link"><i class="ni ni-tv-2 text-primary"></i>Payroll Employee</a>
             <ul class="collapse list-inline" id="data-pengguna">
                 <li>
-                    <a href="<?php echo base_url('hris/main/data_siswa') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Payroll Employee</a>
+                    <a href="<?php echo base_url('hris/main/payroll_data'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Payroll Employee</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('hris/main/data_guru'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Input Salary</a>
+                    <a href="<?php echo base_url('hris/main/renumerasi_data'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Renumerasi Salary</a>
                 </li>
                
             </ul>
@@ -155,9 +152,9 @@
                 <li>
                     <a href="<?php echo base_url('hris/main/employee_data') ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>View Employee</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="<?php echo base_url('hris/main/data_mapel'); ?>" class="nav-link"><i class="fa fa-book text-primary ml-3"></i>Approval Employee</a>
-                </li>
+                </li> -->
                
             </ul>
           </li>
@@ -309,6 +306,7 @@
 +     }
 +    </style>
           <?php echo $contents; ?>
+          
         </div>
       </div>
       <!-- Modal -->
@@ -386,6 +384,32 @@
       },3000)
     }
 
+  
+    function alertSuccessUpdate() {
+      $("#modalColor").addClass("bg-gradient-success");
+      $("#txtNotif").text("Data Berhasil Diperbarui!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-success");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+    function alertFailedUpdate() {
+      $("#modalColor").addClass("bg-gradient-warning");
+      $("#txtNotif").text("Data Gagal Diperbarui!");
+      $("#notif").modal('show');
+
+      setTimeout (function(){
+        $("#notif").modal('hide');
+        $("#modalColor").removeClass("bg-gradient-warning");
+        $("#txtNotif").text("");
+      },3000)
+    }
+
+
     function alertFailedSave() {
       $("#modalColor").addClass("bg-gradient-warning");
       $("#txtNotif").text("Data Gagal Disimpan!");
@@ -410,18 +434,7 @@
       },3000)
     }
 
-     function alertEmptyImportanInput(){
-      $("#modalColor").addClass("bg-gradient-warning");
-      $("#txtNotif").text("Kolom Yang Bertanda (*) Harus Diisi !");
-      $("#notif").modal('show');
-
-      setTimeout (function(){
-        $("#notif").modal('hide');
-        $("#modalColor").removeClass("bg-gradient-warning");
-        $("#txtNotif").text("");
-      },3000)
-    }
-
+  
     function alertSuccessDelete() {
       $("#modalColor").addClass("bg-gradient-success");
       $("#txtNotif").text("Data Berhasil Dihapus!");
@@ -446,8 +459,8 @@
       },3000)
     }
 
-    function confirmDelete(param,id){
-      $("#btnYes").attr('onclick','delete'+param+'("'+id+'")');
+    function confirmDelete(param,id, id2){
+      $("#btnYes").attr('onclick','delete'+param+'("'+id+'","'+id2+'")');
       $("#confirmDelete").modal("show");
       $("#txtConfirm").text("Yakin, Hapus Daftar "+param+" ?");
     }
@@ -464,11 +477,87 @@
       },3000)
     }
 
+     function cancelAdd(param){
+      $("#frmTbEmployee").show(1000);
+       $("#btnImport").hide();
+        $("#frmImportEmployee").hide();
+          $("#frmAddEmployee").hide();
+          $("#view_profile_employe").hide();
+          // $("#data-jabatan-tambahan").hide();
+    /*  $("#frmImport"+param).hide(500);
+      $("#btnAdd"+param).show();
+      $("#btnPrint"+param).show();
+      $("#btnImport"+param).show();*/
+     
+      $("#btnCancel").hide();
+      $("#btnSave").hide();
+      $("#btnUpdate").hide();
+      $("#btnCancel").text("Cancel");
+      $("#btnCancelImport").hide();
+    }
 
+   function importEmployee(){
+      $("#frmImportEmployee").show(500);
+      $("#frmAddEmployee").hide();
+      $("#frmTbEmployee").hide();
+      $("#view_profile_employe").hide();
+      $("#btnSave").hide();
+      $("#btnCancel").hide();
+      $("#btnImport").show();
+      $("#btnCancelImport").show();
+
+    }
+
+    function inputEmployee(){
+/*      $("input").val("");*/
+      $("select").val("");
+
+      $("select").val("").trigger('change.select2');
+     /* $("#input_gender").val(response[0][0].gender).prop('t', 'disabled');*/
+     /* $("checkbox").prop('checked', false);*/
+      $("#frmAddEmployee").show(500);
+      $("#frmImportEmployee").hide();
+      $("#frmTbEmployee").hide();
+      $("#btnCancel").show();
+      $("#btnSave").show();
+      $("#btnImport").hide();
+      $("#btnCancelImport").hide();
+      $("#view_profile_employe").hide();
+    }
+
+     function importDataUniv(){
+      $("#importDataUniv").hide();
+      $("#frmTbEmployee").hide();
+      $("#btnSave").hide();
+      $("#btnCancel").hide();
+      $("#btnImport").show();
+    }
+/*
+    function Profileemploye(){
+     
+    }
+*/
+    
 
     $(function () {
       if ($("#tbEmployee").length) {
         dataTbEmployee();
+      }
+
+      if ($("#tbDataDivision").length) {
+        dataTbDivision();
+      } 
+
+      if ($("#tbDataJbtitle").length) {
+        dataTbJbtitle();
+      }
+
+       if ($("#tbDataPosition").length) {
+        dataTbPosition()
+      }  
+
+      if ($("#tbDataRenum").length) {
+        dataTbRenumerasi()
       }
 
       if ($("#idselectStatusKrywan").length) {
@@ -483,9 +572,16 @@
       if ($("#idselectJbtn").length) {
         selectJbtn();
       }   
+      
+      if ($("#idselectJbtn2").length) {
+        selectJbtn2();
+      }   
 
       if ($("#input_idselectJobTitle").length) {
         selectJobTitle();
+      }  
+      if ($("#input_idselectJobTitle2").length) {
+        selectJobTitle2();
       }  
 
       if ($("#idselectCbg").length) {
@@ -514,6 +610,12 @@
        if ($("#input_idselectProvinsi").length) {
         selectProvinsi();
       } 
+
+        if ($("#input_employee").length) {
+        selectEmployeenip();
+      } 
+
+      
 
     });
 
@@ -651,14 +753,14 @@
               
             $("td:eq(0)",nRow).text(++iDisplayIndex);
             if(!aData['photo_pegawai']){
-               $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/file_karyawan/user.png' class ='photoimg'><div class ='overlay'><a href='#' class='icon' onclick=Profileemployedetail('"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='User Profile'><i class='fa fa-user'><br>profile</i></a></div>");
+               $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/file_karyawan/images/user.png' class ='photoimg'><div class ='overlay'><a href='#' class='icon' onclick=Profileemployedetail('"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='User Profile'><i class='fa fa-user'><br>profile</i></a></div>");
 
             }else{
-               $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/file_karyawan/"+aData['photo_pegawai']+"'  class='photoimg'> <div class= 'overlay'><a href='#' class='icon' onclick=Profileemployedetail('"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='User Profile'><i class='fa fa-user'><br>profile</br></i></a></div>");
+               $("td:eq(1)",nRow).html("<img src='<?php echo base_url();?>assets/file_karyawan/images/"+aData['photo_pegawai']+"'  class='photoimg'> <div class= 'overlay'><a href='#' class='icon' onclick=Profileemployedetail('"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='User Profile'><i class='fa fa-user'><br>profile</br></i></a></div>");
 
               }
           
-            $("td:eq(4)",nRow).html("<button class='btn btn-info btn-sm' onclick=editEmployee('"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='Edit'><i class='fa fa-list'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Employee','"+aData["kd_karyawan"]+"') title='Delete'><i class='fa fa-trash'></i></button>");
+            $("td:eq(4)",nRow).html("<button class='btn btn-info btn-sm' onclick=editEmployee('"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='Edit'><i class='fa fa-list'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Employee','"+aData["kd_karyawan"]+"','"+aData["nip"]+"') title='Delete'><i class='fa fa-trash'></i></button>");
  
           }
 
@@ -667,13 +769,56 @@
 
    $('#inputDataEmployee').submit(function(e){
     e.preventDefault();
-    var kd_karyawan = $("#kd_karyawan").val();
-    if (kd_karyawan == ''){
+    var kd_karyawan  = $("#kd_karyawan").val();
+    var nama         = $("#input_nama").val();
+    var nm_pnggilan  = $("#input_namap").val();
+    var no_kk        = $("#input_no_kk").val();
+    var no_ktp       = $("#input_no_ktp").val();
+    var tempat_lahir = $("#input_tempat_lahir").val();
+    var tgl_lahir    = $("#input_tanggal_lahir").val();
+    var status_nikah = $("#input_status_nikah").val();
+    var gender       = $("#input_gender").val();
+    var agama        = $("#input_agama").val();
+    var id_country   = $("#idselectCountries").val();
+    var id_prov      = $("#input_idselectProvinsi").val();
+    var id_kab       = $("#input_idselectKabupaten").val();
+    var id_kec       = $("#input_idselectKecamatan").val();
+    var id_kel       = $("#input_idselectKelurahan").val();
+    var alamat       = $("#input_alamat").val();
+    var rt           = $("#input_rt").val();
+    var rw           = $("#input_rw").val();
+    var kd_pos       = $("#input_kd_pos").val();
+    var gol_darah    = $("#input_gol_darah").val();
+    var id_status_karyawan = $("#idselectStatusKrywan").val();
+    var id_jabatan   = $("#idselectJbtn").val();
+    var id_job_title = $("#input_idselectJobTitle").val();
+    var id_cbg       = $("#idselectCbg").val();
+    var id_divisi    = $("#input_idselectDivisi").val();     
+    var mulai_brgbg  = $("#input_mulai_brgbg").val();
+    var no_tlp       = $("#input_no_tlp").val();
+    var nmr_darurat1 = $("#input_nmr_darurat1").val();
+    var nm_nmr_darurat1 = $("#input_nm_nmr_darurat1").val();
+    var id_jnjng_pddk= $("#input_idselectPndkkanterakhir").val();
+    var thn_lulus    = $("#input_thn_lulus").val();
+    var id_college_krywn= $("#input_idselectUniversitas").val();
+    var id_jurusan_krywn = $("#input_idselectJurusan").val();
+    var id_fakultas_krywn = $("#input_idselectFakultas").val();
+    var ipk          = $("#input_ipk").val();
+    var password     = $("#password-field").val();
+    var hak_akses     = $("#customCheck28").val();
+    var hak_akses     = $("#customCheck29").val();
+    
+
+    if (!nama||!nm_pnggilan||!no_kk||!no_ktp||!tempat_lahir||!tgl_lahir||!status_nikah||!gender||!agama||!id_country||!id_prov||!id_kab||!id_kec||!id_kel||!alamat||!rt||!rw||!kd_pos||!gol_darah||!id_status_karyawan||!id_jabatan||!id_job_title||!id_cbg||!id_divisi||!mulai_brgbg||!no_tlp||!nmr_darurat1||!nm_nmr_darurat1||!id_jnjng_pddk||!thn_lulus||!id_college_krywn||!id_jurusan_krywn||!id_fakultas_krywn||!ipk||!password||!hak_akses){
+      alertEmptyImportanInput();
+
+    }else{
+      if (kd_karyawan == ''){
 
     $.ajax({
-      url:"<?php echo base_url('hris/main/inputDataEmployee');?>",
-      type:"post",
-      data:new FormData(this),
+      type:  "POST",
+      url :  "<?php echo base_url('hris/main/inputDataEmployee');?>",
+      data:  new FormData(this),
       processData:false,
       contentType:false,
       cache:false,
@@ -711,6 +856,7 @@
     });
   
   }
+    }
    });
 
 
@@ -731,7 +877,7 @@
           $("#input_tempat_lahir").val(response[0][0].tempat_lahir);
           $("#input_tanggal_lahir").val(response[0][0].tgl_lahir);
           $("#input_status_nikah").val(response[0][0].status_nikah);
-          $("#input_gender").val(response[0][0].gender).prop('disabled', 'disabled');
+          $("#input_gender").val(response[0][0].gender).prop('disabled', 'disabled');//dikirim tapi tidak dipost tgl 16-12-19/ 
           $("#input_agama").val(response[0][0].agama);
           $("#input_jml_anak").val(response[0][0].jml_anak);
           $("#idselectCountries").val(response[0][0].id_country).trigger("change.select2");
@@ -780,21 +926,21 @@
           $("input[name='aktifitas_kajian[]'][value='"+response[0][0].aktifitas_kajian+"']").prop("checked",true);
 
            if (!response[0][0].photo_pegawai) {
-            $("#PrevPhoto_pgwi").attr("src","<?php echo base_url() ?>assets/file_karyawan/user.png")
+            $("#PrevPhoto_pgwi").attr("src","<?php echo base_url() ?>assets/file_karyawan/images/user.png")
           }else{
-            $("#PrevPhoto_pgwi").attr("src","<?php echo base_url() ?>assets/file_karyawan/"+response[0][0].photo_pegawai+"")
+            $("#PrevPhoto_pgwi").attr("src","<?php echo base_url() ?>assets/file_karyawan/images/"+response[0][0].photo_pegawai+"")
           }
 
            if (!response[0][0].file_ktp) {
-            $("#Prevfile_ktp").attr("src","<?php echo base_url() ?>assets/file_karyawan/KTP elektronik.jpg")
+            $("#Prevfile_ktp").attr("src","<?php echo base_url() ?>assets/file_karyawan/images/KTP elektronik.jpg")
           }else{
-            $("#Prevfile_ktp").attr("src","<?php echo base_url() ?>assets/file_karyawan/"+response[0][0].file_ktp+"")
+            $("#Prevfile_ktp").attr("src","<?php echo base_url() ?>assets/file_karyawan/images/"+response[0][0].file_ktp+"")
           } 
 
           if (!response[0][0].file_kk) {
-            $("#Prevfile_kk").attr("src","<?php echo base_url() ?>assets/file_karyawan/kk2.png")
+            $("#Prevfile_kk").attr("src","<?php echo base_url() ?>assets/file_karyawan/images/kk2.png")
           }else{
-            $("#Prevfile_kk").attr("src","<?php echo base_url() ?>assets/file_karyawan/"+response[0][0].file_kk+"")
+            $("#Prevfile_kk").attr("src","<?php echo base_url() ?>assets/file_karyawan/images/"+response[0][0].file_kk+"")
           }
           var hak_akses = response[1][0].hak_akses;
           var arr_hak_akses = hak_akses.split(',')
@@ -836,12 +982,13 @@
 
       $("#username-detail").text(response[1][0].username);
       $("#nama-detail").text(response[0][0].nama);
+      $("#h3nama-detail").text(response[0][0].nama);
       $("#namap-detail").text(response[0][0].nm_pnggilan);
       $("#nip-detail").text(response[0][0].nip);
       $("#email-detail").text(response[0][0].email);
       $("#notlp-detail").text(response[0][0].no_tlp);
-      $("#no_kk").val(response[0][0].no_kk);
-      $("#no_ktp").val(response[0][0].no_ktp);
+      $("#no_kk-detail").text(response[0][0].no_kk);
+      $("#no_ktp-detail").text(response[0][0].no_ktp);
       $("#tempat_lahir-detail").text(response[0][0].tempat_lahir);
       $("#tanggal_lahir-detail").text(response[0][0].tgl_lahir);
       $("#gender-detail").text(response[0][0].gender);
@@ -849,62 +996,44 @@
       $("#gol_darah-detail").text(response[0][0].gol_darah);
       $("#status_nikah-detail").text(response[0][0].status_nikah);
       $("#jml_anak").val(response[0][0].jml_anak);
-      $("#Countries").text(response[0][0].country_name);
-      $("#Provinsi").text(response[0][0].namaProv);
-      $("#Kabupaten").val(response[0][0].id_kab);
-      $("#Kecamatan").val(response[0][0].id_kec)
-      $("#Kelurahan").val(response[0][0].id_kel)
-      $("#alamat").val(response[0][0].alamat);
-      $("#rt").val(response[0][0].rt);
-      $("#rw").val(response[0][0].rw);
-      $("#kd_pos").val(response[0][0].kd_pos);
+      $("#Countries-detail").text(response[0][0].country_name);
+      $("#alamat-detail").html(response[0][0].alamat+"<br> Provinsi : "+response[0][0].namaProv+"<br> Kabupaten : "+response[0][0].namaKab+"<br> Kecamatan : "+response[0][0].namaKec+"<br> Kelurahan :"+response[0][0].namaKel+ "<br> RT : "+response[0][0].rt+"<br> RW :" + response[0][0].rw+"<br> Kodepos : "+response[0][0].kd_pos);
+     
+     
+      $("#kd_pos-detail").text(response[0][0].kd_pos);
       $("bhs_eng").val(response[0][0].bhs_eng);  
       $("serti_eng").val(response[0][0].serti_eng);
       $("bjs_arab").val(response[0][0].bhs_arab); 
       $("sert_arab").val(response[0][0].serti_arab);  
-      $("#StatusKrywan").val(response[0][0].id_status_karyawan);
-      $("#Jbtn").val(response[0][0].id_jabatan);
-      $("#JobTitle").val(response[0][0].id_job_title);
-      $("#Cbg").val(response[0][0].id_cbg);
-      $("#Divisi").val(response[0][0].id_divisi);     
-      $("").val(response[0][0].seragam);
-      $("#mulai_brgbg").val(response[0][0].mulai_brgbg);
-      $("#email").val(response[0][0].email);
-      $("#no_tlp").val(response[0][0].no_tlp);
-      $("#nmr_darurat1").val(response[0][0].nmr_darurat1);
-      $("#nm_nmr_darurat1").val(response[0][0].nm_nmr_darurat1);
-      $("#nm_nmr_darurat1").val(response[0][0].nm_nmr_darurat1);
-     
-      $("#input_idselectPndkkanterakhir").val(response[0][0].id_jnjng_pddk);
-       $("#input_thn_lulus").val(response[0][0].thn_lulus);
-    
-      $("#input_idselectUniversitas").val(response[0][0].id_jnjng_pddk);
-      $("#input_idselectJurusan").val(response[0][0].id_jurusan_krywn).trigger("change.select2");
-      $("#input_idselectFakultas").val(response[0][0].id_fakultas_krywn).trigger("change.select2");
-      $("#input_ipk").val(response[0][0].ipk);
-      $("input[name='tilawah[]'][value='"+response[0][0].tilawah+"']").prop("checked",true);
-      $("#input_p_kajian").val(response[0][0].p_kajian);
-      $("input[name='komputer[]'][value='"+response[0][0].komputer+"']").prop("checked",true);
-      $("#input_pelatihan").val(response[0][0].pelatihan);
-      $("#input_hfln_quran").val(response[0][0].hfln_quran);
-      $("input[name='aktifitas_kajian[]'][value='"+response[0][0].aktifitas_kajian+"']").prop("checked",true);
+      $("#StatusKrywan-detail").text(response[0][0].nm_status_karyawan);
+      $("#Jbtn-detail").text(response[0][0].nm_jbtn);
+      $("#JobTitle-detail").text(response[0][0].job_title);
+      $("#cbg-detail").text(response[0][0].nm_cbg);
+      $("#divisi-detail").text(response[0][0].nm_divisi);     
+      $("#mulai_brgbg-detail").html("<b>Dari</b> &nbsp;"+response[0][0].mulai_brgbg+"<br><b>Sampai</b> <?php echo date("Y-m-d")?>&nbsp;<br> <b>Masa Kerja</b> :  ("+response[0][0].jml_brgb+" thn)");
+      $("#nmr_darurat1-detail").html(response[0][0].nmr_darurat1+"<br> <b>Nama</b> : "+response[0][0].nm_nmr_darurat1); 
+      $("#riwayatpend-detail").html(response[0][0].nm_jnjng_pddk+"<br><b>Lulus Tahun</b> : " +response[0][0].thn_lulus+"<br><b>Universitas</b> : " +response[0][0].nm_college_krywn+"<br><b>Fakultas</b> : "+response[0][0].nm_fakultas_krywn+"<br><b>Jurusan</b> : " +response[0][0].nm_jurusan_krywn+"<br><b>IPK</b> : "+response[0][0].ipk);
+        $("#keagamaan-detail").html("<b>Hafalan Quran</b> : " +response[0][0].hfln_quran+"<br><b>Bahasa Arab</b> : " +response[0][0].bhs_arab+ "&nbsp;/&nbsp;" +response[0][0].serti_arab);
 
+        $("#bahasaengris-detail").html("<br><b>Bahasa Inggris</b> : "+response[0][0].bhs_eng+ "&nbsp;/&nbsp;" +response[0][0].serti_eng);
+        
      if (!response[0][0].photo_pegawai) {
-          $("#img-detail").attr("src","<?php echo base_url() ?>assets/file_karyawan/user.png");
+          $("#img-detail").attr("src","<?php echo base_url() ?>assets/file_karyawan/images/user.png");
           }else{
-            $("#img-detail").attr("src","<?php echo base_url() ?>assets/file_karyawan/"+response[0][0].photo_pegawai+"");
+            $("#img-detail").attr("src","<?php echo base_url() ?>assets/file_karyawan/images/"+response[0][0].photo_pegawai+"");
           }
         }
 
-
       });
+       dataTmbhJbtnEmployee(nip,id="")
+
     }
 
-    function deleteEmployee(id){
+    function deleteEmployee(id,id2){
     $.ajax({
         type : "POST",
         url  : "<?php echo base_url('hris/main/deleteEmployee') ?>",
-        data : {id:id},
+        data : {id:id, id2:id2},
         success : function(response) {
           if (jQuery.trim(response)==="success") {
             $("#confirmDelete").modal("hide");
@@ -940,11 +1069,120 @@
       });
     });
 
-    $(function () {
-      if ($("#tbDataPosition").length) {
-        dataTbPosition()
+
+    $('#tmbhJbtnEmployee').submit(function(e){
+
+      var id_jabatan_tambahan = $("#input-id_jabatan_tambahan").val();
+      var nip = $("#nip-detail").text()
+      var form_data = new FormData(this);
+      form_data.append('nip',nip);
+      e.preventDefault();
+      if(id_jabatan_tambahan ==''){
+      $.ajax({
+        type:"post",
+        url:"<?php echo base_url('hris/main/inputJabatanEmployee');?>",
+        data:form_data,
+        processData:false,
+        contentType:false,
+        cache:false,
+        async:true,
+        success: function(response){
+          if(jQuery.trim(response)==="success"){
+                alertSuccessSave();
+              $("#form-tambah-jabatan").modal('hide')  
+              dataTmbhJbtnEmployee(nip,id='') 
+          }else if(jQuery.trim(response)==="failed"){
+            alertFailedSave();
+          }
+        } 
+      });
+      }else{
+        $.ajax({
+          type : "POST",
+          url  : "<?php echo base_url('hris/main/updateTmbhJbtnEmployee')?>",
+          data : form_data,
+          processData:false,
+          contentType:false,
+          cache:false,
+          async:true,
+          success:function(response){
+             if(jQuery.trim(response)==="success"){
+                alertSuccessUpdate();
+                dataTmbhJbtnEmployee(nip,id='')
+                setTimeout(function(){
+              $("#form-tambah-jabatan").modal('hide');},500);
+             }else if(jQuery.trim(response)==="failed"){
+                alertFailedUpdate()
+             } 
+          }
+
+        });
       }
     });
+
+
+    function dataTmbhJbtnEmployee(nip,id){
+    $.ajax({
+      type : "POST",
+      url  : "<?php echo base_url('hris/main/getTmbhJbtnEmployee')?>",
+      data : {nip:nip},
+      dataType :"JSON",
+      success : function(response){
+        $("#data-jabatan-tambahan > tbody").empty(); 
+         var no=1;
+         $.each(response, function(Index,Value){
+          $("#data-jabatan-tambahan > tbody:last-child").append("<tr>"+
+              "<td align='center'>"+ no ++ +"</td>"+
+              "<td align='center'>"+Value.nm_jbtn+"</td>"+ 
+              "<td align='center'>"+Value.job_title+"</td>"+ 
+              "<td align='center'>"+Value.file_sk+"</td>"+ 
+              "<td align='center'>"+Value.tgl_jabatan+"</td>"+
+              "<td align='center'>"+Value.tgl_berakhir+"</td>"+
+              "<td><button class='btn btn-warning btn-sm' onclick=editTmbhJbtnEmployee('"+Value.id_jabatan_tambahan+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Jabatan','"+Value.id_jabatan_tambahan+"',1) title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+         });
+      }
+
+    });
+  }
+
+  function editTmbhJbtnEmployee(id){
+    $.ajax({
+      type : "POST",
+      url  : "<?php echo base_url('hris/main/getTmbhJbtnEmployee') ?>",
+      data : {id:id},
+      dataType : "JSON",
+      success:function(response){
+          $("#form-tambah-jabatan").modal('show');  
+          $("#idselectJbtn2").val(response[0].id_jabatan);
+          $("#sfile_sk").text(response[0].file_sk);
+          $("#input_idselectJobTitle2").val(response[0].id_job_title);
+          $("#tgl_jabatan").val(response[0].tgl_jabatan);
+          $("#tgl_berakhir").val(response[0].tgl_berakhir);
+          $("#input-id_jabatan_tambahan").val(response[0].id_jabatan_tambahan);
+      }
+    })
+  }
+
+  function deleteJabatan(id,id2){
+    var nip = $("#nip-detail").text()
+        $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('hris/main/deleteTmbhJbtnEmployee') ?>",
+        data : {id:id, id2:id2},
+        success : function(response){
+          if (jQuery.trim(response)==="success") {
+            $("#confirmDelete").modal("hide");
+            dataTmbhJbtnEmployee(nip,id='')
+            alertSuccessDelete();
+          }else if(jQuery.trim(response)==="failed"){
+            alertFailedDelete();
+          }
+        }
+      });
+    }
+
   function dataTbPosition(){
       $.ajax({
         type : "POST",
@@ -962,66 +1200,81 @@
                 "<td><button class='btn btn-warning btn-sm' onclick=editJabatan('"+Value.id_jabatan+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Jabatan','"+Value.id_jabatan+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
               "</tr>"
             );
+          });
+        }
+      });
+    } 
+
+    function dataTbJbtitle(){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('hris/main/getDataJbtitle') ?>",
+        dataType : "JSON",
+        success : function(response) {
+          $("#tbDataJbtitle > tbody").empty(); var no=1; i=1;
+          $.each(response, function (Index, Value) {
+            $("#tbDataJbtitle > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td align='center'>"+Value.id_job_title+"</td>"+
+                 "<td align='center'>"+Value.job_title+"</td>"+
+                 "<td align='center'>"+Value.nm_jbtn+"</td>"+
+             /*   "<td align='center'><label class='custom-toggle'><input type='checkbox' "+ (Value.status == 'aktif' ? 'checked' : '') +" onchange='changeStatusUnit("+Value.kd_unit+")'><span class='custom-toggle-slider rounded-circle'></span></label></td>"+*/
+                "<td><button class='btn btn-warning btn-sm' onclick=editJabatan('"+Value.id_job_title+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Jabatan','"+Value.id_job_title+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          });
+        }
+      });
+    }
+    
+      function dataTbDivision(){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('hris/main/getDataDivision') ?>",
+        dataType : "JSON",
+        success : function(response) {
+          $("#tbDataDivision > tbody").empty(); var no=1; 
+          $.each(response, function (Index, Value) {
+            $("#tbDataDivision > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                "<td align='center'>"+Value.id_divisi+"</td>"+
+                 "<td align='center'>"+Value.nm_divisi+"</td>"+
+             /*   "<td align='center'><label class='custom-toggle'><input type='checkbox' "+ (Value.status == 'aktif' ? 'checked' : '') +" onchange='changeStatusUnit("+Value.kd_unit+")'><span class='custom-toggle-slider rounded-circle'></span></label></td>"+*/
+                "<td><button class='btn btn-warning btn-sm' onclick=editDivisi('"+Value.id_divisi+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Divisi','"+Value.id_divisi+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
           })
         }
       })
     }
-      function cancelAdd(param){
-      $("#frmTbEmployee").show(1000);
-       $("#btnImport").hide();
-        $("#frmImportEmployee").hide();
-          $("#frmAddEmployee").hide();
-    /*  $("#frmImport"+param).hide(500);
-      $("#btnAdd"+param).show();
-      $("#btnPrint"+param).show();
-      $("#btnImport"+param).show();*/
      
-      $("#btnCancel").hide();
-      $("#btnSave").hide();
-      $("#btnUpdate").hide();
-      $("#btnCancel").text("Cancel");
-      $("#btnCancelImport").hide();
-    }
 
-   function importEmployee(){
-      $("#frmImportEmployee").show(500);
-      $("#frmAddEmployee").hide();
-      $("#frmTbEmployee").hide();
-      $("#btnSave").hide();
-      $("#btnCancel").hide();
-      $("#btnImport").show();
-      $("#btnCancelImport").show();
-
+      function  dataTbRenumerasi(){
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('hris/main/getDataRenumerasi') ?>",
+        dataType : "JSON",
+        success : function(response) {
+          $("#tbDataRenum > tbody").empty(); var no=1; 
+          $.each(response, function (Index, Value) {
+            $("#tbDataRenum > tbody:last-child").append(
+              "<tr>"+
+                "<td>"+no++ +"</td>"+
+                 "<td align='fixed-left'>"+Value.nm_jnjng_pddk+"</td>"+
+                 "<td align='fixed-left'>"+Value.golongan+"</td>"+
+                 "<td align='fixed-left'>"+Value.kategori+"</td>"+
+                 "<td align='fixed-left'>"+Value.masa_kerjaMin+"-"+Value.masa_kerjaMax+"</td>"+
+                 "<td align='fixed-left'>"+Value.gaji_pokok+"</td>"+
+                "<td><button class='btn btn-warning btn-sm' onclick=editDivisi('"+Value.id_renumGaji+"') title='Edit'><i class='fa fa-edit'></i></button><button class='btn btn-danger btn-sm' onclick=confirmDelete('Divisi','"+Value.id_renumGaji+"') title='Delete'><i class='fa fa-trash'></i></button></td>"+
+              "</tr>"
+            );
+          })
+        }
+      })
     }
-
-    function inputEmployee(){
-      $("input").val("");
-      $("select").val("");
-      $("select").val("").trigger('change.select2');
-      $("checkbox").prop('checked', false);
-      $("#frmAddEmployee").show(500);
-      $("#frmImportEmployee").hide();
-      $("view_profile_employe").hide();
-      $("#frmTbEmployee").hide();
-      $("#btnCancel").show();
-      $("#btnSave").show();
-      $("#btnImport").hide();
-      $("#btnCancelImport").hide();
-    }
-
-     function importDataUniv(){
-      $("#importDataUniv").hide();
-      $("#frmTbEmployee").hide();
-      $("#btnSave").hide();
-      $("#btnCancel").hide();
-      $("#btnImport").show();
-    }
-/*
-    function Profileemploye(){
      
-    }
-*/
-    
 
     $('#importDataUniv').submit(function(e){
       e.preventDefault();
@@ -1112,6 +1365,25 @@
       });
     }
 
+    function selectJbtn2() {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('hris/main/GetJbtn'); ?>",
+        dataType : "JSON",
+        success : function(response){
+          $("#idselectJbtn2").empty();
+          $("#idselectJbtn2").append(
+              "<option value ='' selected>-- Pilih Jabatan --</option>"
+            );
+          $.each(response, function(Index,Value){
+            $("#idselectJbtn2").append(
+              "<option value='"+Value.id_jabatan+"'>"+Value.nm_jbtn+"</option>"
+            );
+          })
+        }
+      });
+    }
+
     function selectCbg() {
       $.ajax({
         type : "POST",
@@ -1149,6 +1421,25 @@
         }
       });
     }
+
+    function selectJobTitle2() {
+      $.ajax({
+        type : "POST",
+        url  : "<?php echo base_url('hris/main/GetJobtitle'); ?>",
+        dataType : "JSON",
+        success : function(response){
+          $("#input_idselectJobTitle2").empty();
+          $("#input_idselectJobTitle2").append(
+              "<option value ='' selected>-- Pilih Job Title --</option>"
+            );
+          $.each(response, function(Index,Value){
+            $("#input_idselectJobTitle2").append(
+              "<option value='"+Value.id_job_title+"'>"+Value.job_title+"</option>"
+            );
+          })
+        }
+      });
+    }
     function selectDivisi() {
           $.ajax({
             type : "POST",
@@ -1157,7 +1448,7 @@
             success : function(response){
               $("#input_idselectDivisi").empty();
               $("#input_idselectDivisi").append(
-                  "<option value ='' selected>-- Pilih Job Title --</option>"
+                  "<option value ='' selected> Pilih Divisi </option>"
                 );
               $.each(response, function(Index,Value){
                 $("#input_idselectDivisi").append(
@@ -1168,10 +1459,6 @@
           });
         }
 
-
-    $("#input_idselectDivisi").select2({
-      placeholder: 'Pilih Divisi',
-    });
 
      function selectPendidikanTerakhir() {
       $.ajax({
@@ -1381,7 +1668,134 @@
       placeholder: 'Pilih Kelurahan',
     });
 
+ function input_selectunit(){
+     var id = $("#input_idselectDivisi").val()
 
+      $.ajax({
+          type    : "POST",
+          url     : "<?php echo base_url('hris/main/GetUnit');?>",
+          data    : {id:id},
+          dataType    : "JSON",
+          success : function(response){
+
+            $("#input_selectunit").empty();
+              $("#input_idselectunit").append(
+                "option value ='' selected> --Pilih Status--</option>"
+                );
+            $.each(response, function(Index, Value){
+               $("#input_idselectunit").append(
+                "<option value='"+Value.kd_unit+"'>"+Value.unit+"</option>"
+                );
+            })  
+          }
+
+      });
+    }
+
+
+   /*  belum digunakan karena pakai tabeljs
+
+   function input_selectEmployeenip(){
+      var id = $("#input_idselectunit").val()
+      $.ajax({
+          type    : "POST",
+          url     : "<?php echo base_url('hris/main/GetEmployebyunit');?>",    
+          data    : {id:id},    
+          dataType    : "JSON",
+          success : function(response){
+
+            $("#input_idemployee").empty();
+              $("#input_idemployee").append(
+                "option value ='' selected> --Pilih Status--</option>"
+                );
+            $.each(response, function(Index, Value){
+               $("#input_idemployee").append(
+                "<option value='"+Value.kd_karyawan+"'>"+Value.nama+" - "+Value.nip+"</option>"
+                );
+            })  
+          }
+
+      });
+    }
+*/
+    function Searchemployeeid(){
+      var kd_unit = $("#input_idselectunit").val()
+      var id_divisi = $("#input_idselectDivisi").val()
+         $('#tbDataPayroll').dataTable().fnDestroy();
+          $('#tbDataPayroll').dataTable({
+            
+          "pageLength" : 50,
+            "responsive" : true,
+            "autoWidth" : false,
+            "ordering" : true,
+            "bProcessing" : false,
+            "bServerSide" : true,
+            "bJQueryUI" : true,
+            "lengthMenu":   [ 25, 50, 75, 100 ],
+            "sPaginationType" : "full_numbers",
+            "sAjaxSource" : "<?php echo base_url(); ?>hris/main/GetEmployenip/",
+          /*    "aoColumnDefs": [
+                  { "sWidth": "10%", "aTargets": [ -1 ] }
+              ],*/
+            
+           "columns" : [
+                    
+              {"data" : "nama",  "name" :"nama"},
+              {"data" : "nip",  "name" :"nip"},
+              {"data" : "nama",  "name" :"nama"},
+              {"data" : "nm_divisi",  "name" :"nm_divisi"},            
+              {"data" : "unit", "name" : "unit"},
+              {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},
+              {"data" : "nm_jbtn", "name" : "nm_jbtn"},           
+              {"data" : "nm_jbtn", "name" : "nm_jbtn"},           
+              {"data" : " jml_anak", "name" : " jml_anak"},           
+              {"data" : "gaji_pokok", "name" : "gaji_pokok"},           
+              {"data" : "nm_jnjng_pddk", "name" : "nm_jnjng_pddk"},           
+              {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},           
+              {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},           
+              {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},           
+              {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},           
+              {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},           
+              {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},         
+              {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},         
+              {"data" : "mulai_brgbg", "name" : "mulai_brgbg"}      
+                     
+          
+            ],
+            "fnServerData" : function(sSource,aoData,fnCallback){
+                aoData.push({"name":"kd_unit","value":kd_unit});
+                aoData.push({"name":"id_divisi","value":id_divisi});
+                $.ajax({
+                  "type"      : "POST",
+                  "dataType"  : "JSON",
+                  "url"       : sSource,
+                  "data"      : aoData,
+                  "success"   : fnCallback
+                });
+              },                      
+
+              "fnRowCallback" : function(nRow,aData,iDisplayIndex,iDisplayIndexFull){
+                
+              $("td:eq(0)",nRow).text(++iDisplayIndex);
+          
+              $("td:eq(15)",nRow).html('<input type="text" style="border:2;" id="test3" onkeydown ="Tambah()">')
+              $("td:eq(16)",nRow).html('<input type="text" style="border:2;" id="test3" onkeydown ="Tambah()">')
+              $("td:eq(17)",nRow).html('<input type="text" style="border:2;" id="test4" onkeydown ="Tambah()">');
+              
+                }
+
+          });
+        }
+
+function Tambah(){
+  var test1 = $("#test1").val()
+  var test3 = $("#test3").val()
+  var test4 = $("#test4").val()
+  var hasil = test1 * 3000 ;
+
+  $("#test4").val(hasil)
+}
+        
  function selectGenderForCode(){
         var id = $("#input_gender").val()
 
@@ -1417,6 +1831,10 @@
     $("#textForm").html('<i class="fa fa-angle-right text-white">&nbsp;</i><a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="">'+param+' &nbsp</a>');
   }
 
+    $('#btn-tambah-jabatan').on('click',function(){
+      
+        $('#form-tambah-jabatan').modal('show');
+      });
 
 
 

@@ -1,0 +1,6 @@
+ $query = $this->db->query(" SELECT a.*, b.nm_jnjng_pddk, GROUP_CONCAT('<p>', `golongan`,'<p>') AS golongan, GROUP_CONCAT('<p>',`kategori`,'<p>') AS kategori, GROUP_CONCAT('<p>',`masa_kerja`,'<p>') AS masa, GROUP_CONCAT('<p>',`gaji_pokok`,'<p>') AS gapok FROM tb_renum_gaji a
+ 		 							 JOIN tb_jenjang_pddkn b on b.id_jnjng_pddk=a.id_jnjng_pddk 
+ 		 							  Group by b.id_jnjng_pddk, a.golongan, a.masa_kerja ASC ")->result_array();
+
+ 	
+			return json_encode($query);				                     
