@@ -1811,8 +1811,9 @@
 
 function Tambah(){
   var jml_h = $("#jml_hari").val()
- 
-  var hasil = jml_h * 30000 ;
+  var satuan_trans = $("satuan_trans");
+/*  var satuan_ = $("satuan_trans");*/
+  var hasil = jml_h * satuan_trans ;
   var hasil2 = jml_h * 50000 ;
 
   $("#tunjang_trans").val(hasil) 
