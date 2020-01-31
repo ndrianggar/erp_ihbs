@@ -13,8 +13,8 @@
       </select>
 
       
-      <input type="text" id="test2">  
-    </h3>
+ <!--     <input type="text" id="test2">  -->
+    
   </div>
   <div class="table-responsive" id="frmTbUnit">
 
@@ -87,6 +87,7 @@
                 <th>PINJAMAN PRIBADI</th>
                 <th>PINJAMAN KENDARAAN</th>
                 <th>PINJAMAN RUMAH</th>
+                <th>TAKE HOME PAY</th>
             </tr>
         </thead>
            <tbody>

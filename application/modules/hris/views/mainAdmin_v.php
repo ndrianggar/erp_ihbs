@@ -1748,7 +1748,7 @@
               {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},
               {"data" : "nm_jbtn", "name" : "nm_jbtn"},           
               {"data" : "nm_jbtn", "name" : "nm_jbtn"},           
-              {"data" : " jml_anak", "name" : " jml_anak"},         /*  
+              {"data" : "jml_anak", "name" : " jml_anak"},         /*  
               {"data" : "gaji_pokok", "name" : "gaji_pokok"},           
               {"data" : "nm_jnjng_pddk", "name" : "nm_jnjng_pddk"}, */          
               {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},           
@@ -1758,9 +1758,19 @@
               {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},           
               {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},         
               {"data" : "mulai_brgbg", "name" : "mulai_brgbg"},         
-              {"data" : "mulai_brgbg", "name" : "mulai_brgbg"}      
-                     
-          
+              {"data" : "tunjang_trans", "name" : "tunjang_trans"},      
+              {"data" : "tunjang_kehadiran", "name" : "tunjang_kehadiran"},      
+              {"data" : "tunjang_piket", "name" : "tunjang_piket"},      
+              {"data" : "tambah_ngajar", "name" : "tambah_ngajar"},      
+              {"data" : "tunjang_tmpting", "name" : "tunjang_tmpting"},      
+              {"data" : "tunjang_mkn", "name" : "tunjang_mkn"},      
+              {"data" : "iuran_karywn", "name" : "iuran_karywn"},      
+              {"data" : "tunjang_hartua", "name" : "tunjang_hartua"},      
+              {"data" : "tunjang_pengmkn", "name" : "tunjang_pengmkn"},      
+              {"data" : "pinjam_pribadi", "name" : "pinjam_pribadi"},      
+              {"data" : "pinjam_kendar", "name" : "pinjam_kendar"},      
+              {"data" : "pinjam_rumah", "name" : "pinjam_rumah"},      
+              {"data" : "pinjam_rumah", "name" : "pinjam_rumah"}      
             ],
             "fnServerData" : function(sSource,aoData,fnCallback){
                 aoData.push({"name":"kd_unit","value":kd_unit});
@@ -1778,22 +1788,35 @@
                 
               $("td:eq(0)",nRow).text(++iDisplayIndex);
           
-              $("td:eq(15)",nRow).html('<input type="text" style="border:2;" id="test3" onkeydown ="Tambah()">')
-              $("td:eq(16)",nRow).html('<input type="text" style="border:2;" id="test3" onkeydown ="Tambah()">')
-              $("td:eq(17)",nRow).html('<input type="text" style="border:2;" id="test4" onkeydown ="Tambah()">');
-              
+              $("td:eq(7)",nRow).html('<input type="text" style="border:2;" id="jml_hari" onkeydown ="Tambah()">')
+              $("td:eq(15)",nRow).html('<input type="text" style="border:2;" id="satuan_trans" onkeydown ="Tambah()">')
+              $("td:eq(16)",nRow).html('<input type="text" style="border:2;" id="tunjang_trans" onkeydown ="Tambah()">')
+              $("td:eq(17)",nRow).html('<input type="text" style="border:2;" id="tunjang_kehadiran" onkeydown ="Tambah()">');
+              $("td:eq(18)",nRow).html('<input type="text" style="border:2;" id="tunjang_piket" onkeydown ="Tambah()">');
+              $("td:eq(19)",nRow).html('<input type="text" style="border:2;" id="tambah_ngajar" onkeydown ="Tambah()">');
+              $("td:eq(20)",nRow).html('<input type="text" style="border:2;" id="tunjang_tmpting" onkeydown ="Tambah()">');
+              $("td:eq(21)",nRow).html('<input type="text" style="border:2;" id="tunjang_mkn" onkeydown ="Tambah()">');
+              $("td:eq(22)",nRow).html('<input type="text" style="border:2;" id="iuran_karywn" onkeydown ="Tambah()">');
+              $("td:eq(23)",nRow).html('<input type="text" style="border:2;" id="tunjang_hartua" onkeydown ="Tambah()">');
+              $("td:eq(24)",nRow).html('<input type="text" style="border:2;" id="tunjang_pengmkn" onkeydown ="Tambah()">');
+              $("td:eq(25)",nRow).html('<input type="text" style="border:2;" id="pinjam_pribadi" onkeydown ="Tambah()">');
+              $("td:eq(26)",nRow).html('<input type="text" style="border:2;" id="pinjam_kendar" onkeydown ="Tambah()">');
+              $("td:eq(27)",nRow).html('<input type="text" style="border:2;" id="pinjam_rumah" onkeydown ="Tambah()">');
+             $("td:eq(28)",nRow).html('<input type="text" style="border:2;" id="pinjam_rumah" onkeydown ="Tambah()">');
+            
                 }
 
           });
         }
 
 function Tambah(){
-  var test1 = $("#test1").val()
-  var test3 = $("#test3").val()
-  var test4 = $("#test4").val()
-  var hasil = test1 * 3000 ;
+  var jml_h = $("#jml_hari").val()
+ 
+  var hasil = jml_h * 30000 ;
+  var hasil2 = jml_h * 50000 ;
 
-  $("#test4").val(hasil)
+  $("#tunjang_trans").val(hasil) 
+  $("#tunjang_kehadiran").val(hasil2)
 }
         
  function selectGenderForCode(){
